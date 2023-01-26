@@ -3,12 +3,12 @@ import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
 const Login = () => (
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450 }}>
-      <Header as='h2' color='teal' textAlign='center'>
+    <Grid.Column style={{ maxWidth: 450, backgroundColor: 'purple' }}>
+      <Header as='h2' style={{color: 'white'}} textAlign='center'>
         Влез в профила си
       </Header>
       <Form size='large'>
-        <Segment stacked>
+        <Segment stacked size='large'>
           <Form.Input
             fluid
             icon='user'
@@ -23,16 +23,16 @@ const Login = () => (
             type='password'
           />
           <Button
-            color='teal'
+            color='purple'
             fluid size='large'
             href='/'>
             Влизане
           </Button>
         </Segment>
-      </Form> 
-      <Message>
-        Нямаш профил? <a href='register'>Регистрирай се!</a>
-      </Message>
+        <Message>
+          Нямаш профил? <a href='register'>Регистрирай се!</a>
+        </Message>
+      </Form>
     </Grid.Column>
   </Grid>
 )

@@ -4,7 +4,7 @@ import AuthLayout from './layout/AuthLayout'
 function Home() {
   return (
     <AuthLayout>
-      <div>Home</div>
+      <div></div>
     </AuthLayout>
   )
 }
