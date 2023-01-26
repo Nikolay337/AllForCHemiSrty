@@ -27,7 +27,7 @@ const Register = () => (
             type='password'
           />
 
-          <Button color='teal' fluid size='large'>
+          <Button color='teal' fluid size='large' href='login'>
             Регистриране
           </Button>
         </Segment>

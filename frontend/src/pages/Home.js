@@ -1,8 +1,11 @@
 import React from 'react'
+import AuthLayout from './layout/AuthLayout'
 
 function Home() {
   return (
-    <div>Home</div>
+    <AuthLayout>
+      <div>Home</div>
+    </AuthLayout>
   )
 }
 

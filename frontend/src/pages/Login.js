@@ -9,7 +9,12 @@ const Login = () => (
       </Header>
       <Form size='large'>
         <Segment stacked>
-          <Form.Input fluid icon='user' iconPosition='left' placeholder='Имейл' />
+          <Form.Input
+            fluid
+            icon='user'
+            iconPosition='left'
+            placeholder='Имейл'
+          />
           <Form.Input
             fluid
             icon='lock'
@@ -17,8 +22,10 @@ const Login = () => (
             placeholder='Парола'
             type='password'
           />
-
-          <Button color='teal' fluid size='large'>
+          <Button
+            color='teal'
+            fluid size='large'
+            href='/'>
             Влизане
           </Button>
         </Segment>
