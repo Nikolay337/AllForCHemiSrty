@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 
 const Register = () => (
+  <div style={{ backgroundColor: '#fff5ff' }}>
   <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
     <Grid.Column style={{ maxWidth: 450, backgroundColor: 'purple' }}>
       <Header as='h2' style={{color: 'white'}} textAlign='center'>
@@ -47,7 +48,8 @@ const Register = () => (
         </Segment>
       </Form>
     </Grid.Column>
-  </Grid>
+    </Grid>
+  </div>
 )
 
 export default Register

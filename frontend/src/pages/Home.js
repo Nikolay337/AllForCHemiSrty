@@ -1,7 +1,8 @@
 import React from 'react'
-import Image2 from '../assets/image-1.png'
-import { Grid, Button, Image } from 'semantic-ui-react'
+import { Grid, Image} from 'semantic-ui-react'
 import AuthLayout from './layout/AuthLayout'
+import organicImage from '../assets/image-1.png'
+import inorganicImage from '../assets/image-2.png'
 
 function Home() {
   return (
@@ -12,13 +13,30 @@ function Home() {
         verticalAlign='middle'
         columns={2}
       >
-        <Grid.Column style={{ maxWidth: 450, backgroundColor: 'purple', height: 500, margin: 100 }} >
-          <Button>Неорганична химия</Button>
-          <Image src={Image1} />
+        <Grid.Column
+          style={{
+            maxWidth: 450,
+            backgroundColor: 'purple',
+            height: 500, margin: 100,
+            borderRadius: '25px',
+          }}
+          href='/inorganic-topics'
+        >
+          <h2>Неорганична химия</h2>
+          <Image src={inorganicImage} />
         </Grid.Column>
-        <Grid.Column style={{ maxWidth: 450, backgroundColor: 'purple', height: 500 }}>
-          <Button>Органична химия</Button>
-          <Image src={Image2}/>
+        <Grid.Column
+          style={{
+            maxWidth: 450,
+            backgroundColor: 'purple',
+            height: 500,
+            margin: 100,
+            borderRadius: '25px'
+          }}
+          href='/organic-topics'
+        >
+          <h2>Органична химия</h2>
+          <Image src={organicImage}/>
         </Grid.Column>
       </Grid>
     </AuthLayout>
