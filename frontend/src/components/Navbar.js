@@ -1,38 +1,38 @@
 import React from 'react'
-import { Button, Menu, Image } from 'semantic-ui-react'
-import logo from '../assets/logo.png'
+import { Button, Menu } from 'semantic-ui-react'
 
 const Navbar = () => (
   <Menu inverted secondary color='purple'>
-    <Menu.Item position='left'>
-      <Image 
-      src={logo} 
+    <Menu.Header
+      position='left'
+      href='/'
       style={{
-        backgroundColor: 'none',  
-        width: '5rem', 
-        height: '5rem'
+        color: 'white',
+        textAlign: 'center',
+        fontSize: '2rem',
+        padding: '2rem',
+        fontWeight: 'bold'
       }}
-        href='/' />
-    </Menu.Item>
-    <Menu.Item position='right' style={{ padding: '2rem' }}>
+    >
+      AllForCHemiStry
+    </Menu.Header>
+    <Menu.Item
+      position='right'
+      style={{
+        padding: '2rem',
+        fontSize: '1.25rem'
+      }}
+    >
       <Button
-        color='purple'
-        style=
-        {{ 
-          marginLeft: '0.5em', 
-          fontSize: '1.25rem' 
-        }}
-        href='/login'>
+        color='purple'  
+        href='/login'
+      >
         Вход  
       </Button>
       <Button
         color='green'
-        style=
-        {{ 
-          marginLeft: '0.5em', 
-          fontSize: '1.25rem' 
-        }}
-        href='/register'>
+        href='/register'
+      >
         Регистрация
       </Button>
     </Menu.Item>

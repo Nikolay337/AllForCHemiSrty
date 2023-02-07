@@ -2,52 +2,63 @@ import React from 'react'
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 
 const Register = () => (
-  <div style={{ backgroundColor: '#fff5ff' }}>
-  <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-    <Grid.Column style={{ maxWidth: 450, backgroundColor: 'purple' }}>
-      <Header as='h2' style={{color: 'white'}} textAlign='center'>
-        Регистрация
-      </Header>
-      <Form size='large'>
-        <Segment stacked size='large'>
-          <Form.Input
-            fluid
-            icon='user'
-            iconPosition='left'
-            placeholder='Име'
-          />
-          <Form.Input
-            fluid
-            icon='user'
-            iconPosition='left'
-            placeholder='Фамилия'
-          />
-          <Form.Input
-            fluid
-            icon='user'
-            iconPosition='left'
-            placeholder='Имейл'
-          />
-          <Form.Input
-            fluid
-            icon='lock'
-            iconPosition='left'
-            placeholder='Парола'
-            type='password'
-          />
-          <Form.Input
-            fluid
-            icon='lock'
-            iconPosition='left'
-            placeholder='Потвърди Паролата'
-            type='password'
-          />
-          <Button color='purple' fluid size='large' href='login'>
-            Регистриране
-          </Button>
-        </Segment>
-      </Form>
-    </Grid.Column>
+  <div color='fff5ff'>
+    <Grid 
+      textAlign='center'
+      style={{ height: '100vh',  }}
+      verticalAlign='middle'
+    >
+      <Grid.Column
+        color='purple'
+        computer={4}
+      >
+        <Header 
+          as='h2'     
+          color='black'
+          textAlign='center'
+        >
+          Регистрация
+        </Header>
+        <Form>
+          <Segment size='big'>
+            <Form.Input
+              icon='user'
+              iconPosition='left'
+              placeholder='Име'
+            />
+            <Form.Input
+              icon='user'
+              iconPosition='left'
+              placeholder='Фамилия'
+            />
+            <Form.Input
+              icon='user'
+              iconPosition='left'
+              placeholder='Имейл'
+            />
+            <Form.Input
+              icon='lock'
+              iconPosition='left'
+              placeholder='Парола'
+              type='password'
+            />
+            <Form.Input
+              icon='lock'
+              iconPosition='left'
+              placeholder='Потвърди Паролата'
+              type='password'
+            />
+            <Button 
+              type='submit'
+              color='purple' 
+              size='big' 
+              href='/login'
+            >
+              Регистриране
+            </Button>
+          </Segment>
+        </Form>
+      </Grid.Column>
     </Grid>
   </div>
 )

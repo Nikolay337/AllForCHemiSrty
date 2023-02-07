@@ -2,36 +2,47 @@ import React from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
 const Login = () => (
-  <div style={{backgroundColor: '#fff5ff'}}>
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-      <Grid.Column style={{ maxWidth: 450, backgroundColor: 'purple' }}>
-        <Header as='h2' style={{color: 'white'}} textAlign='center'>
+  <div color='fff5ff'>
+    <Grid
+      textAlign='center'
+      style={{ height: '100vh' }}
+      verticalAlign='middle'
+    >
+      <Grid.Column
+        color='purple'
+        computer={4}
+      >
+        <Header
+          as='h2'
+          color='white'
+          textAlign='center'
+        >
           Влез в профила си
         </Header>
-        <Form size='large'>
-          <Segment stacked size='large'>
+        <Form>
+          <Segment size='big'>
             <Form.Input
-              fluid
               icon='user'
               iconPosition='left'
               placeholder='Имейл'
             />
             <Form.Input
-              fluid
               icon='lock'
               iconPosition='left'
               placeholder='Парола'
               type='password'
             />
             <Button
+              type='submit'
               color='purple'
-              fluid size='large'
-              href='/'>
+              size='big'
+              href='/'
+            >
               Влизане
             </Button>
           </Segment>
-          <Message>
-            Нямаш профил? <a href='register'>Регистрирай се!</a>
+          <Message size='big'>
+            Нямаш профил? <a href='/register'>Регистрирай се!</a>
           </Message>
         </Form>
       </Grid.Column>
