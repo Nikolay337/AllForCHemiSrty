@@ -18,7 +18,10 @@ function App() {
         <Route index element={<Organic />} />
         <Route path=":id" element={<TopicsComponent />} />
       </Route>
-      <Route path="/inorganic-topics" element={<Inorganic />} />
+      <Route path="/inorganic-topics">
+        <Route index element={<Inorganic />} />
+        <Route path=":id" element={<TopicsComponent />} />
+      </Route>
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   )
