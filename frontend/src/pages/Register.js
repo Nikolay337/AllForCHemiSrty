@@ -2,10 +2,9 @@ import React from 'react'
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 
 const Register = () => (
-  <div color='fff5ff'>
     <Grid 
       textAlign='center'
-      style={{ height: '100vh',  }}
+      style={{ height: '100vh'  }}
       verticalAlign='middle'
     >
       <Grid.Column
@@ -32,11 +31,6 @@ const Register = () => (
               placeholder='Фамилия'
             />
             <Form.Input
-              icon='user'
-              iconPosition='left'
-              placeholder='Имейл'
-            />
-            <Form.Input
               icon='lock'
               iconPosition='left'
               placeholder='Парола'
@@ -60,7 +54,6 @@ const Register = () => (
         </Form>
       </Grid.Column>
     </Grid>
-  </div>
 )
 
 export default Register

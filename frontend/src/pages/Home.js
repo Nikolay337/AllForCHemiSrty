@@ -17,7 +17,7 @@ function Home() {
           alignItems: 'center'
         }}
       >
-        <Card href='/inorganic-topics'>
+        <Card href='/inorganic-topics' style={{width: '30rem', height: '20rem'}}>
           <Card.Content>
             <Card.Header 
               style={{
@@ -27,20 +27,20 @@ function Home() {
               НЕОРГАНИЧНА ХИМИЯ
             </Card.Header>
           </Card.Content>
-          <Image style={{width: '100rem', height: '13.45rem'}} src={inorganicImage} />
+          <Image style={{width: '100rem', height: '17rem'}} src={inorganicImage} />
         </Card>
 
-        <Card href='/organic-topics'>
+        <Card href='/organic-topics' style={{width: '30rem', height: '20rem', marginLeft: '3rem'}}>
           <Card.Content>
             <Card.Header
               style={{
-              textAlign: 'center'
+                textAlign: 'center'
               }}
             >
               ОРГАНИЧНА ХИМИЯ
             </Card.Header>
           </Card.Content>
-          <Image src={organicImage} />
+          <Image  style={{width: '100rem', height: '17rem'}} src={organicImage} />
         </Card>
       </Card.Group>
     </AuthLayout>

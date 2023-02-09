@@ -1,6 +1,5 @@
 import React from 'react'
 import AuthLayout from './layout/AuthLayout'
-import imageAlkeni from '../assets/images/image-alkeni.png'
 import imageAlkani from '../assets/images/image-alkani.png'
 import { Card, Image } from 'semantic-ui-react'
 
@@ -25,7 +24,7 @@ function Inorganic() {
             </Card.Header>
           </Card.Content>
           <Card.Content>
-            <Image src={imageAlkeni} />
+            <Image src={imageAlkani} />
           </Card.Content>
         </Card>
         <Card href='inorganic-topics/3'>
@@ -111,17 +110,7 @@ function Inorganic() {
         <Card href='inorganic-topics/11'>
           <Card.Content>
             <Card.Header style={{ textAlign: 'center'}}>
-              Истински разтвори
-            </Card.Header>
-          </Card.Content>
-          <Card.Content>
-            <Image src={imageAlkani} />
-          </Card.Content>
-        </Card>
-        <Card href='inorganic-topics/11'>
-          <Card.Content>
-            <Card.Header style={{ textAlign: 'center'}}>
-              Колоиди
+              Истински разтвори и Колоиди
             </Card.Header>
           </Card.Content>
           <Card.Content>

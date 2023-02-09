@@ -1,14 +1,18 @@
 import React from 'react'
-import { Document, Page } from 'react-pdf'
-import alkeni from '../assets/topics-pdf/alkini.pdf'
+import { Card, Image } from 'semantic-ui-react'
 
-function TopicsComponent() {
+function TopicsComponent(props) {
   return (
-    <Document file={alkeni}>
-      <Page size="A4">
-
-      </Page>
-    </Document>
+    <Card href={`organic-topics/${props.id}`} style={{width: '17rem', height: '20rem'}}>
+      <Card.Content>
+        <Card.Header style={{ textAlign: 'center'}}>
+          {props.name}
+        </Card.Header>
+      </Card.Content>
+      <Card.Content>
+        <Image style={{height: '10rem'}} src={props.image} />
+      </Card.Content>
+    </Card>
   )
 }
 

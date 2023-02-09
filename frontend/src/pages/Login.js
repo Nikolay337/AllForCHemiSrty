@@ -24,7 +24,7 @@ const Login = () => (
             <Form.Input
               icon='user'
               iconPosition='left'
-              placeholder='Имейл'
+              placeholder='Име'
             />
             <Form.Input
               icon='lock'
