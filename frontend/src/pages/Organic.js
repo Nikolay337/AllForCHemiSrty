@@ -1,19 +1,16 @@
-import React from 'react'
-// import imageAlkani from '../assets/images/image-alkani.png'
-// import imageAlkeni from '../assets/images/image-alkeni.png'
-// import imageAlkini from '../assets/images/image-alkini.png'
-// import imageAreni from '../assets/images/image-areni.png'
-// import imageAmino from '../assets/images/image-amino.png'
-// import imageHalogen from '../assets/images/image-halogen.png'
-// import imageHidro from '../assets/images/image-hidro.png'
-// import imageAmini from '../assets/images/image-amini.png'
+import React, {useState} from 'react'
 import AuthLayout from './layout/AuthLayout'
 import AdminComponent from '../components/AdminComponent'
+import { Button } from 'semantic-ui-react'
 
 function Organic() {
+  const [isAuth, setIsAuth] = useState(true);
+
   return (
     <AuthLayout>
+      <Button onClick={() => setIsAuth(!isAuth)}>admin</Button>
       <AdminComponent />
+      {/* {isAuth ? <AdminComponent /> : <TopicsBodyComponent />} */}
     </AuthLayout>
   )
 }

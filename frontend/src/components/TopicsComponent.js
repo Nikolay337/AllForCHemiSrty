@@ -3,14 +3,14 @@ import { Card, Image } from 'semantic-ui-react'
 
 function TopicsComponent(props) {
   return (
-    <Card href={`organic-topics/${props.id}`} style={{width: '17rem', height: '20rem'}}>
+    <Card href={`organic-topics/${props.id}`} style={{ width: '17rem', height: '20rem', }}>
       <Card.Content>
-        <Card.Header style={{ textAlign: 'center'}}>
-          {props.name}
+        <Card.Header style={{textAlign: 'center'}}>
+          {props.title}
         </Card.Header>
       </Card.Content>
       <Card.Content>
-        <Image style={{height: '10rem'}} src={props.image} />
+        <Image style={{height: '10rem'}} src={props.image}/>
       </Card.Content>
     </Card>
   )
