@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import AuthLayout from './layout/AuthLayout'
-import AdminComponent from '../components/AdminComponent'
+import AdminTopicsComponent from '../components/Topics/AdminTopicsComponent'
 import { Button } from 'semantic-ui-react'
 
 function Organic() {
@@ -9,7 +9,7 @@ function Organic() {
   return (
     <AuthLayout>
       <Button onClick={() => setIsAuth(!isAuth)}>admin</Button>
-      <AdminComponent />
+      <AdminTopicsComponent />
       {/* {isAuth ? <AdminComponent /> : <TopicsBodyComponent />} */}
     </AuthLayout>
   )

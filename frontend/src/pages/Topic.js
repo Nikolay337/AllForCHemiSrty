@@ -1,11 +1,11 @@
 import React from 'react'
 import AuthLayout from './layout/AuthLayout'
-import AdminTopicsComponent from '../components/AdminTopicsComponent'
+import AdminTopicComponent from '../components/Topic/AdminTopicComponent'
 
 function Topic() {
   return (
     <AuthLayout>
-      <AdminTopicsComponent />
+      <AdminTopicComponent />
     </AuthLayout>
   )
 }

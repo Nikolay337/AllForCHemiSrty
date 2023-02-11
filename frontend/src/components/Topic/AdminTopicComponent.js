@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Input, Button, Segment, Grid } from 'semantic-ui-react'
 import TopicComponent from './TopicComponent';
 
-function AdminTopicsComponent(props) {
+function AdminTopicComponent(props) {
   const [topics, setTopics] = useState([]);
   const [topicId, setTopicId] = useState(1);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -35,4 +35,4 @@ function AdminTopicsComponent(props) {
   )
 }
 
-export default AdminTopicsComponent
+export default AdminTopicComponent

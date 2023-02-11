@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Button, Input, Segment, Grid } from 'semantic-ui-react'
 import TopicsComponent from './TopicsComponent';
 
-function AdminComponent() {
+function AdminTopicsComponent() {
 
   const [components, setComponents] = useState([]);
   const [componentId, setComponentId] = useState(1);
@@ -43,4 +43,4 @@ function AdminComponent() {
   )
 }
 
-export default AdminComponent
+export default AdminTopicsComponent
