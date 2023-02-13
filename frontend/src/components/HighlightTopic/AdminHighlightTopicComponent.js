@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import { Input, Button, Grid } from 'semantic-ui-react'
-import TopicComponent from './TopicComponent';
+import HighlightTopicComponent from './HighlightTopicComponent';
 
-function AdminTopicComponent(props) {
 
-  const [topics, setTopics] = useState([]);
-  const [topicId, setTopicId] = useState(1);
+function AdminHighlightTopicComponent(props) {
+
+  const [highlightTopics, setHighlightTopics] = useState([]);
+  const [highlightTopicId, setHighlightTopicId] = useState(1);
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileSelect = (event) => {
@@ -13,8 +14,8 @@ function AdminTopicComponent(props) {
   };
 
   const handleCreateClick = () => {
-    setTopics([...topics, { id: topicId, selectedFile }]);
-    setTopicId(topicId + 1);
+    setHighlightTopics([...highlightTopics, { id: highlightTopicId, selectedFile }]);
+    setHighlightTopicId(highlightTopicId + 1);
     setSelectedFile(null);
   };
 
@@ -23,9 +24,9 @@ function AdminTopicComponent(props) {
       <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file" onChange={handleFileSelect} />
       <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={handleCreateClick}>Добави тема</Button>
         <Grid centered style={{ marginTop: '7rem'}}>
-          {topics.map((topic) => (
+          {highlightTopics.map((topic) => (
             <div key={topic.id}>
-              <TopicComponent id={topic.id} image={topic.selectedFile} />
+              <HighlightTopicComponent id={topic.id} image={topic.selectedFile} />
             </div>
           ))}
         </Grid>
@@ -34,4 +35,4 @@ function AdminTopicComponent(props) {
   )
 }
 
-export default AdminTopicComponent
+export default AdminHighlightTopicComponent

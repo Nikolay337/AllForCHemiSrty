@@ -1,11 +1,19 @@
-import React from 'react'
+import React, {useState} from 'react'
 import AuthLayout from './layout/AuthLayout'
-import AdminTopicComponent from '../components/Topic/AdminTopicComponent'
+import TopicComponent from '../components/Topic/TopicComponent'
+import HighlightTopicComponent from '../components/HighlightTopic/HighlightTopicComponent'
+import { Checkbox } from 'semantic-ui-react'
 
 function Topic() {
+
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = (e, data) => setChecked(data.checked);
+
   return (
     <AuthLayout>
-      <AdminTopicComponent />
+      <Checkbox toggle checked={checked} onChange={handleChange} />
+      {checked ? <HighlightTopicComponent /> : <TopicComponent />}
     </AuthLayout>
   )
 }
