@@ -2,9 +2,9 @@ import React, {useState} from 'react'
 import { Input, Button, Grid } from 'semantic-ui-react'
 import TopicComponent from './TopicComponent';
 
-function AdminTopicComponent(props) {
+function AdminTopicComponent() {
 
-  const [topics, setTopics] = useState([]);
+  const [topic, setTopic] = useState([]);
   const [topicId, setTopicId] = useState(1);
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -12,8 +12,8 @@ function AdminTopicComponent(props) {
     setSelectedFile(URL.createObjectURL(event.target.files[0]));
   };
 
-  const handleCreateClick = () => {
-    setTopics([...topics, { id: topicId, selectedFile }]);
+  const handleCreate = () => {
+    setTopic([...topic, { id: topicId, selectedFile }]);
     setTopicId(topicId + 1);
     setSelectedFile(null);
   };
@@ -21,15 +21,14 @@ function AdminTopicComponent(props) {
   return (
     <div style={{textAlign: 'center'}}>
       <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file" onChange={handleFileSelect} />
-      <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={handleCreateClick}>Добави тема</Button>
+      <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={handleCreate}>Добави тема</Button>
         <Grid centered style={{ marginTop: '7rem'}}>
-          {topics.map((topic) => (
+          {topic.map((topic) => (
             <div key={topic.id}>
-              <TopicComponent id={topic.id} image={topic.selectedFile} />
+              <TopicComponent topic={topic} />
             </div>
           ))}
         </Grid>
-      <Button secondary floated='right' style={{margin: '2rem'}} size='massive' href={`${props.id}/test`}>Тест</Button>
     </div>
   )
 }

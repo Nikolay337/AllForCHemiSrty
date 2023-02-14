@@ -5,8 +5,8 @@ import AdminTopicsComponent from '../components/Topics/AdminTopicsComponent'
 function Inorganic() {
   return (
     <AuthLayout>
-      <AdminTopicsComponent />
-    </AuthLayout>
+      <AdminTopicsComponent path="inorganic-topics" />
+   </AuthLayout>
   )
 }
 

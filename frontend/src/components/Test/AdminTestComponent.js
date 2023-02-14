@@ -9,7 +9,7 @@ function AdminTestComponent(props) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [correctAnswer, setCorrectAnswer] = useState('');
 
-  const handleCreateClick = () => {
+  const handleCreate = () => {
     setQuestions([...questions, { id: questionId, selectedFile }]);
     setQuestiontsId(questionId + 1);
     setSelectedFile(null);
@@ -30,26 +30,26 @@ function AdminTestComponent(props) {
   };
 
   return (
-    <div>
+    <Grid centered style={{ marginBottom: '5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
       <Segment primary textAlign='center'>
         <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file" onChange={handleFileSelect} />
-        <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={handleCreateClick}>Добави въпрос</Button>
+        <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={handleCreate}>Добави въпрос</Button>
         <Button content='А' onClick={() => handleSetCorrectOption('А')} />
         <Button content='Б' onClick={() => handleSetCorrectOption('Б')} />
         <Button content='В' onClick={() => handleSetCorrectOption('В')} />
         <Button content='Г' onClick={() => handleSetCorrectOption('Г')} />
       </Segment>
       <Form onSubmit={handleSubmit}>
-        <Grid centered style={{ marginTop: '7rem'}}>
+        <Grid centered style={{ marginBottom: '5rem', display: 'flex', flexDirection: 'column' }}>
         {questions.map((question) => (
           <div key={question.id}>
             <TestComponent id={question.id} image={question.selectedFile} />
           </div>
         ))}
         </Grid>  
-        <Button style={{margin: '2rem'}} secondary floated='right' size='huge'>Предай</Button>
+        <Button style={{margin: '2rem'}} onSubmit={handleSubmit} secondary floated='right' size='huge'>Предай</Button>
       </Form> 
-    </div>
+    </Grid>
   )
 }
 

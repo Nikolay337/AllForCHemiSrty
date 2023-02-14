@@ -5,7 +5,7 @@ import AdminTopicsComponent from '../components/Topics/AdminTopicsComponent'
 function Organic() {
   return (
     <AuthLayout>
-      <AdminTopicsComponent />
+      <AdminTopicsComponent path="organic-topics"/>
     </AuthLayout>
   )
 }

@@ -1,19 +1,19 @@
 import React from 'react'
 import { Card, Image } from 'semantic-ui-react'
 
-function TopicsComponent(props) {
+function TopicsComponent({topic, path}) {
   
   return (
-    <Card href={`organic-topics/${props.id}`} style={{ width: '17rem', height: '20rem' }}>
+    <Card href={`${path}/${topic.id}`} style={{ width: '17rem', height: '20rem' }}>
       <Card.Content>
         <Card.Header style={{textAlign: 'center'}}>
-          {props.title}
+          {topic.title}
         </Card.Header>
       </Card.Content>
       <Card.Content>
-        <Image style={{height: '10rem'}} src={props.image}/>
+        <Image style={{height: '10rem'}} src={topic.selectedFile}/>
       </Card.Content>
-      </Card>
+    </Card>
   )
 }
 
