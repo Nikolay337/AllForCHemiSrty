@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Questions.init({
+    correctAnswer: DataTypes.STRING,
     pathName: DataTypes.STRING
   }, {
     sequelize,

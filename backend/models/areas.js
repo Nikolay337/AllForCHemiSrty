@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Areas.init({
-    name: DataTypes.STRING,
-    fileName: DataTypes.STRING
+    title: DataTypes.STRING,
+    pathName: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Areas',

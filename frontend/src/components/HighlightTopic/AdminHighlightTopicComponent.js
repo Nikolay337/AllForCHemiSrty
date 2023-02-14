@@ -26,7 +26,7 @@ function AdminHighlightTopicComponent() {
         <Grid centered style={{ marginTop: '7rem'}}>
           {highlightTopic.map((topic) => (
             <div key={topic.id}>
-              <HighlightTopicComponent id={topic.id} image={topic.selectedFile} />
+              <HighlightTopicComponent topic={topic} />
             </div>
           ))}
         </Grid>

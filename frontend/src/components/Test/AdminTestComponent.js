@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Button, Input, Segment, Form, Grid } from 'semantic-ui-react'
 import TestComponent from './TestComponent';
 
-function AdminTestComponent(props) {
+function AdminTestComponent() {
 
   const [questions, setQuestions] = useState([]);
   const [questionId, setQuestiontsId] = useState(1);
@@ -21,16 +21,8 @@ function AdminTestComponent(props) {
 
   const handleSetCorrectOption = (value) => setCorrectAnswer(value);
 
-  const handleSubmit = () => {
-    if (props.selectedAnswer === correctAnswer) {
-      alert('Correct!');
-    } else {
-      alert('Incorrect.');
-    }
-  };
-
   return (
-    <Grid centered style={{ marginBottom: '5rem', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+    <div>
       <Segment primary textAlign='center'>
         <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file" onChange={handleFileSelect} />
         <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={handleCreate}>Добави въпрос</Button>
@@ -39,17 +31,17 @@ function AdminTestComponent(props) {
         <Button content='В' onClick={() => handleSetCorrectOption('В')} />
         <Button content='Г' onClick={() => handleSetCorrectOption('Г')} />
       </Segment>
-      <Form onSubmit={handleSubmit}>
-        <Grid centered style={{ marginBottom: '5rem', display: 'flex', flexDirection: 'column' }}>
+      <Form>
+        <Grid centered style={{ marginBottom: '5rem' }}>
         {questions.map((question) => (
           <div key={question.id}>
-            <TestComponent id={question.id} image={question.selectedFile} />
+            <TestComponent question={question} />
           </div>
         ))}
         </Grid>  
-        <Button style={{margin: '2rem'}} onSubmit={handleSubmit} secondary floated='right' size='huge'>Предай</Button>
+        <Button style={{margin: '2rem'}} secondary floated='right' size='huge'>Предай</Button>
       </Form> 
-    </Grid>
+    </div>
   )
 }
 
