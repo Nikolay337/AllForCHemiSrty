@@ -32,7 +32,7 @@ const createTopic = async (req, res) => {
     const newTopic = await Topic.create({
       title,
       path,
-      area,
+      area
     });
 
     await newTopic.save();
@@ -42,7 +42,6 @@ const createTopic = async (req, res) => {
     return res.status(500).json({ error: 'Error creating topic' });
   }
 }
-
 
 const getTopic = async (req, res) => {
   const { area } = req.query;
