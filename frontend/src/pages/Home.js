@@ -7,7 +7,7 @@ import inorganicImage from '../assets/images/image-2.png'
 function Home() {
   return (
     <AuthLayout>
-        <Card.Group centered style={{ width: '100%', height: '60rem', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <Card.Group centered style={{ width: '100%', height: '60rem', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <Card href='/inorganic-topics' style={{width: '30rem', height: '20rem'}}>
           <Card.Content>
             <Card.Header style={{textAlign: 'center'}}>

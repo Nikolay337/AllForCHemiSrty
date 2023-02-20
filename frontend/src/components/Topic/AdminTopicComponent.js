@@ -1,32 +1,36 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios';
 import { Input, Button, Grid } from 'semantic-ui-react'
 import TopicComponent from './TopicComponent';
 
-function AdminTopicComponent() {
+function AdminTopicComponent(props) {
 
-  const [topic, setTopic] = useState([]);
-  const [topicId, setTopicId] = useState(1);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [file, setFile] = useState(null);
+  const [topics, setTopics] = useState([]);
 
-  const handleFileSelect = (event) => {
-    setSelectedFile(URL.createObjectURL(event.target.files[0]));
-  };
+  useEffect(() => {
+    axios.get(`http://localhost:4002/files?type=nonhighlighted`)
+      .then(response => {
+        setTopics(response.data)
+      })
+  }, [props.path]);
 
-  const handleCreate = () => {
-    setTopic([...topic, { id: topicId, selectedFile }]);
-    setTopicId(topicId + 1);
-    setSelectedFile(null);
-  };
+  function AddFile(event) {
+    event.preventDefault();
+
+    axios.post(`http://localhost:4002/files?type=nonhighlighted`, {
+      path: file
+    })
+  }
 
   return (
     <div style={{textAlign: 'center'}}>
-      <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file" onChange={handleFileSelect} />
-      <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={handleCreate}>Добави тема</Button>
+      <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
+        onChange={(event) => setFile(event.target.value)} />
+      <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={AddFile}>Добави тема</Button>
         <Grid centered style={{ marginTop: '7rem'}}>
-          {topic.map((topic) => (
-            <div key={topic.id}>
-              <TopicComponent topic={topic} />
-            </div>
+          {topics.map((topic) => (
+              <TopicComponent key={topic.id} topic={topic} />
           ))}
         </Grid>
     </div>

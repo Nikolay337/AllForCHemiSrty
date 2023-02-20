@@ -1,29 +1,21 @@
-import React, {useRef} from 'react'
+import React, { useState } from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
 function Login() {
 
-  const nameRef = useRef()
-  const passwordRef = useRef()
-
-  function onSubmit(e) {
-    e.preventDefault()
-    console.log({
-      name: nameRef.current.value,
-      password: passwordRef.current.value
-    })
-  }
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   return(
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
       <Grid.Column color='purple' computer={4}>
-        <Header as='h2' color='white' textAlign='center'>
+        <Header as='h2' textAlign='center'>
           Влез в профила си
         </Header>
-        <Form onSubmit={onSubmit}>
+        <Form>
           <Segment size='big'>
-            <Form.Input ref={nameRef} icon='user' iconPosition='left' placeholder='Име' />
-            <Form.Input ref={passwordRef} icon='lock' iconPosition='left' placeholder='Парола' type='password' />
+            <Form.Input icon='user' iconPosition='left' placeholder='Имейл' onChange={(e)=>setEmail(e.target.value)}  />
+            <Form.Input icon='lock' iconPosition='left' placeholder='Парола' type='password' onChange={(e)=>setPassword(e.target.value)} />
             <Button type='submit' color='purple' size='big'>
               Влизане
             </Button>

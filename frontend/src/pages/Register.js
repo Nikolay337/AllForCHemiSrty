@@ -1,38 +1,50 @@
-import React, {useRef} from 'react'
+import axios from 'axios';
+import React, { useState } from 'react'
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 
 function Register() {
 
-  const nameRef = useRef()
-  const passwordRef = useRef()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  function onSubmit(e) {
-    e.preventDefault()
-    console.log({
-      name: nameRef.current.value,
-      password: passwordRef.current.value,
+  function createUser(event) {
+    event.preventDefault();
+
+    axios.post('http://localhost:4002/users', {
+      name: name,
+      email: email,
+      password: password
     })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
       <Grid.Column color='purple' computer={4}>
-        <Header as='h2' color='black' textAlign='center'>
+        <Header as='h2' textAlign='center'>
           Регистрация
         </Header>
-      <Form onSubmit={onSubmit}>
+      <Form>
         <Segment size='big'>
-          <Form.Input icon='user' iconPosition='left' placeholder='Име' />
-          <Form.Input icon='user' iconPosition='left' placeholder='Фамилия' />
-          <Form.Input icon='lock' iconPosition='left' placeholder='Парола' type='password' />
-          <Form.Input icon='lock' iconPosition='left' placeholder='Потвърди Паролата' type='password' />
-          <Button type='submit' color='purple' size='big'>
+            <Form.Input icon='user' iconPosition='left' placeholder='Име'
+              onChange={(e) => setName(e.target.value)} />
+            <Form.Input icon='user' iconPosition='left' placeholder='Имейл'
+              onChange={(e) => setEmail(e.target.value)} />
+            <Form.Input icon='lock' iconPosition='left' placeholder='Парола' type='password'
+              onChange={(e) => setPassword(e.target.value)} />
+          <Button type='submit' color='purple' size='big' href="/login" onClick={createUser}>
             Регистриране
           </Button>
         </Segment>
       </Form>
-    </Grid.Column>
-  </Grid>
+      </Grid.Column>
+    </Grid>
   )
 }
 

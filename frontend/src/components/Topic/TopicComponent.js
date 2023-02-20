@@ -1,15 +1,14 @@
-import React from 'react'
-import { Image, Button, Grid, Segment } from 'semantic-ui-react'
+import React from 'react';
+import { Button, Segment } from 'semantic-ui-react'
 
-function TopicComponent({topic}) {
-
+function TopicComponent({ topic, key }) {
   return (
-    <Grid.Row style={{textAlign: 'center'}}>
+    <div style={{marginLeft:"27%"}}>
       <Segment>
-        <Image size='massive' src={topic.selectedFile} />
-        <Button secondary floated='right' style={{margin: '2rem'}} size='massive' href={`${topic.id}/test`}>Тест</Button>
+        <iframe src={topic.path} />
+        <Button secondary floated='right' style={{margin: '2rem'}} size='massive' href={`${key}/test`}>Тест</Button>
       </Segment>
-    </Grid.Row>
+    </div>
   )
 }
 

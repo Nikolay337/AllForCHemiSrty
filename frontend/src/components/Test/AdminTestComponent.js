@@ -19,7 +19,7 @@ function AdminTestComponent() {
     setSelectedFile(URL.createObjectURL(event.target.files[0]));
   };
 
-  const handleSetCorrectOption = (value) => setCorrectAnswer(value);
+  const handleSetCorrectOption = (value) => setCorrectAnswer(correctAnswer);
 
   return (
     <div>
@@ -35,7 +35,7 @@ function AdminTestComponent() {
         <Grid centered style={{ marginBottom: '5rem' }}>
         {questions.map((question) => (
           <div key={question.id}>
-            <TestComponent question={question} />
+            <TestComponent question={question} correctAnswer={correctAnswer} />
           </div>
         ))}
         </Grid>  

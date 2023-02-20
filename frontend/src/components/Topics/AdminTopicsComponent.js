@@ -1,37 +1,55 @@
-import React, {useState} from 'react'
+import axios from 'axios';
+import React, { useState, useEffect } from 'react'
 import { Button, Input, Segment, Grid } from 'semantic-ui-react'
 import TopicsComponent from './TopicsComponent';
 
 function AdminTopicsComponent(props) {
 
-  const [topics, setTopics] = useState([]);
-  const [topicsId, setTopicsId] = useState(1);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("")
+  const [topics, setTopics] = useState([])
+  const [formData, setFormData] = useState([]);
 
-  const handleCreate = () => {
-    setTopics([...topics, { id: topicsId, title, selectedFile }]);
-    setTopicsId(topicsId + 1);
-    setTitle("");
-    setSelectedFile(null);
-  };
+  useEffect(() => {
+    axios.get(`http://localhost:4002/topics?area=${props.path}`)
+      .then(response => {
+        setTopics(response.data);
+      })
+  }, [props.path]);
 
-  const handleFileSelect = (event) => {
-    setSelectedFile(URL.createObjectURL(event.target.files[0]));
-  };
+  function handleFileInputChange(event) {
+    event.preventDefault();
+    const file = event.target.files[0];
+    const formData = new FormData();
+
+    formData.append('title', title);
+    formData.append('file', file);
+    formData.append('area', props.path);
+
+    sendFormDataToBackend(formData);
+  }
+
+  function sendFormDataToBackend(formData) {
+  axios.post("http://localhost:4002/topics", formData)
+    .then(response => {
+      setFormData([...formData, response.data]);
+    })
+    .catch(error => {
+      console.error('Error uploading file', error);
+    });
+}
 
   return (
     <div>
-      <Segment primary textAlign='center'>
-        <Input style={{ height: '3.2rem'}} size='big' type="text" placeholder="Заглавие на темата" value={title} onChange={(event) => setTitle(event.target.value)} />
-        <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file" onChange={handleFileSelect} />
-        <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={handleCreate}>Създай</Button>
+      <Segment textAlign='center'>
+        <Input style={{ height: '3.2rem' }} size='big' type="text" placeholder="Заглавие на темата"
+           onChange={(event) => setTitle(event.target.value)} />
+        <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
+          value={formData.file} onChange={handleFileInputChange} />
+        <Button size='big' primary style={{ marginLeft: '2rem' }} onChange={sendFormDataToBackend}>Създай</Button>
       </Segment>
-        <Grid centered style={{ marginTop: '7rem'}}>
+      <Grid centered style={{ margin: '5rem'}}>
         {topics.map((topic) => (
-          <div key={topics.id}>
-              <TopicsComponent topic={topic} path={props.path}/>
-          </div>
+          <TopicsComponent key={topic.id} data={topic} />
         ))}
       </Grid>
     </div>

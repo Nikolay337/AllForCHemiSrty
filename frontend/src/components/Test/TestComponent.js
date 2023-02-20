@@ -5,7 +5,7 @@ function TestComponent({question}) {
 
   const [selectedAnswer, setSelectedAnswer] = useState('');
 
-  const handleChange = (e, { value }) => setSelectedAnswer(value);
+  const handleChange = (value) => setSelectedAnswer(selectedAnswer);
   
   return (
     <div style={{ margin: '3rem' }}>
@@ -15,16 +15,16 @@ function TestComponent({question}) {
       <Segment style={{ paddingLeft: '2rem', margin: '2rem' }}>
         <Form.Group inline  widths='equal'>
           <Form.Field>
-            <Radio label='А' value='А' checked={selectedAnswer === 'А'} onChange={handleChange} />
+            <Radio label='А' value='А' checked={setSelectedAnswer === 'А'} onChange={handleChange} />
           </Form.Field>
           <Form.Field>
-            <Radio label='Б' value='Б' checked={selectedAnswer === 'Б'} onChange={handleChange} />
+            <Radio label='Б' value='Б' checked={setSelectedAnswer === 'Б'} onChange={handleChange} />
           </Form.Field>
           <Form.Field>
-            <Radio label='В' value='В' checked={selectedAnswer === 'В'}  onChange={handleChange} />
+            <Radio label='В' value='В' checked={setSelectedAnswer === 'В'}  onChange={handleChange} />
           </Form.Field>
           <Form.Field>
-            <Radio label='Г' value='Г' checked={selectedAnswer === 'Г'} onChange={handleChange} />
+            <Radio label='Г' value='Г' checked={setSelectedAnswer === 'Г'} onChange={handleChange} />
           </Form.Field>
         </Form.Group>
       </Segment>

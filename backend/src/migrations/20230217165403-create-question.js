@@ -9,10 +9,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      correctAnswer: {
-        type: Sequelize.STRING
-      },
-      pathName: {
+      text: {
         type: Sequelize.STRING
       },
       createdAt: {
