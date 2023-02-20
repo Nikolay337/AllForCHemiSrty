@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './src/uploads/');
+    cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
     const uniqueFilename = uuidv4() + path.extname(file.originalname);
@@ -17,14 +17,13 @@ const upload = multer({ storage });
 
 const createTopic = async (req, res) => {
   const { title, area } = req.body;
-
+  let { path } = req.body;
   if (!title || !area) {
     return res.status(400).json({ error: 'Missing title or area' });
   }
 
   try {
-    const file = req.path;
-    let path = null;
+    const file = req.file;
 
     if (file) {
       path = file.path;

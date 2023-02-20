@@ -13,6 +13,8 @@ app.use(cors({
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use('/uploads', express.static(__dirname, './public/uploads'))
+
 app.use(routes.files);
 app.use(routes.users);
 app.use(routes.answears);
