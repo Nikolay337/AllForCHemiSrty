@@ -16,7 +16,7 @@ function AdminTopicsComponent(props) {
       })
   }, [props.path]);
 
-  function handleFileInputChange(event) {
+  function handleFileInputChange(event, title) {
     event.preventDefault();
     const file = event.target.files[0];
     const formData = new FormData();
