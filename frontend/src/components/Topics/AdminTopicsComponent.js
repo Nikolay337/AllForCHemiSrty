@@ -1,12 +1,11 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react'
-import { Button, Input, Segment, Grid } from 'semantic-ui-react'
+import React, { useState, useEffect } from 'react';
+import { Button, Input, Segment, Grid } from 'semantic-ui-react';
 import TopicsComponent from './TopicsComponent';
 
 function AdminTopicsComponent(props) {
-
-  const [title, setTitle] = useState("")
-  const [topics, setTopics] = useState([])
+  const [title, setTitle] = useState("");
+  const [topics, setTopics] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
@@ -14,13 +13,15 @@ function AdminTopicsComponent(props) {
       .then(response => {
         setTopics(response.data);
       })
+      .catch(error => {
+        console.error('Error fetching topics', error);
+      });
   }, [props.path]);
 
   function createTopic(event) {
     event.preventDefault();
 
     const formData = new FormData();
-
     formData.append('title', title);
     formData.append('file', selectedFile);
     formData.append('area', props.path);
@@ -30,7 +31,7 @@ function AdminTopicsComponent(props) {
         setTopics([...topics, response.data]);
       })
       .catch(error => {
-        console.error('Error uploading file', error);
+        console.error('Error creating topic', error);
       });
   }
 
@@ -53,7 +54,7 @@ function AdminTopicsComponent(props) {
         ))}
       </Grid>
     </div>
-  )
+  );
 }
 
-export default AdminTopicsComponent
+export default AdminTopicsComponent;

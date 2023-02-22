@@ -18,6 +18,7 @@ const upload = multer({ storage });
 const createTopic = async (req, res) => {
   const { title, area } = req.body;
   let { path } = req.body;
+  
   if (!title || !area) {
     return res.status(400).json({ error: 'Missing title or area' });
   }
@@ -54,70 +55,8 @@ const getTopic = async (req, res) => {
   res.send(topics);
 }
 
-const updateTopic = async (req, res) => {
-  const { title, path, area } = req.body;
-  const { id } = req.params;
-
-  const topic = await Topic.findOne({
-    where: {
-      id
-    },
-  });
-
-  if (!topic) {
-    return res.status(400)
-  }
-
-  try {
-    if (title) {
-      topic.title = title;
-    }
-    if (path) {
-      topic.path = path;
-    }
-    if (area) {
-      topic.area = area;
-    }
-
-    topic.save();
-    return res.send({
-      message: `Topic ${id} has been updated!`,
-    });
-  } catch (err) {
-    return res.status(500)
-  }
-}
-
-const deleteTopic = async (req, res) => { 
-  const { id } = req.body;
-  if (!id) {
-    return res.status(400)
-  }
-
-  const topic = await Topic.findOne({
-    where: {
-      id,
-    },
-  });
-
-  if (!topic) {
-    return res.status(400)
-  }
-
-  try {
-    await topic.destroy();
-    return res.send({
-      message: `Topic ${id} has been deleted!`,
-    });
-  } catch (err) {
-    return res.status(500)
-  }
-}
-
 module.exports = {
     createTopic,
-    updateTopic,
-    deleteTopic,
     getTopic,
     upload
 }

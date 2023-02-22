@@ -1,4 +1,5 @@
-const File = require('../models');
+const { File } = require('../models');
+const { Topic } = require("../models")
 const multer = require('multer');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
@@ -16,11 +17,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const createFile = async (req, res) => {
-  const { type } = req.body;
+  const { type, topicId } = req.body;
   let { path } = req.body;
 
-  if (!type) {
-    return res.status(400).json({ error: 'Missing type' });
+  if (!type || !topicId) {
+    return res.status(400).json({ error: 'Missing type or topicId' });
   }
 
   try {
@@ -29,10 +30,18 @@ const createFile = async (req, res) => {
     if (file) {
       path = file.path;
     }
-     const newFile = await File.create({
-       path,
-       type
-     });
+
+    const topic = await Topic.findByPk(topicId);
+
+    if (!topic) {
+      return res.status(400).json({ error: 'Invalid topicId' });
+    }
+
+    const newFile = await File.create({
+      path,
+      type,
+      topicId
+    });
     
     await newFile.save();
     return res.send(newFile);
@@ -42,76 +51,44 @@ const createFile = async (req, res) => {
 }
 
 const getFile = async (req, res) => {
-  const { type } = req.query;
-
-  const files = await File.findAll({ where: { type } });
-
-  if (!files) {
-     return res.status(404);
-  }
-  res.send(files);
-}
-
-const updateFile = async (req, res) => {
-  const { path, type } = req.body;
-  const { id } = req.params;
-
-  const file = await File.findOne({
-    where: {
-      id,
-    },
-  });
-
-  if (!file) {
-    return res.status(400)
-  }
+  const topicId = req.params.topicId;
+  const fileId = req.params.fileId;
 
   try {
-    if (path) {
-      file.path = type;
-    }
-    if (type) {
-      file.type = type;
-    }
-    file.save();
-    return res.send({
-      message: `File ${id} has been updated!`,
+    const file = await File.findOne({
+      where: {
+        id: fileId,
+        topicId: topicId
+      }
     });
-  } catch (err) {
-    return res.status(500)
+
+    if (file) {
+      return res.status(200).json(file);
+    } else {
+      return res.status(404).json({ error: 'File not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 }
 
-const deleteFile = async (req, res) => {
-  const { id } = req.body;
-  if (!id) {
-    return res.status(400)
-  }
+// const getFile = async (req, res) => {
+//   const { topicId } = req.query;
 
-  const file = await File.findOne({
-    where: {
-      id,
-    },
-  });
+//   const files = await File.findAll({
+//     where: { topicId },
+//     include: { model: Topic }
+//   });
 
-  if (!file) {
-    return res.status(400)
-  }
-
-  try {
-    await file.destroy();
-    return res.send({
-      message: `Question ${id} has been deleted!`,
-    });
-  } catch (err) {
-    return res.status(500)
-  }
-}
+//   if (!files) {
+//      return res.status(404).json({ error: 'No files found for the specified topic' });
+//   }
+//   res.send(files);
+// }
 
 module.exports = {
     createFile,
-    updateFile,
-    deleteFile,
     getFile,
     upload
 }

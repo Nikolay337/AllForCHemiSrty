@@ -1,50 +1,43 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Input, Button, Grid } from 'semantic-ui-react'
 import TopicComponent from './TopicComponent';
 
-function AdminTopicComponent(props) {
+function AdminTopicComponent() {
 
-  const [topics, setTopics] = useState([]);
-  const [formData, setFormData] = useState([]);
+  const [files, setFiles] = useState([]);
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/files?type=nonhighlighted`)
-      .then(response => {
-        setTopics(response.data);
-      })
-  }, [props.path]);
-
-  function handleFileInputChange(event) {
+  function addFile(event) {
     event.preventDefault();
-      
-    const file = event.target.files[0];
+
     const formData = new FormData();
 
-    formData.append('file', file);
-    formData.append('type', "nonhighlighted");
+    formData.append('file', selectedFile);
+    formData.append('type', 'nonhighlighted');
 
-    sendFormDataToBackend(formData);
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_URL}/files`, formData)
+      .then((response) => {
+        setFiles([...files, response.data]);
+      })
+      .catch((error) => {
+        console.error('Error uploading file', error);
+      });
   }
 
-  function sendFormDataToBackend(formData) {
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/files`, formData)
-    .then(response => {
-      setFormData([...formData, response.data]);
-    })
-    .catch(error => {
-      console.error('Error uploading file', error);
-    });
-}
+  function handleFileSelect(event) {
+    setSelectedFile(event.target.files.item(0));
+  }
 
   return (
     <div style={{textAlign: 'center'}}>
       <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
-        value={formData.file} onChange={handleFileInputChange} />
-      <Button size='big' primary style={{ marginLeft: '2rem' }} onChange={sendFormDataToBackend}>Добави тема</Button>
+        onChange={handleFileSelect} />
+      <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={addFile}>Добави тема</Button>
         <Grid centered style={{ marginTop: '7rem'}}>
-          {topics.map((topic) => (
-              <TopicComponent key={topic.id} topic={topic} />
+          {files.map((file) => (
+              <TopicComponent key={file.id} topic={file} />
           ))}
         </Grid>
     </div>

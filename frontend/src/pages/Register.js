@@ -11,7 +11,7 @@ function Register() {
   function createUser(event) {
     event.preventDefault();
 
-    axios.post('http://localhost:4002/users', {
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/users`, {
       name: name,
       email: email,
       password: password
@@ -33,12 +33,12 @@ function Register() {
       <Form>
         <Segment size='big'>
             <Form.Input icon='user' iconPosition='left' placeholder='Име'
-              onChange={(e) => setName(e.target.value)} />
+              onChange={(event) => setName(event.target.value)} />
             <Form.Input icon='user' iconPosition='left' placeholder='Имейл'
-              onChange={(e) => setEmail(e.target.value)} />
+              onChange={(event) => setEmail(event.target.value)} />
             <Form.Input icon='lock' iconPosition='left' placeholder='Парола' type='password'
-              onChange={(e) => setPassword(e.target.value)} />
-          <Button type='submit' color='purple' size='big' href="/login" onClick={createUser}>
+              onChange={(event) => setPassword(event.target.value)} />
+          <Button type='submit' color='purple' size='big' onClick={createUser}>
             Регистриране
           </Button>
         </Segment>

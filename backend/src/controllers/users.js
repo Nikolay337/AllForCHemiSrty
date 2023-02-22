@@ -1,23 +1,53 @@
-const User = require('../models');
+const { User } = require('../models');
+const jwt = require('jsonwebtoken');
 
 const getUser = async (req, res) => {
-  const { id } = req.params;
+  const { name } = req.body;
+
+  if (!name) {
+    return res.status(400).send('Missing email or password');
+  }
 
   const user = await User.findOne({
     where: {
-      id,
-    },
+      name
+    }
   });
 
   if (!user) {
-    return res.status(400)
+    return res.status(401).send('Invalid login credentials');
   }
 
-  return res.send(user);
+  return res.status(200).json({name});
+};
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid login credentials' });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid login credentials' });
+    }
+
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
+
+    res.json({ name: user.name, token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
 }
 
 const createUser = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
     return res.status(400)
@@ -27,81 +57,21 @@ const createUser = async (req, res) => {
     let newUser = await User.create({
       name,
       email,
-      password,
-      role
+      password
     });
-    return res.send(newUser);
-  } catch (err) {
-    return res.status(500)
-  }
-}
 
-const updateUser = async (req, res) => {
-  const { name, email, password, role } = req.body;
-  const { id } = req.params;
-
-  const user = await User.findOne({
-    where: {
-      id,
-    },
-  });
-
-  if (!user) {
-    return res.status(400)
-  }
-
-  try {
-    if (name) {
-      user.name = name;
-    }
-    if (email) {
-      user.email = email;
-    }
-    if (password) {
-      user.password = password;
-    }
-    if (role) {
-      user.role = role;
-    }
-    
-    user.save();
-    return res.send({
-      message: `User ${id} has been updated!`,
+    const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, {
+      expiresIn: '1h'
     });
-  } catch (err) {
-    return res.status(500)
-  }
-}
 
-const deleteUser = async (req, res) => {
-  const { id } = req.body;
-  if (!id) {
-    return res.status(400)
-  }
-
-  const user = await User.findOne({
-    where: {
-      id,
-    },
-  });
-
-  if (!user) {
-    return res.status(400)
-  }
-
-  try {
-    await user.destroy();
-    return res.send({
-      message: `User ${id} has been deleted!`,
-    });
+    return res.send({ user: newUser, token: token });
   } catch (err) {
     return res.status(500)
   }
 }
 
 module.exports = {
-    createUser,
-    updateUser,
-    deleteUser,
-    getUser
+  createUser,
+  login,
+  getUser
 }

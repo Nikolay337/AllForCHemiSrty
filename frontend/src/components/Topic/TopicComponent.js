@@ -1,13 +1,14 @@
 import React from 'react';
+import Iframe from 'react-iframe'
 import { Button, Segment } from 'semantic-ui-react'
 
 function TopicComponent({ topic, key }) {
   return (
-    <div style={{marginLeft:"27%"}}>
+    <div>
       <Segment>
-        {/* <iframe src={`${process.env.REACT_APP_BACKEND_URL}/${topic.path}`} /> */}
-        <Button secondary floated='right' style={{margin: '2rem'}} size='massive' href={`${key}/test`}>Тест</Button>
+        <Iframe src={`${process.env.REACT_APP_BACKEND_URL}/${topic.path}`} width="800" height='1000'/>
       </Segment>
+      <Button secondary floated='right' style={{margin: '2rem'}} size='massive' href={`test`}>Тест</Button>
     </div>
   )
 }

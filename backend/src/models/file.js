@@ -3,7 +3,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class File extends Model {
     static associate(models) {
-      File.belongsTo(models.Topic);
+      File.belongsTo(models.Topic, { foreignKey: 'topicId' });
     }
   }
   File.init({
@@ -14,4 +14,5 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'File',
   });
   return File;
+  
 };

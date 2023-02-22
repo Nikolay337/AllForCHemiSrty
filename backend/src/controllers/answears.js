@@ -1,5 +1,4 @@
-const db = require('../models');
-const Answear = db.Answear
+const { Answear } = require('../models');
 
 const getAnswear = async (req, res) => {
   const { id } = req.params;
@@ -35,66 +34,7 @@ const createAnswear = async (req, res) => {
   }
 }
 
-const updateAnswear = async (req, res) => {
-  const { text, valid } = req.body;
-  const { id } = req.params;
-
-  const answear = await Answear.findOne({
-    where: {
-      id,
-    },
-  });
-
-  if (!answear) {
-    return res.status(400)
-  }
-
-  try {
-    if (text) {
-      answear.text = valid;
-    }
-    if (valid) {
-      answear.valid = valid;
-    }
-    answear.save();
-    return res.send({
-      message: `Answear ${id} has been updated!`,
-    });
-  } catch (err) {
-    return res.status(500)
-  }
-}
-
-//Delete Question
-const deleteAnswear = async (req, res) => {
-  const { id } = req.body;
-  if (!id) {
-    return res.status(400)
-  }
-
-  const answear = await Answear.findOne({
-    where: {
-      id,
-    },
-  });
-
-  if (!answear) {
-    return res.status(400)
-  }
-
-  try {
-    await answear.destroy();
-    return res.send({
-      message: `Question ${id} has been deleted!`,
-    });
-  } catch (err) {
-    return res.status(500)
-  }
-}
-
 module.exports = {
     createAnswear,
-    updateAnswear,
-    deleteAnswear,
     getAnswear
 }
