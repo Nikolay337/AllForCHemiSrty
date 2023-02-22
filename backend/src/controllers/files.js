@@ -51,14 +51,14 @@ const createFile = async (req, res) => {
 }
 
 const getFile = async (req, res) => {
-  const topicId = req.params.topicId;
-  const fileId = req.params.fileId;
+  const topicId = req.body;
+  const type = req.body;
 
   try {
     const file = await File.findOne({
       where: {
-        id: fileId,
-        topicId: topicId
+        topicId: topicId,
+        type: type
       }
     });
 
@@ -72,20 +72,6 @@ const getFile = async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
-
-// const getFile = async (req, res) => {
-//   const { topicId } = req.query;
-
-//   const files = await File.findAll({
-//     where: { topicId },
-//     include: { model: Topic }
-//   });
-
-//   if (!files) {
-//      return res.status(404).json({ error: 'No files found for the specified topic' });
-//   }
-//   res.send(files);
-// }
 
 module.exports = {
     createFile,

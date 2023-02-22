@@ -34,7 +34,8 @@ function AdminTopicComponent() {
     <div style={{textAlign: 'center'}}>
       <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
         onChange={handleFileSelect} />
-      <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={addFile}>Добави тема</Button>
+      <Button size='big' primary style={{ marginLeft: '2rem' }}
+        onClick={addFile}>Добави тема</Button>
         <Grid centered style={{ marginTop: '7rem'}}>
           {files.map((file) => (
               <TopicComponent key={file.id} topic={file} />

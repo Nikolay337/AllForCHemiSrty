@@ -4,6 +4,7 @@ import { Button, Input, Segment, Grid } from 'semantic-ui-react';
 import TopicsComponent from './TopicsComponent';
 
 function AdminTopicsComponent(props) {
+  
   const [title, setTitle] = useState("");
   const [topics, setTopics] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);

@@ -9,9 +9,7 @@ const getUser = async (req, res) => {
   }
 
   const user = await User.findOne({
-    where: {
-      name
-    }
+    where: { name }
   });
 
   if (!user) {
@@ -60,11 +58,7 @@ const createUser = async (req, res) => {
       password
     });
 
-    const token = jwt.sign({ userId: newUser.id }, process.env.JWT_SECRET, {
-      expiresIn: '1h'
-    });
-
-    return res.send({ user: newUser, token: token });
+    return res.send({newUser});
   } catch (err) {
     return res.status(500)
   }

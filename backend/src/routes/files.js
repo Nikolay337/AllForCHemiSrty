@@ -7,7 +7,7 @@ const {
     upload
 } = require('../controllers/files');
 
-router.get('/files', getFile);
+router.get('/files/:topicId', getFile);
 router.post('/files', upload.single('file'), createFile);
 
 module.exports = router;

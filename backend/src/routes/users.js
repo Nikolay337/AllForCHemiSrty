@@ -8,7 +8,7 @@ const {
 } = require('../controllers/users');
 
 router.post('/login', login);
-router.get('user/:id', getUser)
+router.get('users/:id', getUser)
 router.post('/users', createUser);
 
 module.exports = router;

@@ -20,7 +20,8 @@ module.exports = {
         references: {
           model: 'Topics',
           key: 'id', 
-        }, onUpdate: 'CASCADE',
+        },
+        onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
       },
       createdAt: {

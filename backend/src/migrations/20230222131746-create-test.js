@@ -16,6 +16,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      topicId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Topics',
+          key: 'id', 
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE

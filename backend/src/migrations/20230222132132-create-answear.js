@@ -19,6 +19,15 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      questionId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Questions',
+          key: 'id', 
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -26,6 +35,7 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Answears');
+  await queryInterface.dropTable('Answears');
   }
 };
+
