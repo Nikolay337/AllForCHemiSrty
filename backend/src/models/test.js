@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Test.init({
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    topicId: {
+      type: DataTypes.INTEGER
+    }
   }, {
     sequelize,
     modelName: 'Test',

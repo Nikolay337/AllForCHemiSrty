@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   } File.init({
     path: DataTypes.STRING,
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    topicId: {
+      type: DataTypes.INTEGER
+    }
   }, {
     sequelize,
     modelName: 'File'

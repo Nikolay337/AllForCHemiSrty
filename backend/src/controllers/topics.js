@@ -36,10 +36,8 @@ const createTopic = async (req, res) => {
       area
     });
 
-    await newTopic.save();
     return res.send(newTopic);
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ error: 'Error creating topic' });
   }
 }

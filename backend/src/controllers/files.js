@@ -31,19 +31,12 @@ const createFile = async (req, res) => {
       path = file.path;
     }
 
-    const topic = await Topic.findByPk(topicId);
-
-    if (!topic) {
-      return res.status(400).json({ error: 'Invalid topicId' });
-    }
-
     const newFile = await File.create({
       path,
       type,
       topicId
     });
     
-    await newFile.save();
     return res.send(newFile);
   } catch (err) {
     return res.status(500).json({ error: 'Error creating file' });
@@ -51,26 +44,16 @@ const createFile = async (req, res) => {
 }
 
 const getFile = async (req, res) => {
-  const topicId = req.body;
-  const type = req.body;
+  const { topicId } = req.params;
 
-  try {
-    const file = await File.findOne({
-      where: {
-        topicId: topicId,
-        type: type
-      }
-    });
+  const file = await File.findAll({
+    where: { topicId, type: req.query.type }
+  });
 
-    if (file) {
-      return res.status(200).json(file);
-    } else {
-      return res.status(404).json({ error: 'File not found' });
-    }
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: 'Internal server error' });
-  }
+  if (!file) {
+    return res.status(404);
+  } 
+  res.send(file);
 }
 
 module.exports = {
