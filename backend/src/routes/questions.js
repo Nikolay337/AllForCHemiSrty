@@ -3,10 +3,11 @@ const router = express.Router();
 
 const {
     createQuestion,
-    getQuestion
+    getQuestion,
+    upload
 } = require('../controllers/questions');
 
-router.get('/questions/:id', getQuestion);
-router.post('/questions', createQuestion);
+router.get('topics/:topicId/tests/questions', getQuestion);
+router.post('/questions', upload.single('file'), createQuestion);
 
 module.exports = router;

@@ -48,13 +48,25 @@ const getTopic = async (req, res) => {
   const topics = await Topic.findAll({ where: { area } });
 
   if (!topics) {
-     return res.status(404);
+    return res.status(404);
   }
   res.send(topics);
 }
 
+// const getTopicName = async (req, res) => {
+//   const { id } = req.body;
+
+//   const topics = await Topic.findAll({ where: { id } });
+
+//   if (!topics) {
+//     return res.status(404);
+//   }
+//   res.send(topics);
+// }
+
 module.exports = {
     createTopic,
     getTopic,
+    // getTopicName,
     upload
 }

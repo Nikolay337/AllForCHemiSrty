@@ -3,10 +3,11 @@ const router = express.Router();
 
 const {
     createTest,
-    getTest
+    getTopicName
+    // getTest
 } = require('../controllers/tests');
 
-router.get('/tests/:id', getTest);
-router.post('/tests', createTest);
+// router.get('/topics/:topicId/tests', getTest);
+router.post('/topics/:topicId/tests', createTest);
 
 module.exports = router;

@@ -1,5 +1,4 @@
 const { User } = require('../models');
-const jwt = require('jsonwebtoken');
 
 const getUser = async (req, res) => {
   const { name } = req.body;
@@ -16,28 +15,20 @@ const getUser = async (req, res) => {
     return res.status(401).send('Invalid login credentials');
   }
 
-  return res.status(200).json({name});
+  return res.send(name)
 };
 
 const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email, password });
 
     if (!user) {
       return res.status(401).json({ message: 'Invalid login credentials' });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid login credentials' });
-    }
-
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-
-    res.json({ name: user.name, token });
+    res.send({email, password});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -58,7 +49,7 @@ const createUser = async (req, res) => {
       password
     });
 
-    return res.send({newUser});
+    return res.send(newUser);
   } catch (err) {
     return res.status(500)
   }

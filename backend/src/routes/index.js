@@ -3,7 +3,7 @@ const topics = require("./topics")
 const files = require("./files") 
 const tests = require("./tests") 
 const questions = require("./questions") 
-const answears = require("./answears") 
+const answers = require("./answers") 
 
 module.exports = {
   files,
@@ -11,5 +11,5 @@ module.exports = {
   tests,
   topics,
   questions,
-  answears
+  answers
 }

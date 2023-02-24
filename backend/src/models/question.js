@@ -4,11 +4,11 @@ module.exports = (sequelize, DataTypes) => {
   class Question extends Model {
     static associate(models) {
       Question.belongsTo(models.Test);
-      Question.hasMany(models.Answear)
+      Question.hasMany(models.Answer)
     }
   }
   Question.init({
-    text: DataTypes.STRING,
+    path: DataTypes.STRING,
     testId: {
       type: DataTypes.INTEGER
     }

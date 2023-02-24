@@ -1,5 +1,4 @@
 const { File } = require('../models');
-const { Topic } = require("../models")
 const multer = require('multer');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
@@ -53,7 +52,7 @@ const getFile = async (req, res) => {
   if (!file) {
     return res.status(404);
   } 
-  res.send(file);
+  return res.send(file);
 }
 
 module.exports = {
