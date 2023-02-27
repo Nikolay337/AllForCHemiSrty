@@ -45,7 +45,9 @@ const createTopic = async (req, res) => {
 const getTopic = async (req, res) => {
   const { area } = req.query;
 
-  const topics = await Topic.findAll({ where: { area } });
+  const topics = await Topic.findAll({
+    where: { area }
+  });
 
   if (!topics) {
     return res.status(404);
@@ -56,7 +58,9 @@ const getTopic = async (req, res) => {
 const getTopicName = async (req, res) => {
   const { id } = req.params;
 
-  const topics = await Topic.findAll({ where: { id } });
+  const topics = await Topic.findAll({
+    where: { id }
+  });
 
   if (!topics) {
     return res.status(404);

@@ -49,10 +49,10 @@ function AdminTestComponent() {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append('path', selectedFile);
+    formData.append('file', selectedFile);
 
     axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/${test[0].id}/questions`, formData)
+      .post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, formData)
       .then((response) => {
         setQuestion(response.data);
       })
@@ -88,7 +88,7 @@ function AdminTestComponent() {
           </Segment>
         </div>
       :
-        <Button size='huge' primary onClick={createTest}>Създай тест</Button>
+        <Button size='massive' style={{marginLeft: '50rem', marginTop: '20rem'}} primary onClick={createTest}>Създай тест</Button>
       }
     </div>
   )

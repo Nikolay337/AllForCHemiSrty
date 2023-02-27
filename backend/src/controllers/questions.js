@@ -16,8 +16,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const createQuestion = async (req, res) => {
-  let { path } = req.body;
   const { testId } = req.params;
+  let { path } = req.body;
 
   if (!testId) {
     return res.status(400)
@@ -30,7 +30,7 @@ const createQuestion = async (req, res) => {
       path = question.path;
     }
 
-    let newQuestion = await Question.create({
+    const newQuestion = await Question.create({
       path,
       testId
     });
@@ -44,15 +44,15 @@ const createQuestion = async (req, res) => {
 const getQuestion = async (req, res) => {
   const { testId } = req.params;
 
-  const question = await Question.findAll({
+  const questions = await Question.findAll({
     where: { testId }
   });
 
-  if (!question) {
+  if (!questions) {
     return res.status(400)
   }
 
-  return res.send(question);
+  return res.send(questions);
 }
 
 module.exports = {
