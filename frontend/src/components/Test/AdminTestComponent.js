@@ -10,6 +10,7 @@ function AdminTestComponent() {
   const [test, setTest] = useState([]);
   const [topicName, setTopicName] = useState([]);
   const [questions, setQuestions] = useState([]);
+  const [correctAnswer, setCorrectAnswer] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   
   function createTest(event) {
@@ -28,11 +29,13 @@ function AdminTestComponent() {
     event.preventDefault();
 
     const formData = new FormData();
+    formData.append('correctAnswer', correctAnswer);
     formData.append('file', selectedFile);
 
     axios.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, formData)
       .then((response) => {
         setQuestions([...questions, response.data]);
+        setCorrectAnswer("");
       })
       .catch((error) => {
         console.error('Error uploading file', error);
@@ -82,6 +85,10 @@ function AdminTestComponent() {
               onChange={handleFileSelect} />
             <Button primary size='big' style={{ marginLeft: '2rem' }}
               onClick={addQuestion}>Добави въпрос</Button>
+            <Button style={{marginLeft: '1rem'}} onClick={() => setCorrectAnswer("А")}>А</Button>
+            <Button style={{marginLeft: '1rem'}} onClick={() => setCorrectAnswer("Б")}>Б</Button>
+            <Button style={{marginLeft: '1rem'}} onClick={() => setCorrectAnswer("В")}>В</Button>
+            <Button style={{marginLeft: '1rem'}} onClick={() => setCorrectAnswer("Г")}>Г</Button>
           </Segment>
           <Segment>
           <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>

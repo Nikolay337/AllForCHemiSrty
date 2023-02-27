@@ -16,10 +16,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const createQuestion = async (req, res) => {
+  let { correctAnswer, path } = req.body;
   const { testId } = req.params;
-  let { path } = req.body;
+  // let { path } = req.body;
 
-  if (!testId) {
+  if (!testId || !correctAnswer) {
     return res.status(400)
   }
 
@@ -28,10 +29,12 @@ const createQuestion = async (req, res) => {
 
     if (question) {
       path = question.path;
+      correctAnswer = correctAnswer
     }
 
     const newQuestion = await Question.create({
       path,
+      correctAnswer,
       testId
     });
 
