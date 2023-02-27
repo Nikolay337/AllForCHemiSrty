@@ -4,7 +4,7 @@ import {Button, Grid, Image, Segment} from 'semantic-ui-react'
 function TestComponent({ question, onAnswerClick }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);  
 
-  const handleAnswerClick = (answer) => {
+  function handleAnswerClick(answer) {
     setSelectedAnswer(answer);
     onAnswerClick(question.id, answer);
   };
@@ -15,7 +15,7 @@ function TestComponent({ question, onAnswerClick }) {
         <Image style={{ width: '90rem', height: '100%' }}
           src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
         />
-        <Segment style={{ backgroundColor: ''}}>
+        <Segment>
           <Button size='big' style={{ backgroundColor: selectedAnswer === 'А' ? 'purple' : 'white' }}
             onClick={() => handleAnswerClick('А')}>А</Button>
           <Button size='big' style={{ marginLeft: '10rem', backgroundColor: selectedAnswer === 'Б' ? 'purple' : 'white' }}

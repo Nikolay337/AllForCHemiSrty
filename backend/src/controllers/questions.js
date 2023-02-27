@@ -18,7 +18,6 @@ const upload = multer({ storage });
 const createQuestion = async (req, res) => {
   let { correctAnswer, path } = req.body;
   const { testId } = req.params;
-  // let { path } = req.body;
 
   if (!testId || !correctAnswer) {
     return res.status(400)
