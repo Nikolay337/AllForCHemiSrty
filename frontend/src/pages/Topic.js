@@ -8,7 +8,7 @@ function Topic() {
 
   const [checked, setChecked] = useState(false);
 
-  const handleChange = (e, data) => setChecked(data.checked);
+  const handleChange = (e,data) => setChecked(data.checked);
 
   return (
     <AuthLayout>

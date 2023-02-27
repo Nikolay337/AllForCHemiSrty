@@ -4,12 +4,12 @@ const router = express.Router();
 const {
     createTopic,
     getTopic,
-    // getTopicName,
+    getTopicName,
     upload
 } = require('../controllers/topics');
 
 router.get('/topics', getTopic);
-// router.get('/topics/:id', getTopicName);
+router.get('/topics/:id', getTopicName);
 router.post('/topics', upload.single('file'), createTopic);
 
 module.exports = router;

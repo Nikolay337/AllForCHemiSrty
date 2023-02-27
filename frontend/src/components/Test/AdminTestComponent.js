@@ -1,14 +1,13 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import { Button, Segment } from 'semantic-ui-react'
 // import TestComponent from './TestComponent';
 
 function AdminTestComponent() {
 
-  const params = useParams()
-  const [test, setTest] = useState([]);
-  const [topicName, setTopicName] = useState("");
+  // const [test, setTest] = useState([]);
+  // const [topicName, setTopicName] = useState("");
   // const [selectedFile, setSelectedFile] = useState(null);
 
 // function addQuestion(event) {
@@ -30,51 +29,50 @@ function AdminTestComponent() {
 //     });
 // }
   
-// useEffect(() => {
-//     axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
-//       .then(response => {
-//         setTopicName(response.data.title);
-//       })
-//       .catch(error => {
-//         console.error('Error fetching topic name', error);
-//       });
-//   }, [params.id]);
-
-function createTest(event) {
-  event.preventDefault();
-
-  const formData = new FormData();
-  formData.append('name', "Алкини");
-  formData.append('topicId', params.id);
-
-  axios
-    .post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, formData)
-    .then((response) => {
-      const newTest = response.data;
-      setTest(newTest);
-    })
-    .catch((error) => {
-      console.error('Error uploading file', error);
-    });
-  console.log(params.id);
-}
-
   // function handleFileSelect(event) {
   //   setSelectedFile(event.target.files.item(0));
   // }
 
+  const params = useParams();
+  const [test, setTest] = useState([]);
+  const [topicName, setTopicName] = useState("");
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
+      .then(response => {
+        setTopicName(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching topic name', error);
+      });
+  }, []);
+
+  function createTest(event) {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('name', topicName[0].title);
+    // formData.append('topicId', params.id);
+
+  axios
+    .post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, { name: topicName[0].title })
+    .then((response) => {
+      setTest = response.data;
+    })
+    .catch((error) => {
+      console.error('Error uploading file', error);
+    });
+    console.log(params.id);
+    console.log(topicName[0].title);
+}
+
   return (
     <div>
       <Segment textAlign='center'>
-        <Button onClick={createTest}>Създай Тест</Button>
         {/* <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file" onChange={handleFileSelect} /> */}
         {/* <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={addQuestion}>Добави въпрос</Button> */}
-        {/* <Button content='А' value={"А"} onClick={(event) => setCorrectAnswer(event.target.value)}/>
-        <Button content='Б' value={"Б"} onClick={(event) => setCorrectAnswer(event.target.value)}/>
-        <Button content='В' value={"В"} onClick={(event) => setCorrectAnswer(event.target.value)}/>
-        <Button content='Г' value={"Г"} onClick={(event) => setCorrectAnswer(event.target.value)}/> */}
       </Segment>
-      <Segment>{topicName}</Segment>
+      <Button onClick={createTest}>Създай тест</Button>
       {/* <Form>
         <Grid centered style={{ marginBottom: '5rem' }}>
         {test.map((question) => (

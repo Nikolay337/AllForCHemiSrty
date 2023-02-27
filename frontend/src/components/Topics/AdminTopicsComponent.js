@@ -47,7 +47,8 @@ function AdminTopicsComponent(props) {
           onChange={(event) => setTitle(event.target.value)} />
         <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
           onChange={handleFileSelect} />
-        <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={createTopic}>Създай</Button>
+        <Button size='big' primary style={{ marginLeft: '2rem' }}
+          onClick={createTopic}>Създай</Button>
       </Segment>
       <Grid centered style={{ margin: '5rem'}}>
         {topics.map((topic) => (

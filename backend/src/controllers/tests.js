@@ -1,10 +1,12 @@
 const { Test } = require('../models');
 
 const createTest = async (req, res) => {
+  console.log(req.body);
+
   const { name } = req.body;
   const { topicId } = req.params;
 
-  if (!topicId) {
+  if (!name || !topicId) {
     return res.status(400).send('Name and topicId are required');
   }
 
@@ -20,20 +22,20 @@ const createTest = async (req, res) => {
   }
 }
 
-// const getTest = async (req, res) => {
-//   const { topicId } = req.body;
+const getTest = async (req, res) => {
+  const { topicId } = req.params;
 
-//   const test = await Test.findAll({
-//     where: { topicId }
-//   });
+  const test = await Test.findAll({
+    where: { topicId }
+  });
 
-//   if (!test) {
-//     return res.status(400)
-//   }
-//   return res.send(test);
-// }
+  if (!test) {
+    return res.status(400)
+  }
+  return res.send(test);
+}
 
 module.exports = {
     createTest,
-    // getTest
+    getTest
 }
