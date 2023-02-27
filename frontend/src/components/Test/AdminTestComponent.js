@@ -46,6 +46,25 @@ function AdminTestComponent() {
     setSelectedFile(event.target.files.item(0));
   }
 
+  function handleAnswerClick(questionId, answer) {
+    setQuestions((prevQuestions) =>
+      prevQuestions.map((question) =>
+        question.id === questionId ? { ...question, selectedAnswer: answer } : question
+      )
+    );
+  }
+  
+  function handleSubmit() {
+    const score = questions.reduce((totalScore, question) => {
+      if (question.correctAnswer === question.selectedAnswer) {
+        return totalScore + 1;
+      } else {
+      return totalScore;
+    }
+    }, 0);
+    alert(`Your score is ${score} out of ${questions.length}`);
+  }
+
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
       .then(response => {
@@ -85,19 +104,24 @@ function AdminTestComponent() {
               onChange={handleFileSelect} />
             <Button primary size='big' style={{ marginLeft: '2rem' }}
               onClick={addQuestion}>Добави въпрос</Button>
-            <Button style={{marginLeft: '1rem'}} onClick={() => setCorrectAnswer("А")}>А</Button>
-            <Button style={{marginLeft: '1rem'}} onClick={() => setCorrectAnswer("Б")}>Б</Button>
-            <Button style={{marginLeft: '1rem'}} onClick={() => setCorrectAnswer("В")}>В</Button>
-            <Button style={{marginLeft: '1rem'}} onClick={() => setCorrectAnswer("Г")}>Г</Button>
+            <Button style={{ marginLeft: '1rem' }}
+              onClick={() => setCorrectAnswer("А")}>А</Button>
+            <Button style={{ marginLeft: '1rem' }}
+              onClick={() => setCorrectAnswer("Б")}>Б</Button>
+            <Button style={{ marginLeft: '1rem' }}
+              onClick={() => setCorrectAnswer("В")}>В</Button>
+            <Button style={{ marginLeft: '1rem' }}
+              onClick={() => setCorrectAnswer("Г")}>Г</Button>
           </Segment>
           <Segment>
           <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>
             <Grid centered style={{ marginBottom: '5rem' }}>
               {questions.map((question) => (
-                <TestComponent key={question.id} question={question} />
+                <TestComponent key={question.id} question={question} onAnswerClick={handleAnswerClick}/>
               ))}
-            </Grid>  
-            <Button secondary size='massive' style={{margin: '5rem'}} floated='right'>Предай</Button>
+            </Grid>
+            <Button secondary size='massive' style={{ margin: '5rem' }} floated='right'
+              onClick={handleSubmit}>Предай</Button>
           </Segment>
         </div>
       :
