@@ -1,7 +1,6 @@
 const { Test } = require('../models');
 
 const createTest = async (req, res) => {
-  console.log(req.body);
 
   const { name } = req.body;
   const { topicId } = req.params;
@@ -32,7 +31,7 @@ const getTest = async (req, res) => {
   if (!test) {
     return res.status(400)
   }
-  return res.send(test);
+  return res.send(test);  
 }
 
 module.exports = {

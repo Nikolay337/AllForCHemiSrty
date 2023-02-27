@@ -16,7 +16,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const createQuestion = async (req, res) => {
-  const { testId } = req.body;
+  
+  const { testId } = req.params;
 
   if (!testId) {
     return res.status(400)
