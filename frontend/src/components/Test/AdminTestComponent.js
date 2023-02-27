@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { Button, Segment, Grid, Form, Input, Header } from 'semantic-ui-react'
+import { Button, Segment, Grid, Input, Header } from 'semantic-ui-react'
 import TestComponent from './TestComponent';
 
 function AdminTestComponent() {
@@ -9,7 +9,7 @@ function AdminTestComponent() {
   const params = useParams();
   const [test, setTest] = useState([]);
   const [topicName, setTopicName] = useState([]);
-  const [question, setQuestion] = useState("");
+  const [questions, setQuestions] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   
   function createTest(event) {
@@ -33,7 +33,7 @@ function AdminTestComponent() {
       .catch(error => {
         console.error('Error fetching topic name', error);
       });
-  }, []);
+  }, [params.id]);
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`)
@@ -42,6 +42,16 @@ function AdminTestComponent() {
       })
       .catch(error => {
         console.error('Error fetching topic name', error);
+      });
+  }, [params.id]);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`)
+      .then(response => {
+        setQuestions(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching topics', error);
       });
   }, [params.id]);
 
@@ -54,7 +64,7 @@ function AdminTestComponent() {
     axios
       .post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, formData)
       .then((response) => {
-        setQuestion(response.data);
+        setQuestions(response.data);
       })
       .catch((error) => {
         console.error('Error uploading file', error);
@@ -75,20 +85,16 @@ function AdminTestComponent() {
           </Segment>
           <Segment>
           <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>
-          <Form>
             <Grid centered style={{ marginBottom: '5rem' }}>
-              {test.map((question) => (
-                <div>
-                  <TestComponent key={question.id} question={question} />
-                </div>
+              {questions.map((question) => (
+                <TestComponent key={question.id} question={question} />
               ))}
             </Grid>  
             <Button style={{margin: '2rem'}} secondary floated='right' size='huge'>Предай</Button>
-          </Form> 
           </Segment>
         </div>
       :
-        <Button size='massive' style={{marginLeft: '50rem', marginTop: '20rem'}} primary onClick={createTest}>Създай тест</Button>
+        <Button size='massive' style={{marginLeft: '60rem', marginTop: '25rem'}} primary onClick={createTest}>Създай тест</Button>
       }
     </div>
   )

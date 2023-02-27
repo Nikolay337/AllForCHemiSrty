@@ -5,7 +5,7 @@ function TestComponent({question}) {
   return (
     <div style={{ margin: '3rem' }}>
       <Grid.Row centered style={{ width: '70rem', height: '100%' }}  columns='1' >
-        <Image style={{ width: '70rem', height: '100%' }} src={question.path} />
+        <Image style={{ width: '70rem', height: '100%' }} src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`} />
       </Grid.Row>
     </div>
   )
