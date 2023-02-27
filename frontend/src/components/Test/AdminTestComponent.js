@@ -12,7 +12,9 @@ function AdminTestComponent() {
   const [questions, setQuestions] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
-  
+  const [showResults, setShowResults] = useState(true);
+  const [score, setScore] = useState(null);
+
   function createTest(event) {
     event.preventDefault();
 
@@ -59,10 +61,11 @@ function AdminTestComponent() {
       if (question.correctAnswer === question.selectedAnswer) {
         return totalScore + 1;
       } else {
-      return totalScore;
-    }
+        return totalScore;
+      }
     }, 0);
-    alert(`Your score is ${score} out of ${questions.length}`);
+    setScore(score);
+    setShowResults(false);
   }
 
   useEffect(() => {
@@ -95,7 +98,7 @@ function AdminTestComponent() {
       });
   }, [params.id]);
   
-  return (
+return (
     <div>
       {test[0] ?
         <div>
@@ -114,7 +117,7 @@ function AdminTestComponent() {
               onClick={() => setCorrectAnswer("Г")}>Г</Button>
           </Segment>
           <Segment>
-          <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>
+            <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>
             <Grid centered style={{ marginBottom: '5rem' }}>
               {questions.map((question) => (
                 <TestComponent key={question.id} question={question} onAnswerClick={handleAnswerClick}/>
@@ -127,6 +130,9 @@ function AdminTestComponent() {
       :
         <Button primary size='massive' style={{ marginLeft: '60rem', marginTop: '23rem' }}
           onClick={createTest}>Създай тест</Button>
+      }
+      {!showResults &&
+        <Header color='purple' size='huge' textAlign='center'>Твоят резултат е {score} от {questions.length}</Header>
       }
     </div>
   )
