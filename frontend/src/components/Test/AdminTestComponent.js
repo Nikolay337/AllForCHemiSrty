@@ -78,8 +78,10 @@ function AdminTestComponent() {
       {test[0] ?
         <div>
           <Segment textAlign='center'>
-            <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file" onChange={handleFileSelect} />
-            <Button size='big' primary style={{ marginLeft: '2rem' }} onClick={addQuestion}>Добави въпрос</Button>
+            <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
+              onChange={handleFileSelect} />
+            <Button primary size='big' style={{ marginLeft: '2rem' }}
+              onClick={addQuestion}>Добави въпрос</Button>
           </Segment>
           <Segment>
           <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>
@@ -88,11 +90,12 @@ function AdminTestComponent() {
                 <TestComponent key={question.id} question={question} />
               ))}
             </Grid>  
-            <Button style={{margin: '2rem'}} secondary floated='right' size='huge'>Предай</Button>
+            <Button secondary size='massive' style={{margin: '5rem'}} floated='right'>Предай</Button>
           </Segment>
         </div>
       :
-        <Button size='massive' style={{marginLeft: '60rem', marginTop: '23rem'}} primary onClick={createTest}>Създай тест</Button>
+        <Button primary size='massive' style={{ marginLeft: '60rem', marginTop: '23rem' }}
+          onClick={createTest}>Създай тест</Button>
       }
     </div>
   )

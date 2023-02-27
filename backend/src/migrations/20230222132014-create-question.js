@@ -12,9 +12,8 @@ module.exports = {
       path: {
         type: Sequelize.STRING
       },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+      correctAnswer: {
+        type: Sequelize.STRING
       },
       testId: {
         type: Sequelize.INTEGER,
@@ -24,6 +23,10 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL'
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
       },
       updatedAt: {
         allowNull: false,
