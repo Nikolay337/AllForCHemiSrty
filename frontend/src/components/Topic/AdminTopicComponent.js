@@ -28,8 +28,7 @@ function AdminTopicComponent() {
     formData.append('type', 'nonhighlighted');
     formData.append('topicId', params.id);
 
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/files`, formData)
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/files`, formData)
       .then((response) => {
         setFiles([...files, response.data]);
       })

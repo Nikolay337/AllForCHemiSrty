@@ -9,20 +9,38 @@ function AdminTestComponent() {
   const params = useParams();
   const [test, setTest] = useState([]);
   const [topicName, setTopicName] = useState([]);
-  const [questions, setQuestions] = useState("");
+  const [questions, setQuestions] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   
   function createTest(event) {
     event.preventDefault();
 
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, { name: topicName[0].title })
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicName[0].title})
       .then((response) => {
         setTest([...test, response.data]);
       })
       .catch((error) => {
+        console.error('Error creating test', error);
+      });
+  }
+
+  function addQuestion(event) {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, formData)
+      .then((response) => {
+        setQuestions([...questions, response.data]);
+      })
+      .catch((error) => {
         console.error('Error uploading file', error);
       });
+  }
+
+  function handleFileSelect(event) {
+    setSelectedFile(event.target.files.item(0));
   }
 
   useEffect(() => {
@@ -41,7 +59,7 @@ function AdminTestComponent() {
         setTest(response.data);
       })
       .catch(error => {
-        console.error('Error fetching topic name', error);
+        console.error('Error fetching test', error);
       });
   }, [params.id]);
 
@@ -51,29 +69,9 @@ function AdminTestComponent() {
         setQuestions(response.data);
       })
       .catch(error => {
-        console.error('Error fetching topics', error);
+        console.error('Error fetching questions', error);
       });
   }, [params.id]);
-
-  function addQuestion(event) {
-    event.preventDefault();
-
-    const formData = new FormData();
-    formData.append('file', selectedFile);
-
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, formData)
-      .then((response) => {
-        setQuestions(response.data);
-      })
-      .catch((error) => {
-        console.error('Error uploading file', error);
-      });
-  }
-
-  function handleFileSelect(event) {
-    setSelectedFile(event.target.files.item(0));
-  }
   
   return (
     <div>
@@ -94,7 +92,7 @@ function AdminTestComponent() {
           </Segment>
         </div>
       :
-        <Button size='massive' style={{marginLeft: '60rem', marginTop: '25rem'}} primary onClick={createTest}>Създай тест</Button>
+        <Button size='massive' style={{marginLeft: '60rem', marginTop: '23rem'}} primary onClick={createTest}>Създай тест</Button>
       }
     </div>
   )
