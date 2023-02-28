@@ -31,19 +31,19 @@ function Register() {
         <Header as='h2' textAlign='center'>
           Регистрация
         </Header>
-      <Form>
-        <Segment size='big'>
+        <Form>
+          <Segment size='big'>
             <Form.Input icon='user' iconPosition='left' placeholder='Име'
               onChange={(event) => setName(event.target.value)} />
             <Form.Input icon='user' iconPosition='left' placeholder='Имейл'
               onChange={(event) => setEmail(event.target.value)} />
             <Form.Input icon='lock' iconPosition='left' placeholder='Парола' type='password'
               onChange={(event) => setPassword(event.target.value)} />
-          <Button type='submit' color='purple' size='big' onClick={createUser}>
-            Регистриране
-          </Button>
-        </Segment>
-      </Form>
+            <Button type='submit' color='purple' size='big' onClick={createUser}>
+              Регистриране
+            </Button>
+          </Segment>
+        </Form>
       </Grid.Column>
     </Grid>
   )

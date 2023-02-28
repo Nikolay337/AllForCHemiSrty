@@ -1,13 +1,14 @@
+import api from "../../api"
 import React, { useState, useEffect } from 'react';
 import { Button, Input, Segment, Grid } from 'semantic-ui-react';
 import TopicsComponent from './TopicsComponent';
-import api from "../../api"
 
 function AdminTopicsComponent(props) {
   
   const [title, setTitle] = useState("");
   const [topics, setTopics] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   useEffect(() => {
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics?area=${props.path}`)
@@ -43,15 +44,17 @@ function AdminTopicsComponent(props) {
 
   return (
     <div>
-      <Segment textAlign='center'>
-        <Input style={{ height: '3.2rem' }} size='big' type="text" placeholder="Заглавие на темата"
-          onChange={(event) => setTitle(event.target.value)} />
-        <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
-          onChange={handleFileSelect} />
-        <Button size='big' primary style={{ marginLeft: '2rem' }}
-          onClick={createTopic}>Създай</Button>
-      </Segment>
-      <Grid centered style={{ margin: '5rem'}}>
+      {user.admin &&
+        <Segment textAlign='center'>
+          <Input style={{ height: '3.2rem' }} size='big' type="text" placeholder="Заглавие на темата"
+            onChange={(event) => setTitle(event.target.value)} />
+          <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
+            onChange={handleFileSelect} />
+          <Button size='big' primary style={{ marginLeft: '2rem' }}
+            onClick={createTopic}>Създай</Button>
+        </Segment>
+      }
+      <Grid centered style={{ margin: '5rem' }}>
         {topics.map((topic) => (
           <TopicsComponent key={topic.id} data={topic} />
         ))}

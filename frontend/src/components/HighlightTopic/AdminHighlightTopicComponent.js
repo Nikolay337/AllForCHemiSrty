@@ -9,6 +9,8 @@ function AdminHighlightTopicComponent() {
   const params = useParams()
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [topicData, setTopicData] = useState([]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   function addFile(event) {
     event.preventDefault();
@@ -41,16 +43,20 @@ function AdminHighlightTopicComponent() {
         alert('Грешка при зареждането на файл', error);
       });
   }, [params.id]);
+
+  useEffect(() => {
+    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
+      .then(response => {
+        setTopicData(response.data);
+      })
+      .catch(error => {
+        alert('Грешка при взимането на името на темата', error);
+      });
+  }, [params.id]);
   
   return (
     <div style={{ textAlign: 'center' }}>
-      {files[0] ?
-        <Grid centered style={{ marginTop: '7rem'}}>
-          {files.map((file) => (
-            <HighlightTopicComponent key={file.id} file={file} />
-          ))}
-        </Grid>
-      :
+      {!user.admin || !files[0] &&
         <Segment>
           <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
             onChange={handleFileSelect} />
@@ -58,6 +64,11 @@ function AdminHighlightTopicComponent() {
             onClick={addFile}>Добави тема</Button>
         </Segment>
       }
+      <Grid centered style={{ marginTop: '7rem'}}>
+        {files.map((file) => (
+          <HighlightTopicComponent key={file.id} file={file} topicData={topicData} />
+        ))}
+      </Grid>
     </div>
   )
 }

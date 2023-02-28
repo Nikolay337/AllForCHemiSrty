@@ -4,7 +4,7 @@ import { Button, Menu, Icon } from 'semantic-ui-react'
 function Navbar() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
-  function removeToken() {
+  function Logout() {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
   }
@@ -23,16 +23,16 @@ function Navbar() {
             Регистрация
           </Button>
         </Menu.Item>
-        :
+      :
         <Menu.Item position='right' style={{fontWeight: 'bold'}}>
           <div style={{fontSize: '2rem'}}>{user.name}</div>
-          <Button color='green' size='massive' style={{marginLeft: '2rem'}} onClick={removeToken}>
+          <Button color='green' size='massive' style={{marginLeft: '1rem'}} onClick={Logout}>
             <Icon name='sign-out' />
           </Button>
         </Menu.Item>
       }
     </Menu>
-  );
-};
+  )
+}
 
 export default Navbar;

@@ -10,6 +10,7 @@ function AdminTopicComponent() {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [topicData, setTopicData] = useState([]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   function addFile(event) {
     event.preventDefault();
@@ -55,20 +56,19 @@ function AdminTopicComponent() {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      {files[0] ?
-        <Grid centered style={{ marginTop: '7rem'}}>
-          {files.map((file) => (
-            <TopicComponent key={file.id} file={file} topicData={topicData} />
-          ))}
-        </Grid>
-      :
+      {!user.admin || !files[0] &&
         <Segment>
           <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
-            onChange={handleFileSelect} />
-          <Button primary size='big' style={{ marginLeft: '2rem' }}
-            onClick={addFile}>Добави тема</Button>
+          onChange={handleFileSelect} />
+        <Button primary size='big' style={{ marginLeft: '2rem' }}
+          onClick={addFile}>Добави тема</Button>
         </Segment>
       }
+      <Grid centered style={{ marginTop: '7rem'}}>
+        {files.map((file) => (
+          <TopicComponent key={file.id} file={file} topicData={topicData} />
+        ))}
+      </Grid>
     </div>
   )
 }

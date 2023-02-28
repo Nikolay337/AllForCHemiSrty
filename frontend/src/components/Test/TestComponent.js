@@ -10,7 +10,7 @@ function TestComponent({ question, onAnswerClick }) {
   };
 
   return (
-      <Form style={{margin: '2rem'}}>
+    <Form style={{margin: '2rem'}}>
       <Grid.Row centered style={{ width: '70rem', height: '85%' }} columns='1' >
         <Image style={{ width: '70rem', height: '85%' }}
           src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
@@ -26,7 +26,7 @@ function TestComponent({ question, onAnswerClick }) {
             onClick={() => handleAnswerClick('Г')}>Г</Button>
         </Segment>
       </Grid.Row>
-      </Form>
+    </Form>
   )
 }
 

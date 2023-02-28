@@ -5,9 +5,8 @@ import AdminHighlightTopicComponent from '../components/HighlightTopic/AdminHigh
 import { Checkbox } from 'semantic-ui-react'
 
 function Topic() {
-
+  
   const [checked, setChecked] = useState(false);
-
   const handleChange = (e,data) => setChecked(data.checked);
 
   return (
