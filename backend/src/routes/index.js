@@ -1,7 +1,8 @@
 const users = require("./users") 
-const topics = require("./topics") 
 const files = require("./files") 
 const tests = require("./tests") 
+const topics = require("./topics") 
+const comments = require("./comments")  
 const questions = require("./questions")  
 
 module.exports = {
@@ -9,5 +10,6 @@ module.exports = {
   users,
   tests,
   topics,
-  questions,
+  comments,
+  questions
 }
