@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import {Button, Grid, Image, Segment} from 'semantic-ui-react'
+import {Button, Grid, Image, Form, Segment} from 'semantic-ui-react'
 
 function TestComponent({ question, onAnswerClick }) {
-  const [selectedAnswer, setSelectedAnswer] = useState(null);  
+  const [selectedAnswer, setSelectedAnswer] = useState();
 
   function handleAnswerClick(answer) {
     setSelectedAnswer(answer);
@@ -10,7 +10,7 @@ function TestComponent({ question, onAnswerClick }) {
   };
 
   return (
-    <div style={{margin: '2rem'}}>
+      <Form style={{margin: '2rem'}}>
       <Grid.Row centered style={{ width: '70rem', height: '85%' }} columns='1' >
         <Image style={{ width: '70rem', height: '85%' }}
           src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
@@ -26,7 +26,7 @@ function TestComponent({ question, onAnswerClick }) {
             onClick={() => handleAnswerClick('Г')}>Г</Button>
         </Segment>
       </Grid.Row>
-    </div>
+      </Form>
   )
 }
 

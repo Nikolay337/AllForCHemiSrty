@@ -9,6 +9,7 @@ function AdminTopicComponent() {
   const params = useParams()
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [topicData, setTopicData] = useState([]);
 
   function addFile(event) {
     event.preventDefault();
@@ -42,12 +43,22 @@ function AdminTopicComponent() {
       });
   }, [params.id]);
 
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
+      .then(response => {
+        setTopicData(response.data);
+      })
+      .catch(error => {
+        alert('Грешка при взимането на името на темата', error);
+      });
+  }, [params.id]);
+
   return (
     <div style={{ textAlign: 'center' }}>
       {files[0] ?
         <Grid centered style={{ marginTop: '7rem'}}>
           {files.map((file) => (
-            <TopicComponent key={file.id} file={file} />
+            <TopicComponent key={file.id} file={file} topicData={topicData} />
           ))}
         </Grid>
       :

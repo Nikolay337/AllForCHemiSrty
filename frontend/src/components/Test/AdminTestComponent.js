@@ -8,7 +8,7 @@ function AdminTestComponent() {
 
   const params = useParams();
   const [test, setTest] = useState([]);
-  const [topicName, setTopicName] = useState([]);
+  const [topicData, setTopicData] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -18,7 +18,7 @@ function AdminTestComponent() {
   function createTest(event) {
     event.preventDefault();
 
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicName[0].title})
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicData[0].title})
       .then((response) => {
         setTest([...test, response.data]);
         alert("Успешно създадохте тест");
@@ -68,12 +68,14 @@ function AdminTestComponent() {
     }, 0);
     setScore(score);
     setShowResults(false);
+    alert("Успешно предадохте теста");
+    setQuestions(questions.map(question => ({ ...question, selectedAnswer: null })));
   }
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
       .then(response => {
-        setTopicName(response.data);
+        setTopicData(response.data);
       })
       .catch(error => {
         alert('Грешка при взимането на името на темата', error);
@@ -122,9 +124,10 @@ return (
             <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>
             <Grid centered style={{ marginBottom: '5rem' }}>
               {questions.map((question) => (
-                <TestComponent key={question.id} question={question} onAnswerClick={handleAnswerClick}/>
+                <TestComponent key={question.id} question={question} onAnswerClick={handleAnswerClick} />
               ))}
-            </Grid>
+          </Grid>
+          <Button secondary size='massive' style={{ margin: '5rem' }} floated='left' href={`/${topicData[0].area}/${params.id}`}>Назад</Button>
             <Button secondary size='massive' style={{ margin: '5rem' }} floated='right'
               onClick={handleSubmit}>Предай</Button>
           </Segment>
