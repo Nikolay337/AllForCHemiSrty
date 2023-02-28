@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Button, Input, Segment, Grid } from 'semantic-ui-react';
 import TopicsComponent from './TopicsComponent';
+import api from "../../api"
 
 function AdminTopicsComponent(props) {
   
@@ -10,7 +10,7 @@ function AdminTopicsComponent(props) {
   const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics?area=${props.path}`)
+    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics?area=${props.path}`)
       .then(response => {
         setTopics(response.data);
       })
@@ -27,7 +27,7 @@ function AdminTopicsComponent(props) {
     formData.append('file', selectedFile);
     formData.append('area', props.path);
 
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/topics`, formData)
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics`, formData)
       .then(response => {
         setTopics([...topics, response.data]);
         alert("Успешнно създадохте тема");

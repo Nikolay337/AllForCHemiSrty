@@ -17,7 +17,8 @@ function Register() {
       password: password
     })
       .then((response) => {
-        console.log(response.data);
+        alert(response.data.message);
+        window.location.href = '/login';
       })
       .catch((error) => {
         console.error(error);

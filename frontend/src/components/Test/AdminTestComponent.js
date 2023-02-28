@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from "../../api"
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { Button, Segment, Grid, Input, Header } from 'semantic-ui-react'
@@ -18,7 +18,7 @@ function AdminTestComponent() {
   function createTest(event) {
     event.preventDefault();
 
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicData[0].title})
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicData[0].title})
       .then((response) => {
         setTest([...test, response.data]);
         alert("Успешно създадохте тест");
@@ -35,7 +35,7 @@ function AdminTestComponent() {
     formData.append('correctAnswer', correctAnswer);
     formData.append('file', selectedFile);
 
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, formData)
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, formData)
       .then((response) => {
         setQuestions([...questions, response.data]);
         setCorrectAnswer("");
@@ -73,7 +73,7 @@ function AdminTestComponent() {
   }
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
+    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
       .then(response => {
         setTopicData(response.data);
       })
@@ -83,7 +83,7 @@ function AdminTestComponent() {
   }, [params.id]);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`)
+    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`)
       .then(response => {
         setTest(response.data);
       })
@@ -93,7 +93,7 @@ function AdminTestComponent() {
   }, [params.id]);
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`)
+    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`)
       .then(response => {
         setQuestions(response.data);
       })

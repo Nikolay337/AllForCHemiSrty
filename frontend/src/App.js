@@ -12,8 +12,8 @@ import 'semantic-ui-css/semantic.min.css'
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/organic-topics">
         <Route index element={<Organic />} />

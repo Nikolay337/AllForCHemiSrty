@@ -1,62 +1,59 @@
 const { User } = require('../models');
-
-const getUser = async (req, res) => {
-  const { name } = req.body;
-
-  if (!name) {
-    return res.status(400).send('Missing email or password');
-  }
-
-  const user = await User.findOne({
-    where: { name }
-  });
-
-  if (!user) {
-    return res.status(401).send('Invalid login credentials');
-  }
-
-  return res.send(name)
-};
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email, password });
+    const user = await User.findOne({
+      where: {email: email }
+    });
+    console.log(user);
 
     if (!user) {
       return res.status(401).json({ message: 'Invalid login credentials' });
     }
 
-    res.send({email, password});
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) {
+      return res.status(401).json({ message: 'Invalid login credentials' });
+    }
+    console.log(process.env.JWT_SECRET);
+    const token = jwt.sign({ name: user.name, id: user.id }, process.env.JWT_SECRET, { expiresIn: '5h' });
+
+    res.status(200).json({ token });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
-}
+};
 
 const createUser = async (req, res) => {
   const { name, email, password } = req.body;
 
   if (!name || !email || !password) {
-    return res.status(400)
+    return res.status(400).json({ message: 'Missing input data' });
   }
 
   try {
-    let newUser = await User.create({
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await User.create({
       name,
       email,
-      password
+      password: hashedPassword
     });
 
-    return res.send(newUser);
+    return res.status(201).json({message: "User registration successful"});
   } catch (err) {
-    return res.status(500)
+    console.error(err);
+    return res.status(500).json({ message: 'Server error' });
   }
-}
+};
 
 module.exports = {
   createUser,
-  login,
-  getUser
-}
+  login
+};

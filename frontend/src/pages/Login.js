@@ -1,4 +1,5 @@
 import axios from 'axios'
+import jwtDecode from 'jwt-decode'
 import React, { useState } from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
@@ -18,9 +19,10 @@ function getUser(event) {
       })
       .then((response) => {
         const token = response.data.token;
+        const tokenDecoded = jwtDecode(response.data.token);
         localStorage.setItem('token', token);
-        console.log(response.data.user);
-        setError('');
+        localStorage.setItem('user', JSON.stringify(tokenDecoded));
+        window.location.href = '/home';
       })
       .catch((error) => {
         console.error(error);

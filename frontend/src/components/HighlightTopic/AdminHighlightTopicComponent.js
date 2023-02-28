@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from "../../api"
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom";
 import { Input, Button, Grid, Segment } from 'semantic-ui-react'
@@ -18,7 +18,7 @@ function AdminHighlightTopicComponent() {
     formData.append('type', 'highlighted');
     formData.append('topicId', params.id);
 
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/files`, formData)
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/files`, formData)
       .then((response) => {
         setFiles([...files, response.data]);
         alert("Успешно добавихте файл");
@@ -33,7 +33,7 @@ function AdminHighlightTopicComponent() {
   }
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/files?type=${"highlighted"}`)
+    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/files?type=${"highlighted"}`)
       .then(response => {
         setFiles(response.data);
       })
