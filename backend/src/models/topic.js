@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Topic.hasMany(models.File);
       Topic.hasOne(models.Test);
+      Topic.hasMany(models.Comment);
     }
   }
   Topic.init({
