@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from "../api"
 import React, { useState } from 'react'
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 
@@ -11,7 +11,7 @@ function Register() {
   function createUser(event) {
     event.preventDefault();
 
-    axios.post(`${process.env.REACT_APP_BACKEND_URL}/users`, {
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/register`, {
       name: name,
       email: email,
       password: password

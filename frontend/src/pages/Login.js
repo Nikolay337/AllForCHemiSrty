@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from "../api"
 import jwtDecode from 'jwt-decode'
 import React, { useState } from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
@@ -9,11 +9,10 @@ function Login() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-function getUser(event) {
+function Login(event) {
     event.preventDefault();
 
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
+      api.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
         email: email,
         password: password,
       })
@@ -43,7 +42,7 @@ function getUser(event) {
             <Form.Input icon='lock' iconPosition='left' placeholder='Парола' type='password'
               onChange={(e) => setPassword(e.target.value)} />
             {error && <Message negative>{error}</Message>}
-            <Button type='submit' color='purple' size='big' onClick={getUser}>
+            <Button type='submit' color='purple' size='big' onClick={Login}>
               Влизане
             </Button>
           </Segment>

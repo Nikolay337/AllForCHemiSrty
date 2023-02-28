@@ -7,10 +7,16 @@ const authMiddleware = (req, res, next) => {
     return next();
   }
 
-  const token = req.headers.authorization.split(' ')[1];
+  const authHeader = req.headers.authorization;
 
-  if (!token) {
-    return res.status(401).json({ message: 'No token provided' });
+  if (!authHeader) {
+    return res.status(401).json({ message: 'Authorization header missing' });
+  }
+
+  const [bearer, token] = authHeader.split(' ');
+
+  if (bearer !== 'Bearer' || !token) {
+    return res.status(401).json({ message: 'Invalid token format' });
   }
 
   try {
