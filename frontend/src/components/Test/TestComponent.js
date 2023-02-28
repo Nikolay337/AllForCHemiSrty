@@ -10,9 +10,9 @@ function TestComponent({ question, onAnswerClick }) {
   };
 
   return (
-    <div style={{ margin: '5rem' }}>
-      <Grid.Row centered style={{ width: '90rem', height: '100%' }} columns='1' >
-        <Image style={{ width: '90rem', height: '100%' }}
+    <div style={{margin: '2rem'}}>
+      <Grid.Row centered style={{ width: '70rem', height: '85%' }} columns='1' >
+        <Image style={{ width: '70rem', height: '85%' }}
           src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
         />
         <Segment>

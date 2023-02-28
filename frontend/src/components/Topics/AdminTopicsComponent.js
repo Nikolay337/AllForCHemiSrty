@@ -15,7 +15,7 @@ function AdminTopicsComponent(props) {
         setTopics(response.data);
       })
       .catch(error => {
-        console.error('Error fetching topics', error);
+        alert('Грешка при зареждането на тема', error);
       });
   }, [props.path]);
 
@@ -30,9 +30,10 @@ function AdminTopicsComponent(props) {
     axios.post(`${process.env.REACT_APP_BACKEND_URL}/topics`, formData)
       .then(response => {
         setTopics([...topics, response.data]);
+        alert("Успешнно създадохте тема");
       })
       .catch(error => {
-        console.error('Error creating topic', error);
+        alert('Грешка при създаването на тема', error);
       });
   }
 

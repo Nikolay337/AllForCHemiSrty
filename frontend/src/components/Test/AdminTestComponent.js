@@ -21,9 +21,10 @@ function AdminTestComponent() {
     axios.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicName[0].title})
       .then((response) => {
         setTest([...test, response.data]);
+        alert("Успешно създадохте тест");
       })
       .catch((error) => {
-        console.error('Error creating test', error);
+        alert('Грешка при създаването на тест', error);
       });
   }
 
@@ -38,9 +39,10 @@ function AdminTestComponent() {
       .then((response) => {
         setQuestions([...questions, response.data]);
         setCorrectAnswer("");
+        alert("Успешно добавихте въпрос");
       })
       .catch((error) => {
-        console.error('Error uploading file', error);
+        alert('Грешка при добавянето на въпрос', error);
       });
   }
 
@@ -74,7 +76,7 @@ function AdminTestComponent() {
         setTopicName(response.data);
       })
       .catch(error => {
-        console.error('Error fetching topic name', error);
+        alert('Грешка при взимането на името на темата', error);
       });
   }, [params.id]);
 
@@ -84,7 +86,7 @@ function AdminTestComponent() {
         setTest(response.data);
       })
       .catch(error => {
-        console.error('Error fetching test', error);
+        alert('Грешка при зареждането на теста', error);
       });
   }, [params.id]);
 
@@ -94,7 +96,7 @@ function AdminTestComponent() {
         setQuestions(response.data);
       })
       .catch(error => {
-        console.error('Error fetching questions', error);
+        alert('Грешка при зареждането на въпросите', error);
       });
   }, [params.id]);
   

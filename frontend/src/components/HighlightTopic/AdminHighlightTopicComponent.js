@@ -21,9 +21,10 @@ function AdminHighlightTopicComponent() {
     axios.post(`${process.env.REACT_APP_BACKEND_URL}/files`, formData)
       .then((response) => {
         setFiles([...files, response.data]);
+        alert("Успешно добавихте файл");
       })
       .catch((error) => {
-        console.error('Error uploading file', error);
+        alert('Грешка при добавянето на файл', error);
       });
   }
 
@@ -37,7 +38,7 @@ function AdminHighlightTopicComponent() {
         setFiles(response.data);
       })
       .catch(error => {
-        console.error('Error fetching topics', error);
+        alert('Грешка при зареждането на файл', error);
       });
   }, [params.id]);
   
