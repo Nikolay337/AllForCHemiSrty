@@ -104,24 +104,12 @@ function AdminTestComponent() {
   
 return (
     <div>
-      {test[0] ?
+      {user.admin ?
         <div>
-          {user.admin &&
-            <Segment textAlign='center'>
-              <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
-                onChange={handleFileSelect} />
-              <Button primary size='big' style={{ marginLeft: '2rem' }}
-                onClick={addQuestion}>Добави въпрос</Button>
-              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'А' ? 'purple' : 'white' }}
-                onClick={() => setCorrectAnswer('А')}>А</Button>
-              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'Б' ? 'purple' : 'white' }}
-                onClick={() => setCorrectAnswer('Б')}>Б</Button>
-              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'В' ? 'purple' : 'white' }}
-                onClick={() => setCorrectAnswer('В')}>В</Button>
-              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'Г' ? 'purple' : 'white' }}
-                onClick={() => setCorrectAnswer('Г')}>Г</Button>
-            </Segment>
-          } 
+        {test[0] &&
+          <Button primary size='massive' style={{ marginLeft: '60rem', marginTop: '23rem' }}
+            onClick={createTest}>Създай тест</Button>
+        }
           <Segment>
             <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>
             <Grid centered style={{ marginBottom: '5rem' }}>
@@ -136,8 +124,20 @@ return (
           </Segment>
         </div>
       :
-        <Button primary size='massive' style={{ marginLeft: '60rem', marginTop: '23rem' }}
-          onClick={createTest}>Създай тест</Button>
+        <Segment textAlign='center'>
+          <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
+            onChange={handleFileSelect} />
+          <Button primary size='big' style={{ marginLeft: '2rem' }}
+            onClick={addQuestion}>Добави въпрос</Button>
+          <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'А' ? 'purple' : 'white' }}
+            onClick={() => setCorrectAnswer('А')}>А</Button>
+          <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'Б' ? 'purple' : 'white' }}
+            onClick={() => setCorrectAnswer('Б')}>Б</Button>
+          <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'В' ? 'purple' : 'white' }}
+            onClick={() => setCorrectAnswer('В')}>В</Button>
+          <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'Г' ? 'purple' : 'white' }}
+            onClick={() => setCorrectAnswer('Г')}>Г</Button>
+        </Segment>
       }
       {!showResults &&
         <Header color='purple' size='huge' textAlign='center'>Твоят резултат е {score} от {questions.length}</Header>

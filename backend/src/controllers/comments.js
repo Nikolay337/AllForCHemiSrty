@@ -4,8 +4,8 @@ const createComment = async (req, res) => {
   const { text, name, userId } = req.body;
   const { topicId } = req.params;
 
-  if (!text || !name) {
-    return res.status(400).json({ error: 'Missing text or name' });
+  if (!text || !name || !userId) {
+    return res.status(400).json({ error: 'Missing text, name, or userId' });
   }
 
   try {
@@ -23,10 +23,10 @@ const createComment = async (req, res) => {
 }
 
 const getComment = async (req, res) => {
-  const { topicId, userId } = req.params;
+  const { topicId } = req.params;
 
   const comment = await Comment.findAll({
-    where: { topicId, userId }
+    where: { topicId }
   });
 
   if (!comment) {

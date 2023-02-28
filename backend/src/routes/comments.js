@@ -7,6 +7,6 @@ const {
 } = require('../controllers/comments');
 
 router.get('/topics/:topicId/comments', getComment);
-router.post('/comments', createComment);
+router.post('/topics/:topicId/comments', createComment);
 
 module.exports = router;

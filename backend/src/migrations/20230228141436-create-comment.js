@@ -12,7 +12,7 @@ module.exports = {
       text: {
         type: Sequelize.STRING
       },
-      Name: {
+      name: {
         type: Sequelize.STRING
       },
       topicId: {
