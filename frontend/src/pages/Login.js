@@ -14,7 +14,7 @@ function Login(event) {
 
       api.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
         email: email,
-        password: password,
+        password: password
       })
       .then((response) => {
         const token = response.data.token;

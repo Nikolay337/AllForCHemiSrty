@@ -3,7 +3,7 @@ import React from 'react'
 function ErrorPage() {
 
   setTimeout(() => {
-    window.location.href = '/';
+    window.location.href = '/home';
   }, 2000);
 
   return (

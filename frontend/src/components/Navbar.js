@@ -6,6 +6,7 @@ function Navbar() {
 
   function removeToken() {
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
   }
 
   return (
@@ -23,13 +24,13 @@ function Navbar() {
           </Button>
         </Menu.Item>
         :
-        <Menu.Item position='right' style={{ fontSize: '2rem', fontWeight: 'bold' }}>
-          {user.name}
-          <Button onClick={removeToken}>
+        <Menu.Item position='right' style={{fontWeight: 'bold'}}>
+          <div style={{fontSize: '2rem'}}>{user.name}</div>
+          <Button color='green' size='massive' style={{marginLeft: '2rem'}} onClick={removeToken}>
             <Icon name='sign-out' />
           </Button>
         </Menu.Item>
-    }
+      }
     </Menu>
   );
 };

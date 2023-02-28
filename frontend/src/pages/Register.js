@@ -18,7 +18,7 @@ function Register() {
     })
       .then((response) => {
         alert(response.data.message);
-        window.location.href = '/login';
+        window.location.href = '/';
       })
       .catch((error) => {
         console.error(error);
