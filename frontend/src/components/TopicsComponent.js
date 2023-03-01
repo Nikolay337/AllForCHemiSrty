@@ -1,9 +1,8 @@
-import api from "../../api"
+import api from "../api"
 import React, { useState, useEffect } from 'react';
-import { Button, Input, Segment, Grid } from 'semantic-ui-react';
-import TopicsComponent from './TopicsComponent';
+import { Button, Input, Segment, Grid, Card, Image } from 'semantic-ui-react';
 
-function AdminTopicsComponent(props) {
+function TopicsComponent(props) {
   
   const [title, setTitle] = useState("");
   const [topics, setTopics] = useState([]);
@@ -56,11 +55,20 @@ function AdminTopicsComponent(props) {
       }
       <Grid centered style={{ margin: '5rem' }}>
         {topics.map((topic) => (
-          <TopicsComponent key={topic.id} data={topic} />
+          <Card href={`${topic.area}/${topic.id}`} style={{ width: '17rem', height: '20rem', margin: '2rem' }}>
+            <Card.Content>
+              <Card.Header style={{textAlign: 'center'}}>
+                {topic.title}
+              </Card.Header>
+            </Card.Content>
+            <Card.Content>
+              <Image style={{ height: '10rem' }} src={`${process.env.REACT_APP_BACKEND_URL}/${topic.path}`} />
+            </Card.Content>
+          </Card>
         ))}
       </Grid>
     </div>
   );
 }
 
-export default AdminTopicsComponent;
+export default TopicsComponent;

@@ -1,11 +1,11 @@
 import React from 'react'
 import AuthLayout from './layout/AuthLayout'
-import AdminTopicsComponent from '../components/Topics/AdminTopicsComponent'
+import TopicsComponent from '../components/TopicsComponent'
 
 function Organic() {
   return (
     <AuthLayout>
-      <AdminTopicsComponent path="organic-topics"/>
+      <TopicsComponent path="organic-topics"/>
     </AuthLayout>
   )
 }

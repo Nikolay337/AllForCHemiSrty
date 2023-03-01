@@ -1,12 +1,12 @@
 import React from 'react'
 import AuthLayout from './layout/AuthLayout'
-import AdminTopicsComponent from '../components/Topics/AdminTopicsComponent'
+import TopicsComponent from '../components/TopicsComponent'
 
 function Inorganic() {
 
   return (
     <AuthLayout>
-      <AdminTopicsComponent path="inorganic-topics"/>
+      <TopicsComponent path="inorganic-topics"/>
     </AuthLayout>
   )
 }

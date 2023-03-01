@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import AuthLayout from './layout/AuthLayout'
-import AdminTopicComponent from '../components/Topic/AdminTopicComponent'
-import AdminHighlightTopicComponent from '../components/HighlightTopic/AdminHighlightTopicComponent'
+import TopicComponent from '../components/TopicComponent'
+import HighlightTopicComponent from '../components/HighlightTopicComponent'
 import { Checkbox } from 'semantic-ui-react'
 import CommentsComponent from '../components/CommentsComponent'
 
@@ -13,7 +13,7 @@ function Topic() {
   return (
     <AuthLayout>
       <Checkbox toggle checked={checked} onChange={handleChange} />
-      {checked ? <AdminHighlightTopicComponent /> : <AdminTopicComponent />}
+      {checked ? <HighlightTopicComponent /> : <TopicComponent />}
       <CommentsComponent />
     </AuthLayout>
   )

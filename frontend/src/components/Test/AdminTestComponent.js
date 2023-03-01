@@ -78,7 +78,7 @@ function AdminTestComponent() {
         setTopicData(response.data);
       })
       .catch(error => {
-        alert('Грешка при взимането на името на темата', error);
+        alert('Грешка при взимането на данните на темата', error);
       });
   }, [params.id]);
 
