@@ -16,7 +16,6 @@ function CommentsComponent() {
     const formData = new FormData();
     formData.append('name', user.name);
     formData.append('text', newComment);
-    formData.append('userId', user.id);
 
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/comments`, formData)
       .then((response) => {

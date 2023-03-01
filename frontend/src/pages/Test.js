@@ -1,11 +1,11 @@
 import React from 'react'
-import AdminTestComponent from '../components/Test/AdminTestComponent'
+import TestComponent from '../components/TestComponent'
 import AuthLayout from './layout/AuthLayout'
 
 function Test() {
   return (
     <AuthLayout>
-      <AdminTestComponent />
+      <TestComponent />
     </AuthLayout>
   )
 }
