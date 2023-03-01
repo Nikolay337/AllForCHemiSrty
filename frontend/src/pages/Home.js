@@ -1,11 +1,11 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Card, Image } from 'semantic-ui-react'
 import AuthLayout from './layout/AuthLayout'
 import organicImage from '../assets/images/image-1.png'
 import inorganicImage from '../assets/images/image-2.png'
 
 function Home() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   function handleInorganic() {
     if (user) {

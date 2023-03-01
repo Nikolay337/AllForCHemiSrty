@@ -7,8 +7,8 @@ function CommentsComponent() {
 
   const params = useParams();
   const [comments, setComments] = useState([]);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [newComment, setNewComment] = useState("");
+  const user = JSON.parse(localStorage.getItem("user"));
 
   function addComment(event) {
     event.preventDefault();
@@ -39,7 +39,7 @@ function CommentsComponent() {
   }, [params.id]);
 
   return (
-    <Comment.Group style={{justifyContent: 'center', display: 'flex'}}>
+    <Comment.Group>
       <Form>
         <Form.TextArea value={newComment} onChange={(event) => setNewComment(event.target.value)} />
         <Button primary content='Add Comment' labelPosition='left' icon='edit' onClick={addComment} />

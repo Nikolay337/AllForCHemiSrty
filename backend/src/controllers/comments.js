@@ -1,10 +1,10 @@
 const { Comment } = require('../models')
 
 const createComment = async (req, res) => {
-  const { text, name, userId } = req.body;
+  const { text, name } = req.body;
   const { topicId } = req.params;
 
-  if (!text || !name || !userId) {
+  if (!text || !name) {
     return res.status(400).json({ error: 'Missing text, name, or userId' });
   }
 
@@ -12,8 +12,7 @@ const createComment = async (req, res) => {
     const newComment = await Comment.create({
       text,
       name,
-      topicId,
-      userId
+      topicId
     });
     
     return res.send(newComment);

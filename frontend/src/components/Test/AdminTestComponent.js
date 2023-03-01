@@ -13,8 +13,8 @@ function AdminTestComponent() {
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [showResults, setShowResults] = useState(true);
+  const user = JSON.parse(localStorage.getItem("user"));
   const [score, setScore] = useState(null);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
   function createTest(event) {
     event.preventDefault();
@@ -104,25 +104,9 @@ function AdminTestComponent() {
   
 return (
     <div>
-      {!user.admin ?
-        <div>
-        {!test[0] &&
-          <Button primary size='massive' style={{ marginLeft: '60rem', marginTop: '23rem' }}
-            onClick={createTest}>Създай тест</Button>
-        }
-          <Segment>
-            <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>
-            <Grid centered style={{ marginBottom: '5rem' }}>
-              {questions.map((question) => (
-                <TestComponent key={question.id} question={question} onAnswerClick={handleAnswerClick} />
-              ))}
-            </Grid>
-            {/* <Button secondary size='massive' style={{ margin: '5rem' }} floated='left'
-              href={`/${topicData[0].area}/${params.id}`}>Назад</Button> */}
-            <Button secondary size='massive' style={{ margin: '5rem' }} floated='right'
-              onClick={handleSubmit}>Предай</Button>
-          </Segment>
-        </div>
+      {!test[0] && user.admin ?
+        <Button primary size='massive' style={{ marginLeft: '60rem', marginTop: '23rem' }}
+          onClick={createTest}>Създай тест</Button>
       :
         <Segment textAlign='center'>
           <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
@@ -139,6 +123,18 @@ return (
             onClick={() => setCorrectAnswer('Г')}>Г</Button>
         </Segment>
       }
+      <Segment>
+        <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>
+          <Grid centered style={{ marginBottom: '5rem' }}>
+            {questions.map((question) => (
+              <TestComponent key={question.id} question={question} onAnswerClick={handleAnswerClick} />
+            ))}
+          </Grid>
+            {/* <Button secondary size='massive' style={{ margin: '5rem' }} floated='left'
+              href={`/${topicData[0].area}/${params.id}`}>Назад</Button> */}
+        <Button secondary size='massive' style={{ margin: '5rem' }} floated='right'
+          onClick={handleSubmit}>Предай</Button>
+      </Segment>
       {!showResults &&
         <Header color='purple' size='huge' textAlign='center'>Твоят резултат е {score} от {questions.length}</Header>
       }

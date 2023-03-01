@@ -8,7 +8,7 @@ function AdminTopicsComponent(props) {
   const [title, setTitle] = useState("");
   const [topics, setTopics] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics?area=${props.path}`)

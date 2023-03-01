@@ -10,8 +10,8 @@ function AdminHighlightTopicComponent() {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [topicData, setTopicData] = useState([]);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
-
+  const user = JSON.parse(localStorage.getItem("user"));
+  
   function addFile(event) {
     event.preventDefault();
 
@@ -56,14 +56,14 @@ function AdminHighlightTopicComponent() {
   
   return (
     <div style={{ textAlign: 'center' }}>
-      {!user.admin || !files[0] &&
+      {!user.admin || (!files[0] &&
         <Segment>
           <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
             onChange={handleFileSelect} />
           <Button primary size='big' style={{ marginLeft: '2rem' }}
             onClick={addFile}>Добави тема</Button>
         </Segment>
-      }
+      )}
       <Grid centered style={{ marginTop: '7rem'}}>
         {files.map((file) => (
           <HighlightTopicComponent key={file.id} file={file} topicData={topicData} />

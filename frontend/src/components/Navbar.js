@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Button, Menu, Icon } from 'semantic-ui-react'
 
 function Navbar() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const user = JSON.parse(localStorage.getItem("user"));
 
   function Logout() {
     localStorage.removeItem('user');

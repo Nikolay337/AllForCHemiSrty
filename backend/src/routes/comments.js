@@ -6,7 +6,7 @@ const {
     getComment
 } = require('../controllers/comments');
 
-router.get('/topics/:topicId/comments', getComment);
 router.post('/topics/:topicId/comments', createComment);
+router.get('/topics/:topicId/comments', getComment);
 
 module.exports = router;
