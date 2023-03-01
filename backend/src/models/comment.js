@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Comment.init({
     text: DataTypes.STRING,
-    name: DataTypes.STRING
+    name: DataTypes.STRING,
+    topicId: {
+      type: DataTypes.INTEGER
+    }
   }, {
     sequelize,
     modelName: 'Comment',

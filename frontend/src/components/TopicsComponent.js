@@ -55,7 +55,7 @@ function TopicsComponent(props) {
       }
       <Grid centered style={{ margin: '5rem' }}>
         {topics.map((topic) => (
-          <Card href={`${topic.area}/${topic.id}`} style={{ width: '17rem', height: '20rem', margin: '2rem' }}>
+          <Card key={topic.id} href={`${topic.area}/${topic.id}`} style={{ width: '17rem', height: '20rem', margin: '2rem' }}>
             <Card.Content>
               <Card.Header style={{textAlign: 'center'}}>
                 {topic.title}

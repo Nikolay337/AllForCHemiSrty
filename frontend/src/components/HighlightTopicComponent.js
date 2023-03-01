@@ -66,7 +66,7 @@ function HighlightTopicComponent() {
       )}
       <Grid centered style={{ marginTop: '7rem'}}>
         {files.map((file) => (
-          <div>
+          <div key={file.id}>
             <Segment>
               <Iframe src={`${process.env.REACT_APP_BACKEND_URL}/${file.path}`} width="800" height='1000'/>
             </Segment>
