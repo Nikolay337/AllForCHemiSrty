@@ -16,7 +16,7 @@ function TestComponent({ question, onAnswerClick }) {
           src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
         />
         <Segment>
-          <Button size='big' style={{ backgroundColor: selectedAnswer === 'А' ? 'purple' : 'white' }}
+          <Button size='big' style={{ marginLeft: '10rem', backgroundColor: selectedAnswer === 'А' ? 'purple' : 'white' }}
             onClick={() => handleAnswerClick('А')}>А</Button>
           <Button size='big' style={{ marginLeft: '10rem', backgroundColor: selectedAnswer === 'Б' ? 'purple' : 'white' }}
             onClick={() => handleAnswerClick('Б')}>Б</Button>

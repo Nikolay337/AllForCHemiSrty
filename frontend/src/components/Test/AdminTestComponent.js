@@ -104,9 +104,9 @@ function AdminTestComponent() {
   
 return (
     <div>
-      {user.admin ?
+      {!user.admin ?
         <div>
-        {test[0] &&
+        {!test[0] &&
           <Button primary size='massive' style={{ marginLeft: '60rem', marginTop: '23rem' }}
             onClick={createTest}>Създай тест</Button>
         }
@@ -117,8 +117,8 @@ return (
                 <TestComponent key={question.id} question={question} onAnswerClick={handleAnswerClick} />
               ))}
             </Grid>
-            <Button secondary size='massive' style={{ margin: '5rem' }} floated='left'
-              href={`/${topicData[0].area}/${params.id}`}>Назад</Button>
+            {/* <Button secondary size='massive' style={{ margin: '5rem' }} floated='left'
+              href={`/${topicData[0].area}/${params.id}`}>Назад</Button> */}
             <Button secondary size='massive' style={{ margin: '5rem' }} floated='right'
               onClick={handleSubmit}>Предай</Button>
           </Segment>

@@ -8,18 +8,20 @@ function CommentsComponent() {
   const params = useParams();
   const [comments, setComments] = useState([]);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [newComment, setNewComment] = useState("");
 
   function addComment(event) {
     event.preventDefault();
 
     const formData = new FormData();
     formData.append('name', user.name);
-    formData.append('text', "xcvxcvjxclkvjxcv");
+    formData.append('text', newComment);
     formData.append('userId', user.id);
 
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/comments`, formData)
       .then((response) => {
         setComments([...comments, response.data]);
+        setNewComment("");
       })
       .catch((error) => {
         alert('Грешка при добавянето на коментар', error);
@@ -37,18 +39,19 @@ function CommentsComponent() {
   }, [params.id]);
 
   return (
-    <Comment.Group>
+    <Comment.Group style={{justifyContent: 'center', display: 'flex'}}>
       <Form>
-        <Form.TextArea />
-        <Button content='Add Comment' labelPosition='left' icon='edit' primary onClick={addComment} />
+        <Form.TextArea value={newComment} onChange={(event) => setNewComment(event.target.value)} />
+        <Button primary content='Add Comment' labelPosition='left' icon='edit' onClick={addComment} />
       </Form>
-      <Comment>
-        <Comment.Content>
-          <Comment.Author></Comment.Author>
-          <Comment.Text>
-          </Comment.Text>
-        </Comment.Content>
-      </Comment>
+      {comments.map((comment) => (
+        <Comment key={comment.id}>
+          <Comment.Content>
+            <Comment.Author>{comment.name}</Comment.Author>
+            <Comment.Text>{comment.text}</Comment.Text>
+          </Comment.Content>
+        </Comment>
+      ))}
     </Comment.Group>
   )
 }
