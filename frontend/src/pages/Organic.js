@@ -5,7 +5,7 @@ import TopicsComponent from '../components/TopicsComponent'
 function Organic() {
   return (
     <AuthLayout>
-      <TopicsComponent path="organic-topics"/>
+      <TopicsComponent path="organic-topics" />
     </AuthLayout>
   )
 }

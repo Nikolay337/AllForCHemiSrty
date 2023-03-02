@@ -9,16 +9,6 @@ function TopicsComponent(props) {
   const [selectedFile, setSelectedFile] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
 
-  useEffect(() => {
-    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics?area=${props.path}`)
-      .then(response => {
-        setTopics(response.data);
-      })
-      .catch(error => {
-        alert('Грешка при зареждането на тема', error);
-      });
-  }, [props.path]);
-
   function createTopic(event) {
     event.preventDefault();
 
@@ -40,6 +30,16 @@ function TopicsComponent(props) {
   function handleFileSelect(event) {
     setSelectedFile(event.target.files.item(0));
   }
+
+  useEffect(() => {
+    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics?area=${props.path}`)
+      .then(response => {
+        setTopics(response.data);
+      })
+      .catch(error => {
+        alert('Грешка при зареждането на тема', error);
+      });
+  }, [props.path]);
 
   return (
     <div>

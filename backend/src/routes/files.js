@@ -8,6 +8,6 @@ const {
 } = require('../controllers/files');
 
 router.get('/topics/:topicId/files', getFile);
-router.post('/files', upload.single('file'), createFile);
+router.post('/topics/:topicId/files', upload.single('file'), createFile);
 
 module.exports = router;

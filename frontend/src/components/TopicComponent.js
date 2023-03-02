@@ -3,13 +3,13 @@ import React, { useState, useEffect } from 'react'
 import Iframe from 'react-iframe'
 import { useParams } from "react-router-dom";
 import { Input, Button, Grid, Segment } from 'semantic-ui-react'
+import CommentsComponent from '../components/CommentsComponent'
 
 function TopicComponent() {
 
   const params = useParams()
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [topicData, setTopicData] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
 
   function addFile(event) {
@@ -18,10 +18,9 @@ function TopicComponent() {
     const formData = new FormData();
     formData.append('file', selectedFile);
     formData.append('type', 'nonhighlighted');
-    formData.append('topicId', params.id);
 
-    api.post(`${process.env.REACT_APP_BACKEND_URL}/files`, formData)
-      .then((response) => {
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/files`, formData)
+      .then(response => {
         setFiles([...files, response.data]);
         alert("Успешно добавихте файл");
       })
@@ -44,39 +43,36 @@ function TopicComponent() {
       });
   }, [params.id]);
 
-  useEffect(() => {
-    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
-      .then(response => {
-        setTopicData(response.data);
-      })
-      .catch(error => {
-        alert('Грешка при взимането на името на темата', error);
-      });
-  }, [params.id]);
-
   return (
     <div style={{ textAlign: 'center' }}>
-      {!user.admin || (!files[0] &&
+      {!files[0] && !user.admin && <Segment size='massive'>За съжаление все още няма качен файл</Segment>}
+      {user.admin && !files[0] &&
         <Segment>
           <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
-          onChange={handleFileSelect} />
-        <Button primary size='big' style={{ marginLeft: '2rem' }}
-          onClick={addFile}>Добави тема</Button>
+            onChange={handleFileSelect} />
+          <Button primary size='big' style={{ marginLeft: '2rem' }}
+            onClick={addFile}>Добави тема</Button>
         </Segment>
-      )}
-      <Grid centered style={{ marginTop: '7rem'}}>
-        {files.map((file) => (
-          <div key={file.id}>
-            <Segment>
-              <Iframe src={`${process.env.REACT_APP_BACKEND_URL}/${file.path}`} width="800" height='1000'/>
-            </Segment>
-            {/* <Button secondary floated='left' style={{ margin: '2rem' }} size='massive' href={`/${topicData[0].area}`}>Назад</Button> */}
-            <Button secondary floated='right' style={{ margin: '2rem' }} size='massive' href={`${file.topicId}/test`}>Тест</Button>
-          </div>
-        ))}
-      </Grid>
+      }
+      {files.length > 0 &&
+        <div>
+          <Grid centered style={{ marginTop: '7rem'}}>
+            {files.map((file) => (
+              <div key={file.id}>
+                <Segment>
+                  <Iframe src={`${process.env.REACT_APP_BACKEND_URL}/${file.path}`} width="800" height='1000'/>
+                </Segment>
+                <Button secondary floated='right' style={{ margin: '2rem' }} size='massive' href={`${file.topicId}/test`}>Тест</Button>
+              </div>
+            ))}
+          </Grid>
+          <Segment style={{ textAlign: 'left', marginTop: '2rem' }}>
+            <CommentsComponent />
+          </Segment>
+        </div>
+      }
     </div>
-  )
+  );
 }
 
 export default TopicComponent

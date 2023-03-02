@@ -55,7 +55,7 @@ const getTopic = async (req, res) => {
   res.send(topics);
 }
 
-const getTopicName = async (req, res) => {
+const getTopicData = async (req, res) => {
   const { id } = req.params;
 
   const topics = await Topic.findAll({
@@ -71,6 +71,6 @@ const getTopicName = async (req, res) => {
 module.exports = {
     createTopic,
     getTopic,
-    getTopicName,
+    getTopicData,
     upload
 }

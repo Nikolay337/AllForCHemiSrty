@@ -16,7 +16,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 const createFile = async (req, res) => {
-  const { type, topicId } = req.body;
+  const { type } = req.body;
+  const { topicId } = req.params;
   let { path } = req.body;
 
   if (!type || !topicId) {

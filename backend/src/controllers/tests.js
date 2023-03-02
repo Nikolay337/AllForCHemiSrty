@@ -1,7 +1,6 @@
 const { Test } = require('../models');
 
 const createTest = async (req, res) => {
-
   const { name } = req.body;
   const { topicId } = req.params;
 

@@ -1,5 +1,5 @@
 import api from "../api"
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom";
 import { Comment, Form, Button } from 'semantic-ui-react'
 
@@ -18,18 +18,18 @@ function CommentsComponent() {
     formData.append('name', user.name);
 
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/comments`, formData)
-      .then((response) => {
+      .then(response => {
         setComments([...comments, response.data]);
-        setNewComment("");
+        alert("Успешнно създадохте коментар");
       })
-      .catch((error) => {
-        alert('Грешка при добавянето на коментар', error);
+      .catch(error => {
+        alert('Грешка при създаването на коментар', error);
       });
   }
 
   useEffect(() => {
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/comments`)
-      .then((response) => {
+      .then(response => {
         setComments(response.data);
       })
       .catch((error) => {

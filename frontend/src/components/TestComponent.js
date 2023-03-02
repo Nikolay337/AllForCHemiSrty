@@ -7,7 +7,7 @@ function TestComponent() {
 
   const params = useParams();
   const [test, setTest] = useState([]);
-  const [topicName, setTopicName] = useState([]);
+  const [topicData, setTopicData] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
@@ -19,8 +19,8 @@ function TestComponent() {
   function createTest(event) {
     event.preventDefault();
 
-    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicName[0].title})
-      .then((response) => {
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicData[0].title})
+      .then(response => {
         setTest([...test, response.data]);
         alert("Успешно създадохте тест");
       })
@@ -36,7 +36,7 @@ function TestComponent() {
     formData.append('file', selectedFile);
 
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, formData)
-      .then((response) => {
+      .then(response => {
         setQuestions([...questions, response.data]);
         setCorrectAnswer("");
         alert("Успешно добавихте въпрос");
@@ -73,7 +73,7 @@ function TestComponent() {
   useEffect(() => {
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
       .then(response => {
-        setTopicName(response.data);
+        setTopicData(response.data);
       })
       .catch(error => {
         alert('Грешка при взимането на името на темата', error);
