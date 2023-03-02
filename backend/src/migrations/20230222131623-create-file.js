@@ -9,12 +9,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      path: {
-        type: Sequelize.STRING
-      },
-      type: {
-        type: Sequelize.STRING
-      },
+      path: Sequelize.STRING,
+      type: Sequelize.STRING,
       topicId: {
         type: Sequelize.INTEGER,
         references: {

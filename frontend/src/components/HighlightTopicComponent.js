@@ -9,6 +9,7 @@ function HighlightTopicComponent() {
 
   const params = useParams()
   const [files, setFiles] = useState([]);
+  const [topicData, setTopicData] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
   
@@ -42,10 +43,20 @@ function HighlightTopicComponent() {
         alert('Грешка при зареждането на файл', error);
       });
   }, [params.id]);
+
+  useEffect(() => {
+    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
+      .then(response => {
+        setTopicData(response.data);
+      })
+      .catch(error => {
+        alert('Грешка при зареждането на файл', error);
+      });
+  }, [params.id]);
   
   return (
     <div style={{ textAlign: 'center' }}>
-      {!files[0] && !user.admin && <Segment size='massive'>За съжаление все още няма качен файл</Segment>}
+      {!files[0] && !user.admin && <Segment size='massive'>За съжаление, все още няма качен файл</Segment>}
       {user.admin && !files[0] &&
         <Segment>
           <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
@@ -54,7 +65,7 @@ function HighlightTopicComponent() {
             onClick={addFile}>Добави тема</Button>
         </Segment>
       }
-      {files.length > 0 &&
+      {files[0] &&
         <div>
           <Grid centered style={{ marginTop: '7rem'}}>
             {files.map((file) => (
@@ -62,6 +73,7 @@ function HighlightTopicComponent() {
                 <Segment>
                   <Iframe src={`${process.env.REACT_APP_BACKEND_URL}/${file.path}`} width="800" height='1000'/>
                 </Segment>
+                <Button secondary floated="left" style={{ margin: '2rem' }} size='massive' href={`/${topicData[0].area}`}>Назад</Button>
                 <Button secondary floated='right' style={{ margin: '2rem' }} size='massive' href={`${file.topicId}/test`}>Тест</Button>
               </div>
             ))}
