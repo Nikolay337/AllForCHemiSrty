@@ -27,15 +27,21 @@ function TestComponent() {
       });
   }
 
-  function addQuestion() {
+  function addQuestion(event) {
+    event.preventDefault();
 
-    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, {correctAnswer: correctAnswer, file: selectedFile})
-      .then(response => {
+    const formData = new FormData();
+    formData.append('correctAnswer', correctAnswer);
+    formData.append('file', selectedFile);
+
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, formData)
+      .then((response) => {
         setQuestions([...questions, response.data]);
         setCorrectAnswer("");
+        alert("Успешно добавихте въпрос");
       })
       .catch((error) => {
-        console.error('Error adding question', error);
+        alert('Грешка при добавянето на въпрос', error);
       });
   }
 
@@ -63,7 +69,17 @@ function TestComponent() {
       });
   }, [params.id]);
 
-  return (
+  useEffect(() => {
+    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`)
+      .then(response => {
+        setQuestions(response.data);
+      })
+      .catch(error => {
+        alert('Грешка при зареждането на въпросите', error);
+      });
+  }, [params.id]);
+  
+return (
     <div>
       {test[0] ? (
         <div>
@@ -87,33 +103,31 @@ function TestComponent() {
               </Button>
             </Segment>
           )}
-          {!user.admin && (
-            <Segment>
-              <Header color="purple" size="huge" textAlign="center">
-                {test[0] && test[0].name}
-              </Header>
-              <Grid centered style={{ marginBottom: "5rem" }}>
-                {questions.map((question) => (
-                  <div style={{ margin: "2rem" }}>
-                    <Grid.Row centered style={{ width: "70rem", height: "85%" }} columns="1">
-                      <Image style={{ width: "70rem", height: "85%" }}
-                        src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
-                      />
-                      <Button>А</Button>
-                      <Button>Б</Button>
-                      <Button>В</Button>
-                      <Button>Г</Button>
-                    </Grid.Row>
-                  </div>
-                ))}
-              </Grid>
-              <Button secondary size='massive' style={{ margin: "5rem" }} floated="left"
-                onClick={() => navigate(-1)}>Назад</Button>
-              {/* <Button secondary size="massive" style={{ margin: "5rem" }} floated="right"
-                onClick={handleSubmit}>Предай
-              </Button> */}
-            </Segment>
-          )}
+          <Segment>
+            <Header color="purple" size="huge" textAlign="center">
+              {test[0] && test[0].name}
+            </Header>
+            <Grid centered style={{ marginBottom: "5rem" }}>
+              {questions.map((question) => (
+                <div style={{ margin: "2rem" }}>
+                  <Grid.Row centered style={{ width: "70rem", height: "85%" }} columns="1">
+                    <Image style={{ width: "70rem", height: "85%" }}
+                      src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
+                    />
+                    <Button>А</Button>
+                    <Button>Б</Button>
+                    <Button>В</Button>
+                    <Button>Г</Button>
+                  </Grid.Row>
+                </div>
+              ))}
+            </Grid>
+            <Button secondary size='massive' style={{ margin: "5rem" }} floated="left"
+              onClick={() => navigate(-1)}>Назад</Button>
+            {/* <Button secondary size="massive" style={{ margin: "5rem" }} floated="right"
+              onClick={handleSubmit}>Предай
+            </Button> */}
+          </Segment>
         </div>
       ) : user.admin ? (
         <Button primary size="massive" style={{ marginLeft: "60rem", marginTop: "23rem" }} 
@@ -135,5 +149,4 @@ function TestComponent() {
     </div>
   );
 }
-
 export default TestComponent
