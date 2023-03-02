@@ -155,7 +155,7 @@ function TestComponent() {
           onClick={createTest}>Създай тест
         </Button>
       ) : (
-        <div style={{textAlign: 'center'}}>
+        <div style={{textAlign: 'center', marginTop: '15%'}}>
           <Segment size="massive">
             За съжаление, все още няма качен тест
           </Segment>

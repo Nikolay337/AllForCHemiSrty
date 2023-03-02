@@ -56,7 +56,12 @@ function HighlightTopicComponent() {
   
   return (
     <div style={{ textAlign: 'center' }}>
-      {!files[0] && !user.admin && <Segment size='massive'>За съжаление, все още няма качен файл</Segment>}
+      {!files[0] && !user.admin && 
+        <div style={{marginTop: '15%'}}>
+          <Segment size='massive'>За съжаление, все още няма качен файл</Segment>
+          <Button secondary size='massive' href={`/${topicData[0].area}`}>Назад</Button>
+        </div>
+      }
       {user.admin && !files[0] &&
         <Segment>
           <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
