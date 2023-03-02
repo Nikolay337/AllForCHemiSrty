@@ -100,62 +100,75 @@ function TestComponent() {
       });
   }, [params.id]);
   
-return (
+  return (
     <div>
-      {test[0] ?
+      {test[0] ? (
         <div>
-          {user.admin &&
-            <Segment textAlign='center'>
-              <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
-                onChange={handleFileSelect} />
-              <Button primary size='big' style={{ marginLeft: '2rem' }}
-                onClick={addQuestion}>Добави въпрос</Button>
-              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'А' ? 'purple' : 'white' }}
-                onClick={() => setCorrectAnswer('А')}>А</Button>
-              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'Б' ? 'purple' : 'white' }}
-                onClick={() => setCorrectAnswer('Б')}>Б</Button>
-              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'В' ? 'purple' : 'white' }}
-                onClick={() => setCorrectAnswer('В')}>В</Button>
-              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'Г' ? 'purple' : 'white' }}
-                onClick={() => setCorrectAnswer('Г')}>Г</Button>
+          {user.admin && (
+            <Segment textAlign="center">
+              <Input icon="file" style={{ marginLeft: "2rem", width: "17rem" }} type="file" onChange={handleFileSelect} />
+              <Button primary size="big" style={{ marginLeft: "2rem" }} onClick={addQuestion}>
+                Добави въпрос
+              </Button>
+              <Button style={{marginLeft: "1rem", backgroundColor: correctAnswer === "А" ? "purple" : "white"}} 
+                onClick={() => setCorrectAnswer("А")}>А
+              </Button>
+              <Button style={{marginLeft: "1rem", backgroundColor: correctAnswer === "Б" ? "purple" : "white"}}
+                onClick={() => setCorrectAnswer("Б")}>Б
+              </Button>
+              <Button style={{marginLeft: "1rem", backgroundColor: correctAnswer === "В" ? "purple" : "white",}}
+                onClick={() => setCorrectAnswer("В")}>В
+              </Button>
+              <Button style={{marginLeft: "1rem", backgroundColor: correctAnswer === "Г" ? "purple" : "white",}}
+                onClick={() => setCorrectAnswer("Г")}>Г
+              </Button>
             </Segment>
-          }
-          <Segment>
-            <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>
-            <Grid centered style={{ marginBottom: '5rem' }}>
-              {questions.map((question) => (
-                <div style={{margin: '2rem'}}>
-                  <Grid.Row centered style={{ width: '70rem', height: '85%' }} columns='1' >
-                    <Image style={{ width: '70rem', height: '85%' }}
-                      src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
-                    />
-                    <Segment>
-                      {/* <Button size='big'
-                        onClick={() => handleAnswerClick('А')}>А</Button>
-                      <Button size='big' style={{ marginLeft: '10rem' }}
-                        onClick={() => handleAnswerClick('Б')}>Б</Button>
-                      <Button size='big' style={{ marginLeft: '10rem' }}
-                        onClick={() => handleAnswerClick('В')}>В</Button>
-                      <Button size='big' style={{ marginLeft: '10rem' }}
-                        onClick={() => handleAnswerClick('Г')}>Г</Button> */}
-                    </Segment>
-                  </Grid.Row>
-                </div>
-              ))}
-            </Grid>
-            <Button secondary size='massive' style={{ margin: '5rem' }} floated='right'
-              onClick={handleSubmit}>Предай</Button>
-          </Segment>
+          )}
+          {!user.admin && (
+            <Segment>
+              <Header color="purple" size="huge" textAlign="center">
+                {test[0] && test[0].name}
+              </Header>
+              <Grid centered style={{ marginBottom: "5rem" }}>
+                {questions.map((question) => (
+                  <div style={{ margin: "2rem" }}>
+                    <Grid.Row centered style={{ width: "70rem", height: "85%" }} columns="1">
+                      <Image style={{ width: "70rem", height: "85%" }}
+                        src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
+                      />
+                      <Button>А</Button>
+                      <Button>Б</Button>
+                      <Button>В</Button>
+                      <Button>Г</Button>
+                    </Grid.Row>
+                  </div>
+                ))}
+              </Grid>
+              <Button secondary size="massive" style={{ margin: "5rem" }} floated="right"
+                onClick={handleSubmit}>Предай
+              </Button>
+            </Segment>
+          )}
         </div>
-      :
-        <Button primary size='massive' style={{ marginLeft: '60rem', marginTop: '23rem' }}
-          onClick={createTest}>Създай тест</Button>
-      }
-      {!showResults &&
-        <Header color='purple' size='huge' textAlign='center'>Твоят резултат е {score} от {questions.length}</Header>
-      }
+      ) : user.admin ? (
+        <Button primary size="massive" style={{ marginLeft: "60rem", marginTop: "23rem" }} 
+          onClick={createTest}>Създай тест
+        </Button>
+      ) : (
+        <div style={{textAlign: 'center'}}>
+          <Segment size="massive">
+            За съжаление, все още няма качен тест
+          </Segment>
+          <Button secondary size='massive' href={`/${topicData[0].area}/${params.id}`}>Назад</Button>
+        </div>
+      )}
+      {!showResults && (
+        <Header color="purple" size="huge" textAlign="center">
+          Твоят резултат е {score} от {questions.length}
+        </Header>
+      )}
     </div>
-  )
+  );
 }
 
 export default TestComponent
