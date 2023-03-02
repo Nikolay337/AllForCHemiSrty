@@ -1,15 +1,15 @@
 import api from "../api"
 import React, { useState, useEffect } from 'react'
 import Iframe from 'react-iframe'
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Input, Button, Grid, Segment } from 'semantic-ui-react'
 import CommentsComponent from '../components/CommentsComponent'
 
 function HighlightTopicComponent() {
 
   const params = useParams()
+  const navigate = useNavigate();
   const [files, setFiles] = useState([]);
-  const [topicData, setTopicData] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
   
@@ -43,23 +43,13 @@ function HighlightTopicComponent() {
         alert('Грешка при зареждането на файл', error);
       });
   }, [params.id]);
-
-  useEffect(() => {
-    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
-      .then(response => {
-        setTopicData(response.data);
-      })
-      .catch(error => {
-        alert('Грешка при зареждането на файл', error);
-      });
-  }, [params.id]);
   
   return (
     <div style={{ textAlign: 'center' }}>
       {!files[0] && !user.admin && 
         <div style={{marginTop: '15%'}}>
           <Segment size='massive'>За съжаление, все още няма качен файл</Segment>
-          <Button secondary size='massive' href={`/${topicData[0].area}`}>Назад</Button>
+          <Button secondary size='massive' onClick={() => navigate(-1)}>Назад</Button>
         </div>
       }
       {user.admin && !files[0] &&
@@ -72,13 +62,13 @@ function HighlightTopicComponent() {
       }
       {files[0] &&
         <div>
-          <Grid centered style={{ marginTop: '7rem'}}>
+          <Grid centered>
             {files.map((file) => (
               <div key={file.id}>
                 <Segment>
                   <Iframe src={`${process.env.REACT_APP_BACKEND_URL}/${file.path}`} width="800" height='1000'/>
                 </Segment>
-                <Button secondary floated="left" style={{ margin: '2rem' }} size='massive' href={`/${topicData[0].area}`}>Назад</Button>
+                <Button secondary floated="left" style={{ margin: '2rem' }} size='massive' onClick={() => navigate(-1)}>Назад</Button>
                 <Button secondary floated='right' style={{ margin: '2rem' }} size='massive' href={`${file.topicId}/test`}>Тест</Button>
               </div>
             ))}

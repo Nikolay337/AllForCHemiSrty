@@ -7,7 +7,7 @@ const createComment = async (req, res) => {
   if (!text || !name) {
     return res.status(400).json({ error: 'Missing text or name' });
   }
-
+console.log(req);
   try {
     const newComment = await Comment.create({
       text,

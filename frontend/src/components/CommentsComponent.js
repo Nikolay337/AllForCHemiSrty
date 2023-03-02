@@ -16,7 +16,7 @@ function CommentsComponent() {
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/comments`, {text: newComment, name: user.name})
       .then(response => {
         setComments([...comments, response.data]);
-        alert("Успешнно създадохте коментар");
+        setNewComment("");
       })
       .catch(error => {
         alert('Грешка при създаването на коментар', error);

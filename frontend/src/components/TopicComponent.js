@@ -7,10 +7,9 @@ import CommentsComponent from '../components/CommentsComponent'
 
 function TopicComponent() {
 
-  const navigate = useNavigate();
   const params = useParams()
+  const navigate = useNavigate();
   const [files, setFiles] = useState([]);
-  const [topicData, setTopicData] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -63,7 +62,7 @@ function TopicComponent() {
       }
       {files[0] &&
         <div>
-          <Grid centered style={{ marginTop: '7rem'}}>
+          <Grid centered>
             {files.map((file) => (
               <div key={file.id}>
                 <Segment>
