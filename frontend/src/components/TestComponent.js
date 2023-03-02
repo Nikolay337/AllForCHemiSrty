@@ -6,6 +6,7 @@ import { Button, Segment, Grid, Input, Header, Image } from 'semantic-ui-react'
 function TestComponent() {
 
   const params = useParams();
+  const navigate = useNavigate();
   const [test, setTest] = useState([]);
   const [topicName, setTopicName] = useState("");
   const [questions, setQuestions] = useState([]);
@@ -13,9 +14,11 @@ function TestComponent() {
   const [selectedFile, setSelectedFile] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
 
-  function createTest() {
+  function createTest(event) {
+    event.preventDefault();
+
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicName[0].title})
-      .then(response => {
+      .then((response) => {
         setTest([...test, response.data]);
         alert("Успешно създадохте тест");
       })
@@ -25,13 +28,14 @@ function TestComponent() {
   }
 
   function addQuestion() {
+
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, {correctAnswer: correctAnswer, file: selectedFile})
       .then(response => {
         setQuestions([...questions, response.data]);
         setCorrectAnswer("");
       })
       .catch((error) => {
-        console.error('Error uploading file', error);
+        console.error('Error adding question', error);
       });
   }
 
@@ -88,6 +92,26 @@ function TestComponent() {
               <Header color="purple" size="huge" textAlign="center">
                 {test[0] && test[0].name}
               </Header>
+              <Grid centered style={{ marginBottom: "5rem" }}>
+                {questions.map((question) => (
+                  <div style={{ margin: "2rem" }}>
+                    <Grid.Row centered style={{ width: "70rem", height: "85%" }} columns="1">
+                      <Image style={{ width: "70rem", height: "85%" }}
+                        src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
+                      />
+                      <Button>А</Button>
+                      <Button>Б</Button>
+                      <Button>В</Button>
+                      <Button>Г</Button>
+                    </Grid.Row>
+                  </div>
+                ))}
+              </Grid>
+              <Button secondary size='massive' style={{ margin: "5rem" }} floated="left"
+                onClick={() => navigate(-1)}>Назад</Button>
+              {/* <Button secondary size="massive" style={{ margin: "5rem" }} floated="right"
+                onClick={handleSubmit}>Предай
+              </Button> */}
             </Segment>
           )}
         </div>
@@ -96,9 +120,18 @@ function TestComponent() {
           onClick={createTest}>Създай тест
         </Button>
       ) : (
-        <div style={{textAlign: 'center', marginTop: '15%'}}>
+        <div style={{ textAlign: 'center', marginTop: '15%' }}>
+          <Segment size="massive">
+            За съжаление, все още няма качен тест
+          </Segment>
+          <Button secondary size='massive' onClick={() => navigate(-1)}>Назад</Button>
         </div>
       )}
+      {/* {!showResults && (
+        <Header color="purple" size="huge" textAlign="center">
+          Твоят резултат е {score} от {questions.length}
+        </Header>
+      )} */}
     </div>
   );
 }

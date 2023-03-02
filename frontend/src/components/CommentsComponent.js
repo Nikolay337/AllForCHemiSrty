@@ -37,7 +37,7 @@ function CommentsComponent() {
     <Comment.Group style={{marginLeft: '44rem'}}>
       <Form>
         <Form.TextArea value={newComment} onChange={(event) => setNewComment(event.target.value)} />
-        <Button primary content='Add Comment' labelPosition='right' icon='edit' onClick={addComment} />
+        <Button primary size='large' content='Add Comment' labelPosition='right' icon='edit' onClick={addComment} />
       </Form>
       {comments.map((comment) => (
         <Comment key={comment.id}>
