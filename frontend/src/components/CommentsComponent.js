@@ -14,8 +14,8 @@ function CommentsComponent() {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append('name', user.name);
     formData.append('text', newComment);
+    formData.append('name', user.name);
 
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/comments`, formData)
       .then((response) => {
@@ -38,16 +38,16 @@ function CommentsComponent() {
   }, [params.id]);
 
   return (
-    <Comment.Group>
+    <Comment.Group style={{marginLeft: '44rem'}}>
       <Form>
         <Form.TextArea value={newComment} onChange={(event) => setNewComment(event.target.value)} />
-        <Button primary content='Add Comment' labelPosition='left' icon='edit' onClick={addComment} />
+        <Button primary content='Add Comment' labelPosition='right' icon='edit' onClick={addComment} />
       </Form>
       {comments.map((comment) => (
         <Comment key={comment.id}>
-          <Comment.Content>
-            <Comment.Author>{comment.name}</Comment.Author>
-            <Comment.Text>{comment.text}</Comment.Text>
+          <Comment.Content >
+            <Comment.Author style={{fontSize: '2rem'}}>{comment.name}</Comment.Author>
+            <Comment.Text style={{fontSize: '1.5rem', margin: '1rem'}}>{comment.text}</Comment.Text>
           </Comment.Content>
         </Comment>
       ))}

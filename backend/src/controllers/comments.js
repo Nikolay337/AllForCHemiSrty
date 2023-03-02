@@ -1,11 +1,11 @@
-const { Comment } = require('../models')
+const { Comment } = require('../models');
 
 const createComment = async (req, res) => {
   const { text, name } = req.body;
   const { topicId } = req.params;
 
   if (!text || !name) {
-    return res.status(400).json({ error: 'Missing text, name, or userId' });
+    return res.status(400).json({ error: 'Missing text or name' });
   }
 
   try {
@@ -14,27 +14,28 @@ const createComment = async (req, res) => {
       name,
       topicId
     });
-    
+
     return res.send(newComment);
   } catch (err) {
-    return res.status(500).json({ error: 'Error creating file' });
+    return res.status(500).json({ error: 'Error creating comment' });
   }
-}
+};
 
-const getComment = async (req, res) => {
+const getComments = async (req, res) => {
   const { topicId } = req.params;
 
-  const comment = await Comment.findAll({
-    where: { topicId }
-  });
+  try {
+    const comments = await Comment.findAll({
+      where: { topicId }
+    });
 
-  if (!comment) {
-    return res.status(404);
-  } 
-  return res.send(comment);
-}
+    return res.send(comments);
+  } catch (err) {
+    return res.status(500).json({ error: 'Error fetching comments' });
+  }
+};
 
 module.exports = {
-    createComment,
-    getComment
-}
+  createComment,
+  getComments
+};

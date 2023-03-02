@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import AuthLayout from './layout/AuthLayout'
+import AuthLayout from '../layout/AuthLayout'
 import TopicComponent from '../components/TopicComponent'
 import HighlightTopicComponent from '../components/HighlightTopicComponent'
 import { Checkbox } from 'semantic-ui-react'

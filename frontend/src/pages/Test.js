@@ -1,6 +1,6 @@
 import React from 'react'
 import TestComponent from '../components/TestComponent'
-import AuthLayout from './layout/AuthLayout'
+import AuthLayout from '../layout/AuthLayout'
 
 function Test() {
   return (

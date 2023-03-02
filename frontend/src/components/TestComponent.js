@@ -14,6 +14,7 @@ function TestComponent() {
   const [showResults, setShowResults] = useState(true);
   // const [selectedAnswer, setSelectedAnswer] = useState();
   const [score, setScore] = useState(null);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   function createTest(event) {
     event.preventDefault();
@@ -24,13 +25,11 @@ function TestComponent() {
         alert("Успешно създадохте тест");
       })
       .catch((error) => {
-        console.error('Error creating test', error);
         alert('Грешка при създаването на тест', error);
       });
   }
 
-  function addQuestion(event) {
-    event.preventDefault();
+  function addQuestion() {
 
     const formData = new FormData();
     formData.append('correctAnswer', correctAnswer);
@@ -43,7 +42,6 @@ function TestComponent() {
         alert("Успешно добавихте въпрос");
       })
       .catch((error) => {
-        console.error('Error uploading file', error);
         alert('Грешка при добавянето на въпрос', error);
       });
   }
@@ -52,13 +50,13 @@ function TestComponent() {
     setSelectedFile(event.target.files.item(0));
   }
 
-  function handleAnswerClick(questionId, answer) {
-    setQuestions((prevQuestions) =>
-      prevQuestions.map((question) =>
-        question.id === questionId ? { ...question, selectedAnswer: answer } : question
-      )
-    );
-  }
+  // function handleAnswerClick(questionId, answer) {
+  //   setQuestions((prevQuestions) =>
+  //     prevQuestions.map((question) =>
+  //       question.id === questionId ? { ...question, selectedAnswer: answer } : question
+  //     )
+  //   );
+  // }
   
   function handleSubmit() {
     const score = questions.reduce((totalScore, question) => {
@@ -78,7 +76,6 @@ function TestComponent() {
         setTopicName(response.data);
       })
       .catch(error => {
-        console.error('Error fetching topic name', error);
         alert('Грешка при взимането на името на темата', error);
       });
   }, [params.id]);
@@ -89,7 +86,6 @@ function TestComponent() {
         setTest(response.data);
       })
       .catch(error => {
-        console.error('Error fetching test', error);
         alert('Грешка при зареждането на теста', error);
       });
   }, [params.id]);
@@ -100,7 +96,6 @@ function TestComponent() {
         setQuestions(response.data);
       })
       .catch(error => {
-        console.error('Error fetching questions', error);
         alert('Грешка при зареждането на въпросите', error);
       });
   }, [params.id]);
@@ -109,20 +104,22 @@ return (
     <div>
       {test[0] ?
         <div>
-          <Segment textAlign='center'>
-            <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
-              onChange={handleFileSelect} />
-            <Button primary size='big' style={{ marginLeft: '2rem' }}
-              onClick={addQuestion}>Добави въпрос</Button>
-            <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'А' ? 'purple' : 'white' }}
-              onClick={() => setCorrectAnswer('А')}>А</Button>
-            <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'Б' ? 'purple' : 'white' }}
-              onClick={() => setCorrectAnswer('Б')}>Б</Button>
-            <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'В' ? 'purple' : 'white' }}
-              onClick={() => setCorrectAnswer('В')}>В</Button>
-            <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'Г' ? 'purple' : 'white' }}
-              onClick={() => setCorrectAnswer('Г')}>Г</Button>
-          </Segment>
+          {user.admin &&
+            <Segment textAlign='center'>
+              <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
+                onChange={handleFileSelect} />
+              <Button primary size='big' style={{ marginLeft: '2rem' }}
+                onClick={addQuestion}>Добави въпрос</Button>
+              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'А' ? 'purple' : 'white' }}
+                onClick={() => setCorrectAnswer('А')}>А</Button>
+              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'Б' ? 'purple' : 'white' }}
+                onClick={() => setCorrectAnswer('Б')}>Б</Button>
+              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'В' ? 'purple' : 'white' }}
+                onClick={() => setCorrectAnswer('В')}>В</Button>
+              <Button style={{ marginLeft: '1rem', backgroundColor: correctAnswer === 'Г' ? 'purple' : 'white' }}
+                onClick={() => setCorrectAnswer('Г')}>Г</Button>
+            </Segment>
+          }
           <Segment>
             <Header color='purple' size='huge' textAlign='center'>{test[0] && test[0].name }</Header>
             <Grid centered style={{ marginBottom: '5rem' }}>
@@ -144,8 +141,8 @@ return (
                     </Segment>
                   </Grid.Row>
                 </div>
-                ))}
-              </Grid>
+              ))}
+            </Grid>
             <Button secondary size='massive' style={{ margin: '5rem' }} floated='right'
               onClick={handleSubmit}>Предай</Button>
           </Segment>
