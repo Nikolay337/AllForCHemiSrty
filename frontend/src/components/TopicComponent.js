@@ -1,8 +1,8 @@
 import api from "../api"
-import React, { useState, useEffect } from 'react'
 import Iframe from 'react-iframe'
+import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from "react-router-dom";
-import { Input, Button, Grid, Segment } from 'semantic-ui-react'
+import { Input, Button, Grid, Segment, Checkbox } from 'semantic-ui-react'
 import CommentsComponent from '../components/CommentsComponent'
 
 function TopicComponent() {
@@ -10,15 +10,18 @@ function TopicComponent() {
   const params = useParams()
   const navigate = useNavigate();
   const [files, setFiles] = useState([]);
+  const [checked, setChecked] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
+
+  const handleChange = (e,data) => setChecked(data.checked);
 
   function addFile(event) {
     event.preventDefault();
 
     const formData = new FormData();
     formData.append('file', selectedFile);
-    formData.append('type', 'nonhighlighted');
+    formData.append('type', checked ? 'highlighted' : 'nonhighlighted');
 
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/files`, formData)
       .then(response => {
@@ -35,17 +38,19 @@ function TopicComponent() {
   }
 
   useEffect(() => {
-    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/files?type=${"nonhighlighted"}`)
+    const fileType = checked ? 'highlighted' : 'nonhighlighted';
+    api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/files?type=${fileType}`)
       .then(response => {
         setFiles(response.data);
       })
       .catch(error => {
         alert('Грешка при зареждането на файл', error);
       });
-  }, [params.id]);
+  }, [params.id, checked]);
 
   return (
     <div style={{ textAlign: 'center' }}>
+      <Checkbox style={{marginBottom: '2rem'}} toggle checked={checked} onChange={handleChange} />
       {!files[0] && !user.admin &&
         <div style={{marginTop: '15%'}}>
           <Segment size='massive'>За съжаление, все още няма качен файл</Segment>

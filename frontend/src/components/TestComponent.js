@@ -29,10 +29,9 @@ function TestComponent() {
       .then(response => {
         setQuestions([...questions, response.data]);
         setCorrectAnswer("");
-        alert("Успешно добавихте въпрос");
       })
       .catch((error) => {
-        alert('Грешка при добавянето на въпрос', error);
+        console.error('Error uploading file', error);
       });
   }
 
@@ -86,7 +85,9 @@ function TestComponent() {
           )}
           {!user.admin && (
             <Segment>
-             
+              <Header color="purple" size="huge" textAlign="center">
+                {test[0] && test[0].name}
+              </Header>
             </Segment>
           )}
         </div>
