@@ -13,11 +13,7 @@ function CommentsComponent() {
   function addComment(event) {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append('text', newComment);
-    formData.append('name', user.name);
-
-    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/comments`, formData)
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/comments`, {text: newComment, name: user.name})
       .then(response => {
         setComments([...comments, response.data]);
         alert("Успешнно създадохте коментар");

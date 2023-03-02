@@ -14,8 +14,8 @@ app.use(cors({
     origin: 'http://localhost:3000'
 }));
 
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/public', express.static(path.join(__dirname, 'public'))); 
