@@ -12,7 +12,6 @@ function TestComponent() {
   const [topicName, setTopicName] = useState("");
   const [questions, setQuestions] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState("");
-  const [selectedAnswer, setSelectedAnswer] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
@@ -43,15 +42,15 @@ function TestComponent() {
   };
 
   function handleSubmit()  {
-  let score = 0;
-  questions.forEach(question => {
-    if (question.selectedAnswer === question.correctAnswer) {
-      score++;
-    }
-  });
-  setScore(score);
-  setShowResults(true);
-  setSelectedAnswer("");
+    let score = 0;
+    questions.forEach(question => {
+      if (question.selectedAnswer === question.correctAnswer) {
+        score++;
+      }
+    });
+    setScore(score);
+    setShowResults(true);
+    resetAnswers();
   };
   
   function handleAnswerSelect(questionId, answer) {
@@ -64,6 +63,13 @@ function TestComponent() {
     });
     setQuestions(updatedQuestions);
   };
+
+  function resetAnswers() {
+    const updatedQuestions = questions.map((question) => {
+      return { ...question, selectedAnswer: "" };
+    });
+    setQuestions(updatedQuestions);
+  }
 
   function handleFileSelect(event) {
     setSelectedFile(event.target.files.item(0));
