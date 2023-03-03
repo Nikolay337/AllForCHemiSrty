@@ -53,7 +53,27 @@ const createUser = async (req, res) => {
   }
 };
 
+const getUser = async (req, res) => {
+  const { email } = req.query;
+
+  try {
+    const user = await User.findOne({
+      where: { email: email }
+    });
+
+    if (user) {
+      return res.status(200).json({ message: 'Email address already registered' });
+    } else {
+      return res.status(200).json({ message: 'Email address available' });
+    }
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
   createUser,
+  getUser,
   login
 };

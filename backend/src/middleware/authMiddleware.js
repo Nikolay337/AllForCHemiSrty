@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const authMiddleware = (req, res, next) => {
-  const excludedRoutes = ['/login', '/register'];
+  const excludedRoutes = ['/login', '/register', '/user'];
 
   if (excludedRoutes.includes(req.path)) {
     return next();
