@@ -8,23 +8,21 @@ function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  function createUser(event) {
-    event.preventDefault();
+function createUser(event) {
+  event.preventDefault();
 
-    api.post(`${process.env.REACT_APP_BACKEND_URL}/register`, {
-      name: name,
-      email: email,
-      password: password
+  api.post(`${process.env.REACT_APP_BACKEND_URL}/register`, {
+    name: name,
+    email: email,
+    password: password
+  })
+    .then(() => {
+      window.location.href = '/';
     })
-      .then((response) => {
-        alert(response.data.message);
-        window.location.href = '/';
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
+    .catch((error) => {
+      console.error(error);
+    });
+}
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
       <Grid.Column color='purple' computer={4}>
@@ -33,7 +31,7 @@ function Register() {
         </Header>
         <Form>
           <Segment size='big'>
-            <Form.Input icon='user' iconPosition='left' placeholder='Име'
+            <Form.Input icon='user' iconPosition='left' placeholder='Име и Фамилия'
               onChange={(event) => setName(event.target.value)} />
             <Form.Input icon='user' iconPosition='left' placeholder='Имейл'
               onChange={(event) => setEmail(event.target.value)} />

@@ -26,7 +26,6 @@ function TopicComponent() {
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/files`, formData)
       .then(response => {
         setFiles([...files, response.data]);
-        alert("Успешно добавихте файл");
       })
       .catch((error) => {
         alert('Грешка при добавянето на файл', error);
@@ -62,7 +61,7 @@ function TopicComponent() {
           <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
             onChange={handleFileSelect} />
           <Button primary size='big' style={{ marginLeft: '2rem' }}
-            onClick={addFile}>Добави тема</Button>
+            onClick={addFile}>Добави файл</Button>
         </Segment>
       }
       {files[0] &&

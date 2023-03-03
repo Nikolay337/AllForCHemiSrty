@@ -8,9 +8,12 @@ function TestComponent() {
   const params = useParams();
   const navigate = useNavigate();
   const [test, setTest] = useState([]);
+  const [score, setScore] = useState(0);
   const [topicName, setTopicName] = useState("");
   const [questions, setQuestions] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState("");
+  const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [showResults, setShowResults] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -18,14 +21,11 @@ function TestComponent() {
     event.preventDefault();
 
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicName[0].title})
-      .then((response) => {
-        setTest([...test, response.data]);
-        alert("Успешно създадохте тест");
-      })
-      .catch((error) => {
-        alert('Грешка при създаването на тест', error);
-      });
-  }
+      .then(response =>
+        setTest([...test, response.data]))
+      .catch(error =>
+        alert('Грешка при създаването на тест', error));
+  };
 
   function addQuestion(event) {
     event.preventDefault();
@@ -35,51 +35,65 @@ function TestComponent() {
     formData.append('file', selectedFile);
 
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`, formData)
-      .then((response) => {
+      .then(response => {
         setQuestions([...questions, response.data]);
         setCorrectAnswer("");
-        alert("Успешно добавихте въпрос");
       })
-      .catch((error) => {
-        alert('Грешка при добавянето на въпрос', error);
-      });
-  }
+      .catch(error => alert('Грешка при добавянето на въпрос', error));
+  };
+
+  function handleSubmit()  {
+  let score = 0;
+  questions.forEach(question => {
+    if (question.selectedAnswer === question.correctAnswer) {
+      score++;
+    }
+  });
+  setScore(score);
+  setShowResults(true);
+  setSelectedAnswer("");
+  };
+  
+  function handleAnswerSelect(questionId, answer) {
+    const updatedQuestions = questions.map((question) => {
+      if (question.id === questionId) {
+        return { ...question, selectedAnswer: answer };
+      } else {
+        return question;
+      }
+    });
+    setQuestions(updatedQuestions);
+  };
 
   function handleFileSelect(event) {
     setSelectedFile(event.target.files.item(0));
-  }
+  };
 
   useEffect(() => {
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
-      .then(response => {
-        setTopicName(response.data);
-      })
-      .catch(error => {
-        alert('Грешка при взимането на заглавието на тема', error);
-      });
+      .then(response =>
+        setTopicName(response.data))
+      .catch(error =>
+        alert('Грешка при взимането на заглавието на тема', error));
   }, [params.id]);
 
   useEffect(() => {
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`)
-      .then(response => {
-        setTest(response.data);
-      })
-      .catch(error => {
-        alert('Грешка при зареждането на теста', error);
-      });
+      .then(response =>
+        setTest(response.data))
+      .catch(error =>
+        alert('Грешка при зареждането на теста', error));
   }, [params.id]);
 
   useEffect(() => {
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`)
-      .then(response => {
-        setQuestions(response.data);
-      })
-      .catch(error => {
-        alert('Грешка при зареждането на въпросите', error);
-      });
+      .then(response =>
+        setQuestions(response.data))
+      .catch(error =>
+        alert('Грешка при зареждането на въпросите', error));
   }, [params.id]);
   
-return (
+  return (
     <div>
       {test[0] ? (
         <div>
@@ -109,24 +123,32 @@ return (
             </Header>
             <Grid centered style={{ marginBottom: "5rem" }}>
               {questions.map((question) => (
-                <div style={{ margin: "2rem" }}>
+                <div style={{ margin: "2rem" }} key={question.id}>
                   <Grid.Row centered style={{ width: "70rem", height: "85%" }} columns="1">
                     <Image style={{ width: "70rem", height: "85%" }}
                       src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
                     />
-                    <Button>А</Button>
-                    <Button>Б</Button>
-                    <Button>В</Button>
-                    <Button>Г</Button>
+                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "А" ? "purple" : "white"}}
+                      onClick={() => handleAnswerSelect(question.id, "А")}>А
+                    </Button>
+                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "Б" ? "purple" : "white"}}
+                      onClick={() => handleAnswerSelect(question.id, "Б")}>Б
+                    </Button>
+                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "В" ? "purple" : "white",}}
+                      onClick={() => handleAnswerSelect(question.id, "В")}>В
+                    </Button>
+                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "Г" ? "purple" : "white",}}
+                      onClick={() => handleAnswerSelect(question.id, "Г")}>Г
+                    </Button>
                   </Grid.Row>
                 </div>
               ))}
             </Grid>
             <Button secondary size='massive' style={{ margin: "5rem" }} floated="left"
               onClick={() => navigate(-1)}>Назад</Button>
-            {/* <Button secondary size="massive" style={{ margin: "5rem" }} floated="right"
+            <Button secondary size="massive" style={{ margin: "5rem" }} floated="right"
               onClick={handleSubmit}>Предай
-            </Button> */}
+            </Button>
           </Segment>
         </div>
       ) : user.admin ? (
@@ -141,12 +163,13 @@ return (
           <Button secondary size='massive' onClick={() => navigate(-1)}>Назад</Button>
         </div>
       )}
-      {/* {!showResults && (
+      {showResults && (
         <Header color="purple" size="huge" textAlign="center">
           Твоят резултат е {score} от {questions.length}
         </Header>
-      )} */}
+      )}
     </div>
   );
 }
+
 export default TestComponent

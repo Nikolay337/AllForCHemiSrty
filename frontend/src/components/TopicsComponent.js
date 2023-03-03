@@ -20,7 +20,6 @@ function TopicsComponent(props) {
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics`, formData)
       .then(response => {
         setTopics([...topics, response.data]);
-        alert("Успешнно създадохте тема");
       })
       .catch(error => {
         alert('Грешка при създаването на тема', error);
