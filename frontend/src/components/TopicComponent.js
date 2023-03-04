@@ -19,6 +19,11 @@ function TopicComponent() {
   function addFile(event) {
     event.preventDefault();
 
+    if (!selectedFile) {
+      alert('Моля, изберете файл');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('file', selectedFile);
     formData.append('type', checked ? 'highlighted' : 'nonhighlighted');
@@ -33,7 +38,12 @@ function TopicComponent() {
   }
 
   function handleFileSelect(event) {
-    setSelectedFile(event.target.files.item(0));
+    const selectedFileType = event.target.files[0].type;
+    if (selectedFileType === 'application/pdf') {
+      setSelectedFile(event.target.files[0]);
+    } else {
+    alert('Моля, изберете само PDF файлове.');
+    }
   }
 
   useEffect(() => {
@@ -49,7 +59,9 @@ function TopicComponent() {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <Checkbox style={{marginBottom: '2rem'}} toggle checked={checked} onChange={handleChange} />
+      <Grid.Column>
+        <Checkbox style={{ marginBottom: '2rem', marginTop: '2rem' }} toggle checked={checked} onChange={handleChange} />
+      </Grid.Column>
       {!files[0] && !user.admin &&
         <div style={{marginTop: '15%'}}>
           <Segment size='massive'>За съжаление, все още няма качен файл</Segment>
@@ -58,7 +70,7 @@ function TopicComponent() {
       }
       {user.admin && !files[0] &&
         <Segment>
-          <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
+          <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file" accept=".pdf"
             onChange={handleFileSelect} />
           <Button primary size='big' style={{ marginLeft: '2rem' }}
             onClick={addFile}>Добави файл</Button>

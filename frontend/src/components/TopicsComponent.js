@@ -12,6 +12,11 @@ function TopicsComponent(props) {
   function createTopic(event) {
     event.preventDefault();
 
+    if (!title.trim() || !selectedFile) {
+      alert("Моля, въведете заглавие и/или изберете файл.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('file', selectedFile);
@@ -20,6 +25,8 @@ function TopicsComponent(props) {
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics`, formData)
       .then(response => {
         setTopics([...topics, response.data]);
+        setTitle("");
+        setSelectedFile(null);
       })
       .catch(error => {
         alert('Грешка при създаването на тема', error);
@@ -27,7 +34,7 @@ function TopicsComponent(props) {
   }
 
   function handleFileSelect(event) {
-    setSelectedFile(event.target.files.item(0));
+    setSelectedFile(event.target.files[0]);
   }
 
   useEffect(() => {
@@ -44,10 +51,11 @@ function TopicsComponent(props) {
     <div>
       {user.admin &&
         <Segment textAlign='center'>
-          <Input style={{ height: '3.2rem' }} size='big' type="text" placeholder="Заглавие на темата"
-            onChange={(event) => setTitle(event.target.value)} />
+          <Input style={{ height: '3.2rem' }} size='big' type="text" placeholder="Заглавие на темата" value={title}
+            onChange={(event) => setTitle(event.target.value)}/>
           <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
-            onChange={handleFileSelect} />
+            onChange={handleFileSelect}
+          />
           <Button size='big' primary style={{ marginLeft: '2rem' }}
             onClick={createTopic}>Създай</Button>
         </Segment>

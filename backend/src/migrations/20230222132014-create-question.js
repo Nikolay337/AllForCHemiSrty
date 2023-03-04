@@ -1,4 +1,3 @@
-'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -9,12 +8,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      path: {
-        type: Sequelize.STRING
-      },
-      correctAnswer: {
-        type: Sequelize.STRING
-      },
+      path: Sequelize.STRING,
+      correctAnswer: Sequelize.STRING,
       testId: {
         type: Sequelize.INTEGER,
         references: {

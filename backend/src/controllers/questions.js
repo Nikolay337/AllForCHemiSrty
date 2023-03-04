@@ -53,7 +53,6 @@ const getQuestion = async (req, res) => {
   if (!questions) {
     return res.status(400)
   }
-
   return res.send(questions);
 }
 

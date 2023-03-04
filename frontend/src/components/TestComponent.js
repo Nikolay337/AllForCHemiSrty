@@ -29,6 +29,11 @@ function TestComponent() {
   function addQuestion(event) {
     event.preventDefault();
 
+    if (!selectedFile || !correctAnswer) {
+      alert('Моля, изберете файл и/или верен отговор за въпроса.');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('correctAnswer', correctAnswer);
     formData.append('file', selectedFile);
@@ -41,7 +46,14 @@ function TestComponent() {
       .catch(error => alert('Грешка при добавянето на въпрос', error));
   };
 
-  function handleSubmit()  {
+  function handleSubmit() {
+    
+    const unansweredQuestions = questions.filter((question) => !question.selectedAnswer);
+    if (unansweredQuestions.length > 0) {
+      alert('Моля, отговорете на всички въпроси.');
+      return;
+    }
+
     let score = 0;
     questions.forEach(question => {
       if (question.selectedAnswer === question.correctAnswer) {
@@ -98,7 +110,7 @@ function TestComponent() {
       .catch(error =>
         alert('Грешка при зареждането на въпросите', error));
   }, [params.id]);
-  
+
   return (
     <div>
       {test[0] ? (

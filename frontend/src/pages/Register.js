@@ -24,12 +24,12 @@ function Register() {
       return;
     }
 
-    api.get(`${process.env.REACT_APP_BACKEND_URL}/user?email=${email}`)
-      .then(response => {
-        if (response.data.email) {
-          setErrorMessage('Email address already registered');
-          return;
-        }
+    // api.get(`${process.env.REACT_APP_BACKEND_URL}/user`)
+    //   .then(response => {
+    //     if (response.data.user) {
+    //       setErrorMessage('Email address already registered');
+    //       return;
+    //     }
 
         api.post(`${process.env.REACT_APP_BACKEND_URL}/register`, {
           name: name,
@@ -42,10 +42,10 @@ function Register() {
           .catch((error) => {
             console.error(error);
           });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+      // })
+      // .catch((error) => {
+      //   console.error(error);
+      // });
   }
   
   return (

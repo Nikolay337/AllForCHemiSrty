@@ -9,7 +9,6 @@ const login = async (req, res) => {
     const user = await User.findOne({
       where: {email: email }
     });
-    console.log(user);
 
     if (!user) {
       return res.status(401).json({ message: 'Invalid login credentials' });
@@ -20,12 +19,11 @@ const login = async (req, res) => {
     if (!match) {
       return res.status(401).json({ message: 'Invalid login credentials' });
     }
-    console.log(process.env.JWT_SECRET);
+
     const token = jwt.sign({ name: user.name, id: user.id, admin: user.admin }, process.env.JWT_SECRET, { expiresIn: '5h' });
 
     res.status(200).json({ token });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 };
@@ -48,17 +46,16 @@ const createUser = async (req, res) => {
 
     return res.status(201).json({message: "User registration successful"});
   } catch (err) {
-    console.error(err);
     return res.status(500).json({ message: 'Server error' });
   }
 };
 
 const getUser = async (req, res) => {
-  const { email } = req.query;
+  const { email } = req.body;
 
   try {
     const user = await User.findOne({
-      where: { email: email }
+      where: { email }
     });
 
     if (user) {
@@ -67,7 +64,6 @@ const getUser = async (req, res) => {
       return res.status(200).json({ message: 'Email address available' });
     }
   } catch (err) {
-    console.error(err);
     return res.status(500).json({ message: 'Server error' });
   }
 };
