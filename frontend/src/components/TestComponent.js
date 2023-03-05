@@ -9,7 +9,7 @@ function TestComponent() {
   const navigate = useNavigate();
   const [test, setTest] = useState([]);
   const [score, setScore] = useState(0);
-  const [topicName, setTopicName] = useState("");
+  const [topicData, setTopicData] = useState("");
   const [questions, setQuestions] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [showResults, setShowResults] = useState(false);
@@ -19,7 +19,7 @@ function TestComponent() {
   function createTest(event) {
     event.preventDefault();
 
-    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicName[0].title})
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicData[0].title})
       .then(response =>
         setTest([...test, response.data]))
       .catch(error =>
@@ -90,7 +90,7 @@ function TestComponent() {
   useEffect(() => {
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}`)
       .then(response =>
-        setTopicName(response.data))
+        setTopicData(response.data))
       .catch(error =>
         alert('Грешка при взимането на заглавието на тема', error));
   }, [params.id]);
@@ -182,7 +182,7 @@ function TestComponent() {
         </div>
       )}
       {showResults && (
-        <Header color="purple" size="huge" textAlign="center">
+        <Header size="huge" textAlign="center">
           Твоят резултат е {score} от {questions.length}
         </Header>
       )}

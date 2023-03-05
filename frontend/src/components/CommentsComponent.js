@@ -29,7 +29,7 @@ function CommentsComponent() {
         setComments(response.data);
       })
       .catch((error) => {
-        alert('Error fetching comments', error);
+        alert('Грешка при зареждането на коментарите', error);
       });
   }, [params.id]);
 

@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./pages/Home"
-import Login from "./pages/Login";
-import Register from "./pages/Register"
-import Organic from "./pages/Organic"
-import Inorganic from "./pages/Inorganic"
-import ErrorPage from "./pages/ErrorPage";
-import Topic from "./pages/Topic"
-import Test from "./pages/Test"
+import Home from "./views/Home"
+import Login from "./views/Login";
+import Register from "./views/Register"
+import Organic from "./views/Organic"
+import Inorganic from "./views/Inorganic"
+import ErrorPage from "./views/ErrorPage";
+import Topic from "./views/Topic"
+import Test from "./views/Test"
 import 'semantic-ui-css/semantic.min.css'
 
 function App() {
