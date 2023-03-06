@@ -1,24 +1,28 @@
-const { Comment } = require('../models');
+const { Comment, User } = require('../models');
 
 const createComment = async (req, res) => {
-  const { text } = req.body;
+  const { text, userId } = req.body;
   const { topicId } = req.params;
-  const { userId } = req.body;
 
-  if (!text) {
-    return res.status(400).json({ error: 'Missing text or name' });
-  }
-console.log(userId);
   try {
-    const newComment = await Comment.create({
+    const comment = await Comment.create({
       text,
-      topicId,
-      userId
+      userId,
+      topicId
     });
 
-    return res.send(newComment);
-  } catch (err) {
-    return res.status(500).json({ error: 'Error creating comment' });
+    const user = await User.findByPk(userId);
+    const commentWithUser = {
+      ...comment.toJSON(),
+      User: {
+        name: user.name
+      }
+    };
+
+    res.status(201).json(commentWithUser);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: 'Грешка при създаването на коментар' });
   }
 };
 
