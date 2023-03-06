@@ -2,7 +2,7 @@ import api from "../api"
 import Iframe from 'react-iframe'
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from "react-router-dom";
-import { Input, Button, Grid, Segment, Checkbox } from 'semantic-ui-react'
+import { Input, Button, Grid, Segment, Checkbox, Loader } from 'semantic-ui-react'
 import CommentsComponent from '../components/CommentsComponent'
 
 function TopicComponent() {
@@ -12,6 +12,7 @@ function TopicComponent() {
   const [files, setFiles] = useState([]);
   const [checked, setChecked] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const handleChange = (e,data) => setChecked(data.checked);
@@ -48,14 +49,21 @@ function TopicComponent() {
 
   useEffect(() => {
     const fileType = checked ? 'highlighted' : 'nonhighlighted';
+    setLoading(true);
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/files?type=${fileType}`)
       .then(response => {
         setFiles(response.data);
+        setLoading(false);
       })
       .catch(error => {
         alert('Грешка при зареждането на файл', error);
+        setLoading(false);
       });
   }, [params.id, checked]);
+
+  if (loading) {
+    return <Loader active>Loading...</Loader>
+  }
 
   return (
     <div style={{ textAlign: 'center' }}>

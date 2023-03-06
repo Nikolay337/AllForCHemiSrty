@@ -1,7 +1,7 @@
 import api from "../api"
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import { Button, Segment, Grid, Input, Header, Image } from 'semantic-ui-react'
+import { Button, Segment, Grid, Input, Header, Image, Loader } from 'semantic-ui-react'
 
 function TestComponent() {
 
@@ -9,6 +9,7 @@ function TestComponent() {
   const navigate = useNavigate();
   const [test, setTest] = useState([]);
   const [score, setScore] = useState(0);
+  const [loading, setLoading] = useState(false);
   const [topicData, setTopicData] = useState("");
   const [questions, setQuestions] = useState([]);
   const [correctAnswer, setCorrectAnswer] = useState("");
@@ -49,7 +50,8 @@ function TestComponent() {
 
   function handleSubmit() {
     
-    const unansweredQuestions = questions.filter((question) => !question.selectedAnswer);
+    const unansweredQuestions = questions.filter((question) =>
+      !question.selectedAnswer);
     if (unansweredQuestions.length > 0) {
       alert('Моля, отговорете на всички въпроси.');
       return;
@@ -106,11 +108,20 @@ function TestComponent() {
 
   useEffect(() => {
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`)
-      .then(response =>
-        setQuestions(response.data))
-      .catch(error =>
-        alert('Грешка при зареждането на въпросите', error));
+      .then(response => {
+        setQuestions(response.data)
+      })
+      .catch(error => {
+        alert('Грешка при зареждането на въпросите', error)
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [params.id]);
+  
+  if (loading) {
+    return <Loader active>Loading...</Loader>
+  }
 
   return (
     <div>
@@ -163,9 +174,9 @@ function TestComponent() {
                 </div>
               ))}
             </Grid>
-            <Button secondary size='massive' style={{ margin: "5rem" }} floated="left"
+            <Button secondary size='massive' style={{margin: "2rem"}} floated="left"
               onClick={() => navigate(-1)}>Назад</Button>
-            <Button secondary size="massive" style={{ marginBottom: "1rem", marginRight: '5rem' }} floated="right"
+            <Button secondary size="massive" style={{margin: "2rem"}} floated="right"
               onClick={handleSubmit}>Предай
             </Button>
           </Segment>

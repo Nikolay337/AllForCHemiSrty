@@ -1,12 +1,13 @@
 import api from "../api"
 import React, { useState, useEffect } from 'react';
-import { Button, Input, Segment, Grid, Card, Image } from 'semantic-ui-react';
+import { Button, Input, Segment, Grid, Card, Image, Loader } from 'semantic-ui-react';
 
 function TopicsComponent(props) {
-  
+
   const [title, setTitle] = useState("");
   const [topics, setTopics] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
 
   function createTopic(event) {
@@ -38,14 +39,22 @@ function TopicsComponent(props) {
   }
 
   useEffect(() => {
+    setLoading(true);
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics?area=${props.path}`)
       .then(response => {
         setTopics(response.data);
       })
       .catch(error => {
         alert('Грешка при зареждането на тема', error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [props.path]);
+
+  if (loading) {
+    return <Loader active>Loading...</Loader>
+  }
 
   return (
     <div>
@@ -70,7 +79,7 @@ function TopicsComponent(props) {
         {topics.map((topic) => (
           <Card key={topic.id} href={`${topic.area}/${topic.id}`} style={{ width: '17rem', height: '20rem', margin: '2rem' }}>
             <Card.Content>
-              <Card.Header style={{textAlign: 'center'}}>
+              <Card.Header style={{ textAlign: 'center' }}>
                 {topic.title}
               </Card.Header>
             </Card.Content>
