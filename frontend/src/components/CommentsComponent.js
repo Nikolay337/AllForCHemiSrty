@@ -13,7 +13,12 @@ function CommentsComponent() {
   function addComment(event) {
     event.preventDefault();
 
-    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/comments`, {text: newComment, name: user.name})
+    if (!newComment.trim()) {
+    return;
+  }
+
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/comments`,
+        { text: newComment, name: user.name })
       .then(response => {
         setComments([...comments, response.data]);
         setNewComment("");

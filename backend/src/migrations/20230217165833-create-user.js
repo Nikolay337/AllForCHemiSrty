@@ -9,7 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: Sequelize.STRING,
-      email: Sequelize.STRING,
+      email: {
+        type: Sequelize.STRING,
+        unique: true
+      },
       password: Sequelize.STRING,
       admin: Sequelize.BOOLEAN,
       createdAt: {

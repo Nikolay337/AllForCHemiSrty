@@ -37,6 +37,12 @@ const createUser = async (req, res) => {
   }
 
   try {
+    const user = await User.findOne({ where: { email } });
+
+    if (user) {
+      return res.status(409).json({ message: 'Email already exists' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.create({
@@ -45,32 +51,14 @@ const createUser = async (req, res) => {
       password: hashedPassword
     });
 
-    return res.status(201).json({message: "User registration successful"});
+    return res.status(201).json({ message: "User registration successful" });
   } catch (err) {
-    return res.status(500).json({ message: 'Server error' });
-  }
-};
-
-const getUser = async (req, res) => {
-  const { email } = req.body;
-
-  try {
-    const user = await User.findOne({
-      where: { email }
-    });
-
-    if (user) {
-      return res.status(200).json({ message: 'Email address already registered' });
-    } else {
-      return res.status(200).json({ message: 'Email address available' });
-    }
-  } catch (err) {
+    console.error(err);
     return res.status(500).json({ message: 'Server error' });
   }
 };
 
 module.exports = {
   createUser,
-  getUser,
   login
 };

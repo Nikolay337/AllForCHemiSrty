@@ -1,4 +1,3 @@
-
 import api from "../api"
 import React, { useState } from 'react'
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
@@ -10,7 +9,7 @@ function Register() {
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('');
 
-  function createUser(event) {
+function createUser(event) {
     event.preventDefault();
 
     if (!name || !email || !password) {
@@ -24,28 +23,22 @@ function Register() {
       return;
     }
 
-    // api.get(`${process.env.REACT_APP_BACKEND_URL}/user`)
-    //   .then(response => {
-    //     if (response.data.user) {
-    //       setErrorMessage('Email address already registered');
-    //       return;
-    //     }
-
-        api.post(`${process.env.REACT_APP_BACKEND_URL}/register`, {
-          name: name,
-          email: email,
-          password: password
-        })
-          .then(() => {
-            window.location.href = '/';
-          })
-          .catch((error) => {
-            console.error(error);
-          });
-      // })
-      // .catch((error) => {
-      //   console.error(error);
-      // });
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/register`, {
+      name: name,
+      email: email,
+      password: password
+    })
+      .then(() => {
+        window.location.href = '/';
+      })
+      .catch((error) => {
+        console.error(error);
+        if (error.response.status === 500) {
+          setErrorMessage('Server error, please try again later.');
+        } else if (error.response.status === 409) {
+          setErrorMessage('Email already exists.');
+        }
+      });
   }
   
   return (

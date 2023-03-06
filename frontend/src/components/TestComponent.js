@@ -19,7 +19,8 @@ function TestComponent() {
   function createTest(event) {
     event.preventDefault();
 
-    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`, {name: topicData[0].title})
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`,
+      { name: topicData[0].title })
       .then(response =>
         setTest([...test, response.data]))
       .catch(error =>
