@@ -4,7 +4,8 @@ import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 
 function Register() {
 
-  const [name, setName] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('');
@@ -12,7 +13,7 @@ function Register() {
 function createUser(event) {
     event.preventDefault();
 
-    if (!name || !email || !password) {
+    if (!firstName || !lastName || !email || !password) {
       setErrorMessage('Моля запълни всички полета');
       return;
     }
@@ -23,6 +24,7 @@ function createUser(event) {
       return;
     }
 
+    const name = `${firstName} ${lastName}`;
     api.post(`${process.env.REACT_APP_BACKEND_URL}/register`, {
       name: name,
       email: email,
@@ -49,8 +51,10 @@ function createUser(event) {
         </Header>
         <Form>
           <Segment size='big'>
-            <Form.Input icon='user' iconPosition='left' placeholder='Име и Фамилия'
-              onChange={(event) => setName(event.target.value)} />
+            <Form.Input icon='user' iconPosition='left' placeholder='Име'
+              onChange={(event) => setFirstName(event.target.value)} />
+            <Form.Input icon='user' iconPosition='left' placeholder='Фамилия'
+              onChange={(event) => setLastName(event.target.value)} />
             <Form.Input icon='user' iconPosition='left' placeholder='Имейл'
               onChange={(event) => setEmail(event.target.value)} />
             <Form.Input icon='lock' iconPosition='left' placeholder='Парола' type='password'
