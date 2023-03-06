@@ -14,11 +14,11 @@ function CommentsComponent() {
     event.preventDefault();
 
     if (!newComment.trim()) {
-    return;
-  }
+      return;
+    }
 
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/comments`,
-        { text: newComment, name: user.name })
+        { text: newComment, userId: user.id })
       .then(response => {
         setComments([...comments, response.data]);
         setNewComment("");
@@ -47,8 +47,12 @@ function CommentsComponent() {
       {comments.map((comment) => (
         <Comment key={comment.id}>
           <Comment.Content >
-            <Comment.Author style={{fontSize: '2rem'}}>{comment.name}</Comment.Author>
-            <Comment.Text style={{fontSize: '1.5rem', margin: '1rem'}}>{comment.text}</Comment.Text>
+            <Comment.Author style={{ fontSize: '2rem' }}>
+              {comment.User.name}
+            </Comment.Author>
+            <Comment.Text style={{ fontSize: '1.5rem', margin: '1rem' }}>
+              {comment.text}
+            </Comment.Text>
           </Comment.Content>
         </Comment>
       ))}

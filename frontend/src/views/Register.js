@@ -13,7 +13,7 @@ function createUser(event) {
     event.preventDefault();
 
     if (!name || !email || !password) {
-      setErrorMessage('Please fill in all fields');
+      setErrorMessage('Моля запълни всички полета');
       return;
     }
 
@@ -36,7 +36,7 @@ function createUser(event) {
         if (error.response.status === 500) {
           setErrorMessage('Server error, please try again later.');
         } else if (error.response.status === 409) {
-          setErrorMessage('Email already exists.');
+          setErrorMessage('Има съществуващ акаунт с този имейл.');
         }
       });
   }

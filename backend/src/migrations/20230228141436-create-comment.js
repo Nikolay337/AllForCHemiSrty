@@ -9,11 +9,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       text: Sequelize.STRING,
-      name: Sequelize.STRING,
       topicId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Topics',
+          key: 'id', 
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
           key: 'id', 
         },
         onUpdate: 'CASCADE',

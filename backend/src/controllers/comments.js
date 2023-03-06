@@ -1,18 +1,19 @@
 const { Comment } = require('../models');
 
 const createComment = async (req, res) => {
-  const { text, name } = req.body;
+  const { text } = req.body;
   const { topicId } = req.params;
+  const { userId } = req.body;
 
-  if (!text || !name) {
+  if (!text) {
     return res.status(400).json({ error: 'Missing text or name' });
   }
-console.log(req);
+console.log(userId);
   try {
     const newComment = await Comment.create({
       text,
-      name,
-      topicId
+      topicId,
+      userId
     });
 
     return res.send(newComment);
@@ -26,7 +27,11 @@ const getComments = async (req, res) => {
 
   try {
     const comments = await Comment.findAll({
-      where: { topicId }
+      where: { topicId },
+      include: {
+        model: User,
+        attributes: ['name']
+      }
     });
 
     return res.send(comments);

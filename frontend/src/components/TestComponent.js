@@ -143,7 +143,7 @@ function TestComponent() {
             <Grid centered style={{ marginBottom: "5rem" }}>
               {questions.map((question) => (
                 <div style={{ margin: "2rem" }} key={question.id}>
-                  <Grid.Row centered style={{ width: "70rem", height: "85%" }} columns="1">
+                  <Grid.Row centered style={{ width: "70rem", height: "85%" }}>
                     <Image style={{ width: "70rem", height: "85%" }}
                       src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
                     />
@@ -165,7 +165,7 @@ function TestComponent() {
             </Grid>
             <Button secondary size='massive' style={{ margin: "5rem" }} floated="left"
               onClick={() => navigate(-1)}>Назад</Button>
-            <Button secondary size="massive" style={{ margin: "5rem" }} floated="right"
+            <Button secondary size="massive" style={{ marginBottom: "1rem", marginRight: '5rem' }} floated="right"
               onClick={handleSubmit}>Предай
             </Button>
           </Segment>
