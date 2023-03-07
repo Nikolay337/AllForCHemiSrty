@@ -24,8 +24,7 @@ function Login(event) {
         window.location.href = '/home';
       })
       .catch((error) => {
-        console.error(error);
-        setError('Invalid email or password');
+        setError('Невалиден имейл или парола');
       });
   }
 

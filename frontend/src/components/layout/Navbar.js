@@ -11,7 +11,7 @@ function Navbar() {
   }
 
   return (
-    <Menu inverted secondary color='purple'>
+    <Menu inverted secondary style={{backgroundColor: 'Indigo' }}>
       <Menu.Header position='left' href='/home' style={{ color: 'white', fontSize: '2rem', padding: '2rem', fontWeight: 'bold' }}>
         AllForCHemiStry
       </Menu.Header>
@@ -23,7 +23,7 @@ function Navbar() {
           <Button color='purple' href='/'>
             Вход  
           </Button>
-          <Button color='green' href='/register'>
+          <Button color='green' href='/register' style={{marginLeft: '2rem'}}>
             Регистрация
           </Button>
         </Menu.Item>

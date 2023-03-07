@@ -20,11 +20,12 @@ function createUser(event) {
 
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(email)) {
-      setErrorMessage('Please enter a valid email address');
+      setErrorMessage('Моля въведи валиден имейл адрес');
       return;
     }
 
     const name = `${firstName} ${lastName}`;
+  
     api.post(`${process.env.REACT_APP_BACKEND_URL}/register`, {
       name: name,
       email: email,
@@ -34,7 +35,6 @@ function createUser(event) {
         window.location.href = '/';
       })
       .catch((error) => {
-        console.error(error);
         if (error.response.status === 500) {
           setErrorMessage('Server error, please try again later.');
         } else if (error.response.status === 409) {

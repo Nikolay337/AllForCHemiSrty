@@ -148,7 +148,7 @@ function TestComponent() {
             </Segment>
           )}
           <Segment>
-            <Header color="purple" size="huge" textAlign="center">
+            <Header size="huge" textAlign="center" style={{color: 'Indigo'}}>
               {test[0] && test[0].name}
             </Header>
             <Grid centered style={{ marginBottom: "5rem" }}>

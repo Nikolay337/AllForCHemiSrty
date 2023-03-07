@@ -8,8 +8,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const authMiddleware = require('./src/middleware/authMiddleware');
 
-require("dotenv").config();
-
 app.use(cors({
     origin: "http://localhost:3000"
 }));
