@@ -12,9 +12,12 @@ function Navbar() {
 
   return (
     <Menu inverted secondary color='purple'>
-      <Menu.Header position='left' href='/home' style={{color: 'white', textAlign: 'center', fontSize: '2rem', padding: '2rem', fontWeight: 'bold'}}>
+      <Menu.Header position='left' href='/home' style={{ color: 'white', fontSize: '2rem', padding: '2rem', fontWeight: 'bold' }}>
         AllForCHemiStry
       </Menu.Header>
+      <Menu.Item position='right' href='/periodic-table' style={{ color: 'white', fontSize: '2rem', fontWeight: 'bold' }}>
+        Периодична система
+      </Menu.Item>
       {!user ? 
         <Menu.Item position='right' style={{padding: '2rem', fontSize: '1.25rem'}}>
           <Button color='purple' href='/'>

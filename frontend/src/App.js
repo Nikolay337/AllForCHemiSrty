@@ -1,12 +1,13 @@
 import { Route, Routes } from "react-router-dom";
+import Test from "./views/Test"
 import Home from "./views/Home"
+import Topic from "./views/Topic"
 import Login from "./views/Login";
 import Register from "./views/Register"
 import Organic from "./views/Organic"
 import Inorganic from "./views/Inorganic"
 import ErrorPage from "./views/ErrorPage";
-import Topic from "./views/Topic"
-import Test from "./views/Test"
+import PeriodicTable from "./views/PeriodicTable";
 import 'semantic-ui-css/semantic.min.css'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path="/home" element={<Home />} />
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/periodic-table" element={<PeriodicTable />} />
       <Route path="/organic-topics">
         <Route index element={<Organic />} />
         <Route path=":id">

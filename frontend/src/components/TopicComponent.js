@@ -67,8 +67,12 @@ function TopicComponent() {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      <Grid.Column>
-        <Checkbox style={{ marginBottom: '2rem', marginTop: '2rem' }} toggle checked={checked} onChange={handleChange} />
+      <Grid.Column style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ fontSize: "2rem" }}>Необработена тема</div>
+        <div style={{ display: 'flex', alignItems: 'center', marginLeft: '1rem', marginRight: '1rem' }}>
+          <Checkbox style={{ marginBottom: '2rem', marginTop: '2rem' }} toggle checked={checked} onChange={handleChange} />
+          <div style={{ fontSize: "2rem", marginLeft: '1rem' }}>Обработена тема</div>
+        </div>
       </Grid.Column>
       {!files[0] && !user.admin &&
         <div style={{marginTop: '15%'}}>
