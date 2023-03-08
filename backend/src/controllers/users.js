@@ -25,7 +25,7 @@ const login = async (req, res) => {
 
     res.status(200).json({ token });
   } catch (err) {
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error', err });
   }
 };
 
@@ -40,7 +40,7 @@ const createUser = async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     if (user) {
-      return res.status(409).json({ message: 'Email already exists' });
+      return res.status(200).json({ message: 'Email already exists', error: true });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);

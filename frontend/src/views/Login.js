@@ -1,10 +1,12 @@
 import api from "../api"
 import jwtDecode from 'jwt-decode'
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 
 function Login() {
 
+  const navigate = useNavigate();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -12,7 +14,7 @@ function Login() {
 function Login(event) {
     event.preventDefault();
 
-      api.post("http://localhost:4000/login", {
+      api.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
         email: email,
         password: password
       })
@@ -21,9 +23,9 @@ function Login(event) {
         const tokenDecoded = jwtDecode(response.data.token);
         localStorage.setItem('token', token);
         localStorage.setItem('user', JSON.stringify(tokenDecoded));
-        window.location.href = '/home';
+        navigate("/home")
       })
-      .catch((error) => {
+        .catch(() => {
         setError('Невалиден имейл или парола');
       });
   }

@@ -1,9 +1,11 @@
 import api from "../api"
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 
 function Register() {
 
+  const navigate = useNavigate();
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -37,12 +39,14 @@ function Register() {
       email: email,
       password: password
     })
-      .then(() => {
-        window.location.href = '/';
+      .then((response) => {
+        if (response.data.error) {
+          setErrorMessage('Има съществуващ акаунт с този имейл.');
+        }
+         else {
+          navigate("/")
+         }
       })
-      .catch(error => {
-        setErrorMessage('Има съществуващ акаунт с този имейл.', error);
-      });
   }
 
   return (
