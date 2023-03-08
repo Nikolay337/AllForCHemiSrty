@@ -12,7 +12,7 @@ function Login() {
 function Login(event) {
     event.preventDefault();
 
-      api.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
+      api.post("http://localhost:4000/login", {
         email: email,
         password: password
       })

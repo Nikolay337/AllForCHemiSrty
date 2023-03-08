@@ -8,12 +8,13 @@ function Register() {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('');
 
-function createUser(event) {
+  function createUser(event) {
     event.preventDefault();
 
-    if (!firstName || !lastName || !email || !password) {
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
       setErrorMessage('Моля запълни всички полета');
       return;
     }
@@ -24,8 +25,13 @@ function createUser(event) {
       return;
     }
 
+    if (password !== confirmPassword) {
+      setErrorMessage('Паролите не съвпадат');
+      return;
+    }
+
     const name = `${firstName} ${lastName}`;
-  
+
     api.post(`${process.env.REACT_APP_BACKEND_URL}/register`, {
       name: name,
       email: email,
@@ -34,15 +40,11 @@ function createUser(event) {
       .then(() => {
         window.location.href = '/';
       })
-      .catch((error) => {
-        if (error.response.status === 500) {
-          setErrorMessage('Server error, please try again later.');
-        } else if (error.response.status === 409) {
-          setErrorMessage('Има съществуващ акаунт с този имейл.');
-        }
+      .catch(error => {
+        setErrorMessage('Има съществуващ акаунт с този имейл.', error);
       });
   }
-  
+
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
       <Grid.Column color='purple' computer={4}>
@@ -59,6 +61,8 @@ function createUser(event) {
               onChange={(event) => setEmail(event.target.value)} />
             <Form.Input icon='lock' iconPosition='left' placeholder='Парола' type='password'
               onChange={(event) => setPassword(event.target.value)} />
+            <Form.Input icon='lock' iconPosition='left' placeholder='Потвърди паролата' type='password'
+              onChange={(event) => setConfirmPassword(event.target.value)} />
             {errorMessage &&
               <p style={{ color: 'red' }}>{errorMessage}</p>
             }
@@ -72,4 +76,4 @@ function createUser(event) {
   )
 }
 
-export default Register
+export default Register;

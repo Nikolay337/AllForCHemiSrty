@@ -24,8 +24,9 @@ function TestComponent() {
       { name: topicData[0].title })
       .then(response =>
         setTest([...test, response.data]))
-      .catch(error =>
-        alert('Грешка при създаването на тест', error));
+      .catch(error => {
+        alert('Грешка при създаването на тест', error)
+      });
   };
 
   function addQuestion(event) {
@@ -45,7 +46,9 @@ function TestComponent() {
         setQuestions([...questions, response.data]);
         setCorrectAnswer("");
       })
-      .catch(error => alert('Грешка при добавянето на въпрос', error));
+      .catch(error => {
+        alert('Грешка при добавянето на въпрос', error)
+      });
   };
 
   function handleSubmit() {

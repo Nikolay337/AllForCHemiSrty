@@ -27,4 +27,4 @@ app.use(routes.topics);
 app.use(routes.comments);
 app.use(routes.questions);
 
-app.listen(4001, () => console.log("Server started on port 4001"))
+app.listen(4000, () => console.log("Server started on port 5000"))
