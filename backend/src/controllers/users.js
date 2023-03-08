@@ -11,13 +11,13 @@ const login = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(401).json({ message: 'Invalid login credentials' });
+      return res.status(200).json({ message: 'Invalid login credentials', error: true });
     }
 
     const match = await bcrypt.compare(password, user.password);
 
     if (!match) {
-      return res.status(401).json({ message: 'Invalid login credentials' });
+      return res.status(200).json({ message: 'Invalid login credentials', error: true });
     }
 
     const token = jwt.sign({ name: user.name, id: user.id, admin: user.admin },
