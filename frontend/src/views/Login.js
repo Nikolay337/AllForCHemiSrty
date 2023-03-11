@@ -26,7 +26,7 @@ function Login(event) {
         navigate("/home")
       })
         .catch(() => {
-        setError('Невалиден имейл или парола');
+          setError('Невалиден имейл или парола');
       });
   }
 

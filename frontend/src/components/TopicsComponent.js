@@ -1,9 +1,11 @@
 import api from "../api"
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Input, Segment, Grid, Card, Image, Loader } from 'semantic-ui-react';
 
 function TopicsComponent(props) {
 
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [topics, setTopics] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -72,9 +74,9 @@ function TopicsComponent(props) {
       {!topics[0] && !user.admin &&
         <div style={{textAlign: 'center', marginTop: '15%'}}>
           <Segment size='massive'>За съжаление, все още няма качени теми</Segment>
-          <Button secondary size='massive' href={`/home`}>Назад</Button>
+          <Button secondary size='massive' onClick={() => navigate(-1)}>Назад</Button>
         </div>
-      }
+      } 
       <Grid centered style={{ margin: '5rem' }}>
         {topics.map((topic) => (
           <Card key={topic.id} href={`${topic.area}/${topic.id}`} style={{ width: '17rem', height: '20rem', margin: '2rem' }}>

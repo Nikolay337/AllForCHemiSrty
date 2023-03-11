@@ -6,7 +6,6 @@ const authMiddleware = (req, res, next) => {
   if (excludedRoutes.includes(req.path)) {
     return next();
   }
-
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {

@@ -150,9 +150,9 @@ function TestComponent() {
               </Button>
             </Segment>
           )}
-          <Segment>
+          <Segment style={{marginBottom: '2rem'}}>
             <Header size="huge" textAlign="center" style={{color: 'Indigo'}}>
-              {test[0] && test[0].name}
+              {test[0].name}
             </Header>
             <Grid centered style={{ marginBottom: "5rem" }}>
               {questions.map((question) => (
@@ -197,9 +197,16 @@ function TestComponent() {
         </div>
       )}
       {showResults && (
-        <Header size="huge" textAlign="center">
-          Твоят резултат е {score} от {questions.length}
-        </Header>
+        <Segment size="massive" textAlign="center" >
+          <Header as="h2">Тестът приключи!</Header>
+          <p>Вашият резултат е: {score} / {questions.length}</p>
+          <Button primary size="big" style={{dispay: 'flex', textAlign:'center'}}
+            onClick={() => setShowResults(false)}>Направи нов тест
+          </Button>
+          <Button secondary size='massive' floated="left"
+            onClick={() => navigate(-1)}>Назад
+          </Button>
+        </Segment>
       )}
     </div>
   );

@@ -1,19 +1,21 @@
 import React from 'react'
-import { Card, Image, Segment } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
+import { useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/layout/AuthLayout'
 import organicImage from '../assets/images/image-1.png'
 import inorganicImage from '../assets/images/image-2.png'
 
 function Home() {
 
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
 
   function handleArea(area) {
     if (user) {
-      window.location.href = `/${area}`
+      navigate(`/${area}`)
     } else {
       alert("Не сте влезнали в акаунта си!")
-      window.location.href = "/"
+      navigate("/")
    }
   }
 
