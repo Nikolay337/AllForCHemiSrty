@@ -62,12 +62,12 @@ function TopicsComponent(props) {
     <div>
       {user.admin &&
         <Segment textAlign='center'>
-          <Input style={{ height: '3.2rem' }} size='big' type="text" placeholder="Заглавие на темата" value={title}
+          <Input style={{height: '3.2rem'}} size='big' type="text" placeholder="Заглавие на темата" value={title}
             onChange={(event) => setTitle(event.target.value)}/>
-          <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file"
+          <Input icon='file' style={{marginLeft: '2rem', width: '17rem'}} type="file"
             onChange={handleFileSelect}
           />
-          <Button size='big' primary style={{ marginLeft: '2rem' }}
+          <Button primary size='big' style={{marginLeft: '2rem'}}
             onClick={createTopic}>Създай</Button>
         </Segment>
       }
@@ -77,16 +77,16 @@ function TopicsComponent(props) {
           <Button secondary size='massive' onClick={() => navigate(-1)}>Назад</Button>
         </div>
       } 
-      <Grid centered style={{ margin: '5rem' }}>
+      <Grid centered style={{margin: '5rem'}}>
         {topics.map((topic) => (
           <Card key={topic.id} href={`${topic.area}/${topic.id}`} style={{ width: '17rem', height: '20rem', margin: '2rem' }}>
             <Card.Content>
-              <Card.Header style={{ textAlign: 'center' }}>
+              <Card.Header style={{textAlign: 'center'}}>
                 {topic.title}
               </Card.Header>
             </Card.Content>
             <Card.Content>
-              <Image style={{ height: '10rem' }} src={`${process.env.REACT_APP_BACKEND_URL}/${topic.path}`} />
+              <Image style={{height: '10rem'}} src={`${process.env.REACT_APP_BACKEND_URL}/${topic.path}`} />
             </Card.Content>
           </Card>
         ))}

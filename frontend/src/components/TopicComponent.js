@@ -57,7 +57,6 @@ function TopicComponent() {
       })
       .catch(error => {
         alert('Грешка при зареждането на файл', error);
-        setLoading(false);
       });
   }, [params.id, checked]);
 
@@ -66,12 +65,12 @@ function TopicComponent() {
   }
 
   return (
-    <div style={{ textAlign: 'center' }}>
-      <Grid.Column style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={{ fontSize: "2rem" }}>Необработена тема</div>
-        <div style={{ display: 'flex', alignItems: 'center', marginLeft: '1rem', marginRight: '1rem' }}>
-          <Checkbox style={{ marginBottom: '2rem', marginTop: '2rem' }} toggle checked={checked} onChange={handleChange} />
-          <div style={{ fontSize: "2rem", marginLeft: '1rem' }}>Обработена тема</div>
+    <div style={{textAlign: 'center' }}>
+      <Grid.Column style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <div style={{display: 'flex', alignItems: 'center', marginLeft: '1rem', marginRight: '1rem'}}>
+          <div style={{fontSize: "2rem", marginRight: '1rem'}}>Необработена тема</div>
+          <Checkbox style={{ marginBottom: '2rem', marginTop: '2rem'}} toggle checked={checked} onChange={handleChange} />
+          <div style={{fontSize: "2rem", marginLeft: '1rem'}}>Обработена тема</div>
         </div>
       </Grid.Column>
       {!files[0] && !user.admin &&
@@ -82,9 +81,9 @@ function TopicComponent() {
       }
       {user.admin && !files[0] &&
         <Segment>
-          <Input icon='file' style={{ marginLeft: '2rem', width: '17rem' }} type="file" accept=".pdf"
+          <Input icon='file' style={{marginLeft: '2rem', width: '17rem'}} type="file" accept=".pdf"
             onChange={handleFileSelect} />
-          <Button primary size='big' style={{ marginLeft: '2rem' }}
+          <Button primary size='big' style={{marginLeft: '2rem'}}
             onClick={addFile}>Добави файл</Button>
         </Segment>
       }
@@ -94,14 +93,18 @@ function TopicComponent() {
             {files.map((file) => (
               <div key={file.id}>
                 <Segment>
-                  <Iframe src={`${process.env.REACT_APP_BACKEND_URL}/${file.path}`} width="800" height='1000'/>
+                  <Iframe src={`${process.env.REACT_APP_BACKEND_URL}/${file.path}`} styles={{width: '60rem', height: '85rem'}} />
                 </Segment>
-                <Button secondary floated="left" style={{ margin: '2rem' }} size='massive' onClick={() => navigate(-1)}>Назад</Button>
-                <Button secondary floated='right' style={{ margin: '2rem' }} size='massive' href={`${file.topicId}/test`}>Тест</Button>
+                <Button secondary floated="left" size='massive'
+                  onClick={() => navigate(-1)}>Назад
+                </Button>
+                <Button secondary floated='right' size='massive'
+                  href={`${file.topicId}/test`}>Тест
+                </Button>
               </div>
             ))}
           </Grid>
-          <Segment style={{ textAlign: 'left', marginTop: '2rem' }}>
+          <Segment style={{textAlign: 'left', marginTop: '2rem'}}>
             <CommentsComponent />
           </Segment>
         </div>

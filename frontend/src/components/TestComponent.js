@@ -102,6 +102,7 @@ function TestComponent() {
   }, [params.id]);
 
   useEffect(() => {
+    setLoading(true);
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`)
       .then(response =>
         setTest(response.data))
@@ -110,6 +111,7 @@ function TestComponent() {
   }, [params.id]);
 
   useEffect(() => {
+    setLoading(true);
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests/questions`)
       .then(response => {
         setQuestions(response.data)
@@ -132,8 +134,8 @@ function TestComponent() {
         <div>
           {user.admin && (
             <Segment textAlign="center">
-              <Input icon="file" style={{ marginLeft: "2rem", width: "17rem" }} type="file" onChange={handleFileSelect} />
-              <Button primary size="big" style={{ marginLeft: "2rem" }}
+              <Input icon="file" style={{marginLeft: "2rem", width: "17rem"}} type="file" onChange={handleFileSelect} />
+              <Button primary size="big" style={{marginLeft: "2rem"}}
                 onClick={addQuestion}>Добави въпрос
               </Button>
               <Button style={{marginLeft: "1rem", backgroundColor: correctAnswer === "А" ? "purple" : "white"}} 
@@ -150,13 +152,13 @@ function TestComponent() {
               </Button>
             </Segment>
           )}
-          <Segment style={{marginBottom: '2rem'}}>
+          <Segment>
             <Header size="huge" textAlign="center" style={{color: 'Indigo'}}>
               {test[0].name}
             </Header>
-            <Grid centered style={{ marginBottom: "5rem" }}>
+            <Grid centered style={{marginBottom: "5rem"}}>
               {questions.map((question) => (
-                <div style={{ margin: "2rem" }} key={question.id}>
+                <div style={{margin: "2rem" }} key={question.id}>
                   <Grid.Row centered style={{ width: "70rem", height: "85%" }}>
                     <Image style={{ width: "70rem", height: "85%" }}
                       src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
@@ -167,44 +169,47 @@ function TestComponent() {
                     <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "Б" ? "purple" : "white"}}
                       onClick={() => handleAnswerSelect(question.id, "Б")}>Б
                     </Button>
-                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "В" ? "purple" : "white",}}
+                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "В" ? "purple" : "white"}}
                       onClick={() => handleAnswerSelect(question.id, "В")}>В
                     </Button>
-                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "Г" ? "purple" : "white",}}
+                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "Г" ? "purple" : "white"}}
                       onClick={() => handleAnswerSelect(question.id, "Г")}>Г
                     </Button>
                   </Grid.Row>
                 </div>
               ))}
             </Grid>
-            <Button secondary size='massive' style={{margin: "2rem"}} floated="left"
-              onClick={() => navigate(-1)}>Назад</Button>
-            <Button secondary size="massive" style={{margin: "2rem"}} floated="right"
+            <Button secondary size='massive' style={{margin: "3rem"}} floated="left"
+              onClick={() => navigate(-1)}>Назад
+            </Button>
+            <Button secondary size="massive" style={{margin: "3rem"}} floated="right"
               onClick={handleSubmit}>Предай
             </Button>
           </Segment>
         </div>
       ) : user.admin ? (
-        <Button primary size="massive" style={{ marginLeft: "60rem", marginTop: "23rem" }} 
+        <Button primary size="massive" style={{marginLeft: "60rem", marginTop: "25rem"}} 
           onClick={createTest}>Създай тест
         </Button>
       ) : (
-        <div style={{ textAlign: 'center', marginTop: '15%' }}>
+        <div style={{textAlign: 'center', marginTop: '15%'}}>
           <Segment size="massive">
             За съжаление, все още няма качен тест
           </Segment>
-          <Button secondary size='massive' onClick={() => navigate(-1)}>Назад</Button>
+          <Button secondary size='massive' onClick={() => navigate(-1)}>
+            Назад
+          </Button>
         </div>
       )}
       {showResults && (
-        <Segment size="massive" textAlign="center" >
+        <Segment size="massive" textAlign="center">
           <Header as="h2">Тестът приключи!</Header>
           <p>Вашият резултат е: {score} / {questions.length}</p>
-          <Button primary size="big" style={{dispay: 'flex', textAlign:'center'}}
-            onClick={() => setShowResults(false)}>Направи нов тест
+          <Button primary size="big" style={{display: 'flex', textAlign: 'center', margin: '0 auto'}} onClick={() => setShowResults(false)}>
+            Направи нов тест
           </Button>
-          <Button secondary size='massive' floated="left"
-            onClick={() => navigate(-1)}>Назад
+          <Button secondary size='massive' floated="left" style={{marginTop: '3rem'}} onClick={() => navigate(-1)}>
+            Назад
           </Button>
         </Segment>
       )}

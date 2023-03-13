@@ -1,9 +1,12 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function ErrorPage() {
 
+  const navigate = useNavigate();
+
   setTimeout(() => {
-    window.location.href = '/home';
+    navigate('/home')
   }, 2000);
 
   return (

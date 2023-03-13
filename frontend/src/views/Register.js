@@ -42,15 +42,14 @@ function Register() {
       .then((response) => {
         if (response.data.error) {
           setErrorMessage('Има съществуващ акаунт с този имейл.');
-        }
-         else {
+        } else {
           navigate("/")
          }
       })
   }
 
   return (
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+    <Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle'>
       <Grid.Column color='purple' computer={4}>
         <Header as='h2' textAlign='center'>
           Регистрация
@@ -68,7 +67,7 @@ function Register() {
             <Form.Input icon='lock' iconPosition='left' placeholder='Потвърди паролата' type='password'
               onChange={(event) => setConfirmPassword(event.target.value)} />
             {errorMessage &&
-              <p style={{ color: 'red' }}>{errorMessage}</p>
+              <p style={{color: 'red'}}>{errorMessage}</p>
             }
             <Button type='submit' color='purple' size='big' onClick={createUser}>
               Регистриране

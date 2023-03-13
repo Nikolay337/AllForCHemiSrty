@@ -21,26 +21,20 @@ function Home() {
 
   return (
     <AuthLayout>
-      <div src={organicImage}>
-      <Card.Group centered style={{ width: '100%', height: '60rem', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <Card style={{width: '30rem', height: '20rem'}} onClick={() => {handleArea('inorganic-topics')}}>
-          <Card.Content>
-            <Card.Header style={{textAlign: 'center'}}>
-              НЕОРГАНИЧНА ХИМИЯ
-            </Card.Header>
+      <Card.Group centered style={{height: '60rem', alignItems: 'center'}}>
+        <Card style={{width: '35rem', height: '25rem'}} onClick={() => handleArea('inorganic-topics')}>
+          <Card.Content textAlign="center">
+            <Card.Header>НЕОРГАНИЧНА ХИМИЯ</Card.Header>
+            <Image style={{width: '100%', height: '20rem', marginTop: '1rem'}} src={inorganicImage} />
           </Card.Content>
-          <Image style={{width: '100rem',height: '17rem'}} src={inorganicImage} />
         </Card>
-        <Card style={{width: '30rem', height: '20rem', marginLeft: '3rem'}} onClick={() => {handleArea('organic-topics')}}>
-          <Card.Content>
-            <Card.Header style={{ textAlign: 'center' }}>
-              ОРГАНИЧНА ХИМИЯ
-            </Card.Header>
+        <Card style={{width: '35rem', height: '25rem'}} onClick={() => handleArea('organic-topics')}>
+          <Card.Content textAlign="center">
+            <Card.Header>ОРГАНИЧНА ХИМИЯ</Card.Header>
+            <Image style={{width: '100%', height: '20rem', marginTop: '1rem'}} src={organicImage} />
           </Card.Content>
-          <Image style={{ width: '100rem', height: '17rem' }} src={organicImage} />
         </Card>
-        </Card.Group>
-      </div>
+      </Card.Group>
     </AuthLayout>
   )
 }

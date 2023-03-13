@@ -31,7 +31,7 @@ function Login(event) {
   }
 
   return(
-    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+    <Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle'>
       <Grid.Column color='purple' computer={4}>
         <Header as='h2' textAlign='center'>
           Влез в профила си
@@ -48,7 +48,7 @@ function Login(event) {
             </Button>
           </Segment>
           <Message size='big'>
-            Нямаш профил? <a href='/register'>Регистрирай се!</a>
+            Нямаш профил? <a onClick={() => navigate('/register')}>Регистрирай се!</a>
           </Message>
         </Form>
       </Grid.Column>

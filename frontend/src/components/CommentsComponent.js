@@ -39,24 +39,29 @@ function CommentsComponent() {
   }, [params.id]);
 
   return (
-    <Comment.Group style={{marginLeft: '44rem'}}>
-      <Form>
-        <Form.TextArea value={newComment} onChange={(event) => setNewComment(event.target.value)} />
-        <Button primary size='large' content='Add Comment' labelPosition='right' icon='edit' onClick={addComment} />
-      </Form>
-      {comments.map((comment) => (
-        <Comment key={comment.id}>
-          <Comment.Content >
-            <Comment.Author style={{ fontSize: '2rem' }}>
-              {comment.User.name}
-            </Comment.Author>
-            <Comment.Text style={{ fontSize: '1.5rem', margin: '1rem' }}>
-              {comment.text}
-            </Comment.Text>
-          </Comment.Content>
-        </Comment>
-      ))}
-    </Comment.Group>
+    <div style={{display: 'flex', justifyContent: 'center'}}>
+      <Comment.Group>
+        <Form>
+          <Form.TextArea value={newComment} style={{minWidth: '36rem'}}
+            onChange={(event) => setNewComment(event.target.value)} />
+          <Button primary size='large' content='Add Comment' labelPosition='right' icon='edit'
+            onClick={addComment}
+          />
+        </Form>
+        {comments.map((comment) => (
+          <Comment key={comment.id}>
+            <Comment.Content>
+              <Comment.Author style={{fontSize: '2rem'}}>
+                {comment.User.name}
+              </Comment.Author>
+              <Comment.Text style={{fontSize: '1.5rem', margin: '1rem'}}>
+                {comment.text}
+              </Comment.Text>
+            </Comment.Content>
+          </Comment>
+        ))}
+      </Comment.Group>
+    </div>
   )
 }
 

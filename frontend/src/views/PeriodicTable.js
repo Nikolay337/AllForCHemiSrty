@@ -7,7 +7,7 @@ function PeriodicTable() {
   return (
     <AuthLayout>
       <Segment style={{ display: 'flex', justifyContent: 'center' }}>
-        <Image src={tablica} style={{ width: '83rem'}} />
+        <Image style={{ width: '80rem'}} src={tablica} />
       </Segment>
     </AuthLayout>
   )

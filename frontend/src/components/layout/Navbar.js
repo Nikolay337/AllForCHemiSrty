@@ -15,18 +15,18 @@ function Navbar() {
 
   return (
     <Menu inverted secondary style={{backgroundColor: 'Indigo' }}>
-      <Menu.Item position='left' onClick={() => navigate("/home")} style={{ color: 'white', fontSize: '2.5rem', padding: '2rem', fontWeight: 'bold' }}>
+      <Menu.Item position='left' onClick={() => navigate('/home')} style={{color: 'white', fontSize: '2.5rem', padding: '2rem', fontWeight: 'bold'}}>
         AllForCHemiStry
       </Menu.Item>
-      <Menu.Item position='right' onClick={() => navigate('/periodic-table')} style={{ color: 'white', fontSize: '2rem', padding: '2rem', fontWeight: 'bold' }}>
+      <Menu.Item  onClick={() => navigate('/periodic-table')} style={{color: 'white', fontSize: '2rem', padding: '2rem', fontWeight: 'bold'}}>
         Периодична система
       </Menu.Item>
       {!user ? 
         <Menu.Item position='right' style={{padding: '2rem', fontSize: '1.25rem'}}>
-          <Button color='purple' href='/'>
+          <Button color='purple' onClick={() => navigate('/')}>
             Вход  
           </Button>
-          <Button color='green' href='/register' style={{marginLeft: '2rem'}}>
+          <Button color='green' style={{marginLeft: '2rem'}} onClick={() => navigate('/register')}>
             Регистрация
           </Button>
         </Menu.Item>
