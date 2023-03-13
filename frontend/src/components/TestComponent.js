@@ -45,6 +45,7 @@ function TestComponent() {
       .then(response => {
         setQuestions([...questions, response.data]);
         setCorrectAnswer("");
+        setSelectedFile(null)
       })
       .catch(error => {
         alert('Грешка при добавянето на въпрос', error)
@@ -72,7 +73,8 @@ function TestComponent() {
   };
   
   function handleAnswerSelect(questionId, answer) {
-    const updatedQuestions = questions.map((question) => {
+
+      const updatedQuestions = questions.map((question) => {
       if (question.id === questionId) {
         return { ...question, selectedAnswer: answer };
       } else {
@@ -83,6 +85,7 @@ function TestComponent() {
   };
 
   function resetAnswers() {
+
     const updatedQuestions = questions.map((question) => {
       return { ...question, selectedAnswer: "" };
     });
@@ -134,22 +137,13 @@ function TestComponent() {
         <div>
           {user.admin && (
             <Segment textAlign="center">
-              <Input icon="file" style={{marginLeft: "2rem", width: "17rem"}} type="file" onChange={handleFileSelect} />
-              <Button primary size="big" style={{marginLeft: "2rem"}}
-                onClick={addQuestion}>Добави въпрос
-              </Button>
-              <Button style={{marginLeft: "1rem", backgroundColor: correctAnswer === "А" ? "purple" : "white"}} 
-                onClick={() => setCorrectAnswer("А")}>А
-              </Button>
-              <Button style={{marginLeft: "1rem", backgroundColor: correctAnswer === "Б" ? "purple" : "white"}}
-                onClick={() => setCorrectAnswer("Б")}>Б
-              </Button>
-              <Button style={{marginLeft: "1rem", backgroundColor: correctAnswer === "В" ? "purple" : "white",}}
-                onClick={() => setCorrectAnswer("В")}>В
-              </Button>
-              <Button style={{marginLeft: "1rem", backgroundColor: correctAnswer === "Г" ? "purple" : "white",}}
-                onClick={() => setCorrectAnswer("Г")}>Г
-              </Button>
+              <Input icon="file" style={{marginRight: '1rem', width: '17rem'}} type="file" onChange={handleFileSelect} />
+              <Button primary size="big" style={{marginRight: '1rem'}} onClick={addQuestion}>Добави въпрос</Button>
+              {['А', 'Б', 'В', 'Г'].map((answer) => (
+                <Button key={answer} style={{marginLeft: '1rem', backgroundColor: correctAnswer === answer ? 'purple' : 'white'}}
+                  onClick={() => setCorrectAnswer(answer)}>{answer}
+                </Button>
+              ))}
             </Segment>
           )}
           <Segment>
@@ -158,23 +152,14 @@ function TestComponent() {
             </Header>
             <Grid centered style={{marginBottom: "5rem"}}>
               {questions.map((question) => (
-                <div style={{margin: "2rem" }} key={question.id}>
-                  <Grid.Row centered style={{ width: "70rem", height: "85%" }}>
-                    <Image style={{ width: "70rem", height: "85%" }}
-                      src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`}
-                    />
-                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "А" ? "purple" : "white"}}
-                      onClick={() => handleAnswerSelect(question.id, "А")}>А
-                    </Button>
-                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "Б" ? "purple" : "white"}}
-                      onClick={() => handleAnswerSelect(question.id, "Б")}>Б
-                    </Button>
-                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "В" ? "purple" : "white"}}
-                      onClick={() => handleAnswerSelect(question.id, "В")}>В
-                    </Button>
-                    <Button style={{marginLeft: "1rem", backgroundColor: question.selectedAnswer === "Г" ? "purple" : "white"}}
-                      onClick={() => handleAnswerSelect(question.id, "Г")}>Г
-                    </Button>
+                <div key={question.id} style={{margin: '2rem'}}>
+                  <Grid.Row centered style={{width: '70rem', height: '85%'}}>
+                    <Image style={{ width: '70rem', height: '85%' }} src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`} />
+                    {['А', 'Б', 'В', 'Г'].map((answer) => (
+                      <Button key={answer} style={{marginLeft: '1rem', backgroundColor: question.selectedAnswer === answer ? 'purple' : 'white'}}
+                        onClick={() => handleAnswerSelect(question.id, answer)}>{answer}
+                      </Button>
+                    ))}
                   </Grid.Row>
                 </div>
               ))}
