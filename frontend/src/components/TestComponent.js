@@ -87,7 +87,7 @@ function TestComponent() {
       }
     });
     setQuestions(updatedQuestions);
-};
+  };
 
   function resetAnswers() {
 
@@ -151,16 +151,24 @@ function TestComponent() {
               ))}
             </Segment>
           )}
-          <Segment>
-            <Header size="huge" textAlign="center" style={{color: 'indigo'}}>
+          <div>
+            <Header size="huge" textAlign="center" style={{color: 'indigo', margin: '2rem', }}>
               {test[0].name}
             </Header>
-            <Grid centered style={{marginBottom: "5rem"}}>
+            {!questions.length && !user.admin && (
+              <Segment size="massive" textAlign="center">
+                <p>За съжаление, все още няма въпроси към този тест</p>
+                <Button secondary size='massive'
+                  onClick={() => navigate(-1)}>Назад
+                </Button>
+              </Segment>
+            )}
+            <Grid centered>
               {questions.map((question) => (
-                <div key={question.id} style={{margin: '2rem'}}>
-                  <Grid.Row centered style={{width: '70rem', height: '85%'}}>
+                <div key={question.id}>
+                  <Grid.Row centered style={{width: '70rem', height: '85%', marginTop: '2rem'}}>
                     <Image style={{ width: '70rem', height: '85%' }} src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`} />
-                    {['А', 'Б', 'В', 'Г'].map((answer) => (
+                    {!user.admin && ['А', 'Б', 'В', 'Г'].map((answer) => (
                       <Button size="big" key={answer} 
                         style={{
                           marginLeft: '1.5rem', 
@@ -176,12 +184,20 @@ function TestComponent() {
                 </div>
               ))}
             </Grid>
-            <Button secondary size='massive' style={{margin: "3rem"}} floated="left"
-              onClick={() => navigate(-1)}>Назад
-            </Button>
-            <Button secondary size="massive" style={{margin: "3rem"}} floated="right"
-              onClick={handleSubmit}>Предай
-            </Button>
+            {!user.admin && (
+              <div>
+                {questions.length > 0 && (
+                  <div style={{margin: "3rem"}}>
+                    <Button secondary size='massive' floated="left"
+                      onClick={() => navigate(-1)}>Назад
+                    </Button>
+                    <Button secondary size="massive" floated="right"
+                      onClick={handleSubmit}>Предай
+                    </Button>
+                  </div>
+                )}
+              </div>
+            )}
             {showResults && (
               <Segment size="massive" textAlign="center">
                 <Header as="h2">Тестът приключи!</Header>
@@ -194,9 +210,9 @@ function TestComponent() {
                 </Button>
               </Segment>
             )}
-          </Segment>
+          </div>
         </div>
-      ) : user.admin ? (
+       ) : user.admin ? (
         <Button primary size="massive" style={{marginLeft: "60rem", marginTop: "25rem"}}
           onClick={createTest}>Създай тест
         </Button>
@@ -211,7 +227,7 @@ function TestComponent() {
         </div>
       )}
     </div>
-  );
+  )
 }
 
 export default TestComponent

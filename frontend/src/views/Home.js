@@ -2,8 +2,8 @@ import React from 'react'
 import { Card, Image } from 'semantic-ui-react'
 import { useNavigate } from 'react-router-dom';
 import AuthLayout from '../components/layout/AuthLayout'
-import organicImage from '../assets/images/image-1.png'
-import inorganicImage from '../assets/images/image-2.png'
+import organicImage from '../assets/images/organic.png'
+import inorganicImage from '../assets/images/inorganic.png'
 
 function Home() {
 

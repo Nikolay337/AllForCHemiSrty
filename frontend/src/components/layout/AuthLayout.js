@@ -1,8 +1,6 @@
 import Navbar from "./Navbar";
 
-const AuthLayout = ({
-  children
-}) => {
+function AuthLayout({children}) {
   return (
     <div>
       <Navbar />
