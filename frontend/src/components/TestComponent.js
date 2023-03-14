@@ -52,11 +52,12 @@ function TestComponent() {
       });
   };
 
-  function handleSubmit() {
+  function handleSubmit(event) {
+    event.preventDefault();
     
     const unansweredQuestions = questions.filter((question) =>
       !question.selectedAnswer);
-    if (unansweredQuestions.length > 0) {
+    if (unansweredQuestions.length) {
       alert('Моля, отговорете на всички въпроси.');
       return;
     }
@@ -73,8 +74,12 @@ function TestComponent() {
   };
   
   function handleAnswerSelect(questionId, answer) {
+  
+    if (showResults) {
+      return;
+    }
 
-      const updatedQuestions = questions.map((question) => {
+    const updatedQuestions = questions.map((question) => {
       if (question.id === questionId) {
         return { ...question, selectedAnswer: answer };
       } else {
@@ -82,7 +87,7 @@ function TestComponent() {
       }
     });
     setQuestions(updatedQuestions);
-  };
+};
 
   function resetAnswers() {
 
@@ -147,7 +152,7 @@ function TestComponent() {
             </Segment>
           )}
           <Segment>
-            <Header size="huge" textAlign="center" style={{color: 'Indigo'}}>
+            <Header size="huge" textAlign="center" style={{color: 'indigo'}}>
               {test[0].name}
             </Header>
             <Grid centered style={{marginBottom: "5rem"}}>
@@ -156,7 +161,14 @@ function TestComponent() {
                   <Grid.Row centered style={{width: '70rem', height: '85%'}}>
                     <Image style={{ width: '70rem', height: '85%' }} src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`} />
                     {['А', 'Б', 'В', 'Г'].map((answer) => (
-                      <Button key={answer} style={{marginLeft: '1rem', backgroundColor: question.selectedAnswer === answer ? 'purple' : 'white'}}
+                      <Button size="big" key={answer} 
+                        style={{
+                          marginLeft: '1.5rem', 
+                          backgroundColor: question.selectedAnswer === answer ? 'indigo' : 'white',
+                          color: question.selectedAnswer === answer ? 'white' : 'black',
+                          borderRadius: '15px',
+                          fontWeight: 'bold'
+                        }}
                         onClick={() => handleAnswerSelect(question.id, answer)}>{answer}
                       </Button>
                     ))}
@@ -170,10 +182,22 @@ function TestComponent() {
             <Button secondary size="massive" style={{margin: "3rem"}} floated="right"
               onClick={handleSubmit}>Предай
             </Button>
+            {showResults && (
+              <Segment size="massive" textAlign="center">
+                <Header as="h2">Тестът приключи!</Header>
+                <p>Вашият резултат е: {score} / {questions.length}</p>
+                <Button primary size="big" style={{display: 'flex', textAlign: 'center', margin: '0 auto'}}
+                  onClick={() => setShowResults(false)}>Направи нов тест
+                </Button>
+                <Button secondary size='massive' style={{display: 'flex', textAlign: 'left'}}
+                  onClick={() => navigate(-1)}>Назад
+                </Button>
+              </Segment>
+            )}
           </Segment>
         </div>
       ) : user.admin ? (
-        <Button primary size="massive" style={{marginLeft: "60rem", marginTop: "25rem"}} 
+        <Button primary size="massive" style={{marginLeft: "60rem", marginTop: "25rem"}}
           onClick={createTest}>Създай тест
         </Button>
       ) : (
@@ -185,18 +209,6 @@ function TestComponent() {
             Назад
           </Button>
         </div>
-      )}
-      {showResults && (
-        <Segment size="massive" textAlign="center">
-          <Header as="h2">Тестът приключи!</Header>
-          <p>Вашият резултат е: {score} / {questions.length}</p>
-          <Button primary size="big" style={{display: 'flex', textAlign: 'center', margin: '0 auto'}} onClick={() => setShowResults(false)}>
-            Направи нов тест
-          </Button>
-          <Button secondary size='massive' floated="left" style={{marginTop: '3rem'}} onClick={() => navigate(-1)}>
-            Назад
-          </Button>
-        </Segment>
       )}
     </div>
   );

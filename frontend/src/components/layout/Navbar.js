@@ -14,7 +14,7 @@ function Navbar() {
   }
 
   return (
-    <Menu inverted secondary style={{backgroundColor: 'Indigo' }}>
+    <Menu inverted secondary style={{backgroundColor: 'Indigo', marginBottom: 0}}>
       <Menu.Item position='left' onClick={() => navigate('/home')} style={{color: 'white', fontSize: '2.5rem', padding: '2rem', fontWeight: 'bold'}}>
         AllForCHemiStry
       </Menu.Item>

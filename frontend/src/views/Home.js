@@ -16,7 +16,7 @@ function Home() {
     } else {
       alert("Не сте влезнали в акаунта си!")
       navigate("/")
-   }
+    }
   }
 
   return (
