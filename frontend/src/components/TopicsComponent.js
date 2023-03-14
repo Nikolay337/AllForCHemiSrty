@@ -8,14 +8,14 @@ function TopicsComponent(props) {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [topics, setTopics] = useState([]);
-  const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
 
   function createTopic(event) {
     event.preventDefault();
 
-    if (!title.trim() || !selectedFile) {
+    if (!title || !selectedFile) {
       alert("Моля, въведете заглавие и/или изберете файл.");
       return;
     }
@@ -79,7 +79,7 @@ function TopicsComponent(props) {
       } 
       <Grid centered style={{margin: '5rem'}}>
         {topics.map((topic) => (
-          <Card key={topic.id} href={`${topic.area}/${topic.id}`} style={{ width: '17rem', height: '20rem', margin: '2rem' }}>
+          <Card key={topic.id} style={{width: '17rem', height: '20rem', margin: '2rem'}} onClick={() => navigate(`${topic.id}`)}>
             <Card.Content>
               <Card.Header style={{textAlign: 'center'}}>
                 {topic.title}

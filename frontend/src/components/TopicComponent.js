@@ -14,7 +14,6 @@ function TopicComponent() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem("user"));
-
   const handleChange = (e,data) => setChecked(data.checked);
 
   function addFile(event) {
@@ -69,7 +68,7 @@ function TopicComponent() {
       <Grid.Column style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
         <div style={{display: 'flex', alignItems: 'center', marginLeft: '1rem', marginRight: '1rem'}}>
           <div style={{fontSize: "2rem", marginRight: '1rem'}}>Необработена тема</div>
-          <Checkbox style={{ marginBottom: '2rem', marginTop: '2rem'}} toggle checked={checked} onChange={handleChange} />
+          <Checkbox toggle style={{ marginBottom: '2rem', marginTop: '2rem'}} checked={checked} onChange={handleChange} />
           <div style={{fontSize: "2rem", marginLeft: '1rem'}}>Обработена тема</div>
         </div>
       </Grid.Column>
@@ -81,7 +80,7 @@ function TopicComponent() {
       }
       {user.admin && !files[0] &&
         <Segment>
-          <Input icon='file' style={{marginLeft: '2rem', width: '17rem'}} type="file" accept=".pdf"
+          <Input icon='file' type="file" accept=".pdf" style={{marginLeft: '2rem', width: '17rem'}}
             onChange={handleFileSelect} />
           <Button primary size='big' style={{marginLeft: '2rem'}}
             onClick={addFile}>Добави файл</Button>
@@ -99,7 +98,7 @@ function TopicComponent() {
                   onClick={() => navigate(-1)}>Назад
                 </Button>
                 <Button secondary floated='right' size='massive'
-                  href={`${file.topicId}/test`}>Тест
+                  onClick={() => navigate("test")}>Тест
                 </Button>
               </div>
             ))}

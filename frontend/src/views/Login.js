@@ -14,20 +14,20 @@ function Login() {
 function Login(event) {
     event.preventDefault();
 
-      api.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
-        email: email,
-        password: password
-      })
-      .then((response) => {
-        const token = response.data.token;
-        const tokenDecoded = jwtDecode(response.data.token);
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(tokenDecoded));
-        navigate("/home")
-      })
-        .catch(() => {
-          setError('Невалиден имейл или парола');
-      });
+    api.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
+      email: email,
+      password: password
+    })
+    .then((response) => {
+      const token = response.data.token;
+      const tokenDecoded = jwtDecode(response.data.token);
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(tokenDecoded));
+      navigate("/home")
+    })
+      .catch(() => {
+        setError('Невалиден имейл или парола');
+    });
   }
 
   return(

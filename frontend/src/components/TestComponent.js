@@ -110,7 +110,6 @@ function TestComponent() {
   }, [params.id]);
 
   useEffect(() => {
-    setLoading(true);
     api.get(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`)
       .then(response =>
         setTest(response.data))
@@ -152,7 +151,7 @@ function TestComponent() {
             </Segment>
           )}
           <div>
-            <Header size="huge" textAlign="center" style={{color: 'indigo', margin: '2rem', }}>
+            <Header size="huge" textAlign="center" style={{color: 'indigo', margin: '2rem'}}>
               {test[0].name}
             </Header>
             {!questions.length && !user.admin && (
@@ -167,7 +166,7 @@ function TestComponent() {
               {questions.map((question) => (
                 <div key={question.id}>
                   <Grid.Row centered style={{width: '70rem', height: '85%', marginTop: '2rem'}}>
-                    <Image style={{ width: '70rem', height: '85%' }} src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`} />
+                    <Image style={{width: '70rem', height: '85%'}} src={`${process.env.REACT_APP_BACKEND_URL}/${question.path}`} />
                     {!user.admin && ['А', 'Б', 'В', 'Г'].map((answer) => (
                       <Button size="big" key={answer} 
                         style={{
