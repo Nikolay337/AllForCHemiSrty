@@ -92,7 +92,7 @@ function TopicComponent() {
             {files.map((file) => (
               <div key={file.id}>
                 <Segment>
-                  <Iframe src={`${process.env.REACT_APP_BACKEND_URL}/${file.path}`} styles={{width: '60rem', height: '85rem'}} />
+                  <Iframe src={`${process.env.REACT_APP_BACKEND_URL}/${file.path}`} styles={{width: '55rem', height: '75rem'}} />
                 </Segment>
                 <Button secondary floated="left" size='massive'
                   onClick={() => navigate(-1)}>Назад
