@@ -42,7 +42,7 @@ function TopicComponent() {
     if (selectedFileType === 'application/pdf') {
       setSelectedFile(event.target.files[0]);
     } else {
-    alert('Моля, изберете само PDF файлове.');
+      alert('Моля, изберете само PDF файлове.');
     }
   }
 

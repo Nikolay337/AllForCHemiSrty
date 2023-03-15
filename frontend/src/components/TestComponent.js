@@ -22,8 +22,9 @@ function TestComponent() {
 
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`,
       { name: topicData[0].title })
-      .then(response =>
-        setTest([...test, response.data]))
+      .then(response => {
+        setTest([...test, response.data])
+      })
       .catch(error => {
         alert('Грешка при създаването на тест', error)
       });

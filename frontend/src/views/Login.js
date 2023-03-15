@@ -31,9 +31,9 @@ function Login(event) {
   }
 
   return(
-    <Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle'>
-      <Grid.Column color='purple' computer={4}>
-        <Header as='h2' textAlign='center'>
+    <Grid textAlign='center' verticalAlign='middle' style={{height: '100vh'}}>
+      <Grid.Column computer={4} style={{backgroundColor: 'indigo'}}>
+        <Header as='h2' textAlign='center' style={{color: 'white'}}>
           Влез в профила си
         </Header>
         <Form>
@@ -43,8 +43,8 @@ function Login(event) {
             <Form.Input icon='lock' iconPosition='left' placeholder='Парола' type='password'
               onChange={(e) => setPassword(e.target.value)} />
             {error && <Message negative>{error}</Message>}
-            <Button type='submit' color='purple' size='big' onClick={Login}>
-              Влизане
+            <Button type='submit' size='big' style={{ backgroundColor: 'indigo', color: 'white' }}
+              onClick={Login}>Влизане
             </Button>
           </Segment>
           <Message size='big'>

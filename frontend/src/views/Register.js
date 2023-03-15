@@ -49,9 +49,9 @@ function Register() {
   }
 
   return (
-    <Grid textAlign='center' style={{height: '100vh'}} verticalAlign='middle'>
-      <Grid.Column color='purple' computer={4}>
-        <Header as='h2' textAlign='center'>
+    <Grid textAlign='center' verticalAlign='middle' style={{height: '100vh'}}>
+      <Grid.Column computer={4} style={{backgroundColor: 'Indigo'}}>
+        <Header as='h2' textAlign='center' style={{color: 'white'}}>
           Регистрация
         </Header>
         <Form>
@@ -69,8 +69,8 @@ function Register() {
             {errorMessage &&
               <p style={{color: 'red'}}>{errorMessage}</p>
             }
-            <Button type='submit' color='purple' size='big' onClick={createUser}>
-              Регистриране
+            <Button type='submit' size='big' style={{backgroundColor: 'Indigo', color: 'white'}}
+              onClick={createUser}>Регистриране
             </Button>
           </Segment>
         </Form>
