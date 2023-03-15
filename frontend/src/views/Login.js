@@ -2,7 +2,7 @@ import api from "../api"
 import jwtDecode from 'jwt-decode'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Message, Segment, Icon } from 'semantic-ui-react'
 
 function Login() {
 
@@ -47,8 +47,11 @@ function Login(event) {
               onClick={Login}>Влизане
             </Button>
           </Segment>
-          <Message size='big'>
-            Нямаш профил? <a onClick={() => navigate('/register')}>Регистрирай се!</a>
+          <Message size='big' style={{ textAlign: 'center', marginTop: '30px' }}>
+            Нямаш профил?{' '}
+            <Button onClick={() => navigate('/register')} color='teal' size='big' style={{ marginLeft: '10px' }}>
+              Регистрирай се <Icon name='arrow right' />
+            </Button>
           </Message>
         </Form>
       </Grid.Column>
