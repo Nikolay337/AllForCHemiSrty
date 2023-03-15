@@ -14,21 +14,8 @@ function Navbar() {
 
   return (
     <Menu inverted secondary style={{backgroundColor: 'Indigo', marginBottom: 0}}>
-      <Menu.Item position='left' style={{fontSize: '2.5rem', padding: '2rem', fontWeight: 'bold'}} onClick={() => navigate('/home')}>
-        <span style={{color: 'white'}}>Al</span>
-        <span style={{color: 'white'}}>l</span>
-        <span style={{color: 'white'}}>F</span>
-        <span style={{color: 'white'}}>o</span>
-        <span style={{color: 'white'}}>r</span>
-        <span style={{color: '#00ff0d'}}>C</span>
-        <span style={{color: '#00ff0d'}}>H</span>
-        <span style={{color: '#ff0090'}}>e</span>
-        <span style={{color: '#f538d2'}}>m</span>
-        <span style={{color: '#00ffd5'}}>i</span>
-        <span style={{color: '#00ff0d'}}>S</span>
-        <span style={{color: '#00ffd5'}}>t</span>
-        <span style={{color:'#ff0090'}}>r</span>
-        <span style={{color: '#f538d2'}}>y</span>
+      <Menu.Item position='left' style={{ fontSize: '2.5rem', padding: '2rem', fontWeight: 'bold' }}
+        onClick={() => navigate('/home')}>AllForChemistry
       </Menu.Item>
       <Menu.Item style={{color: 'white', fontSize: '2rem', padding: '2rem', fontWeight: 'bold'}}
         onClick={() => navigate('/periodic-table')}>Периодична система
