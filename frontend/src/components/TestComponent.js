@@ -17,9 +17,13 @@ function TestComponent() {
   const [selectedFile, setSelectedFile] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
 
-  function createTest(event) {
-    event.preventDefault();
+function createTest(event) {
+  event.preventDefault();
 
+  const topicIndex = params.id - 1;
+  if (topicIndex > 0 && test[topicIndex - 1] === undefined) {
+    alert('Първо трябва направи тест на предишната тема');
+  } else {
     api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`,
       { name: topicData[0].title })
       .then(response => {
@@ -28,7 +32,8 @@ function TestComponent() {
       .catch(error => {
         alert('Грешка при създаването на тест', error)
       });
-  };
+  }
+};
 
   function addQuestion(event) {
     event.preventDefault();
