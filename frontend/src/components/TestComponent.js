@@ -20,19 +20,14 @@ function TestComponent() {
 function createTest(event) {
   event.preventDefault();
 
-  const topicIndex = params.id - 1;
-  if (topicIndex > 0 && test[topicIndex - 1] === undefined) {
-    alert('Първо трябва да сдъздадете тест на предишната тема');
-  } else {
-    api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`,
-      { name: topicData[0].title })
-      .then(response => {
-        setTest([...test, response.data])
-      })
-      .catch(error => {
-        alert('Грешка при създаването на тест', error)
-      });
-  }
+  api.post(`${process.env.REACT_APP_BACKEND_URL}/topics/${params.id}/tests`,
+    { name: topicData[0].title })
+    .then(response => {
+      setTest([...test, response.data])
+    })
+    .catch(error => {
+      alert('Грешка при създаването на тест', error)
+    });
 };
 
   function addQuestion(event) {
