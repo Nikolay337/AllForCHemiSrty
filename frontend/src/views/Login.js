@@ -11,7 +11,7 @@ function Login() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
-function Login(event) {
+  function Login(event) {
     event.preventDefault();
 
     api.post(`${process.env.REACT_APP_BACKEND_URL}/login`, {
@@ -43,13 +43,13 @@ function Login(event) {
             <Form.Input icon='lock' iconPosition='left' placeholder='Парола' type='password'
               onChange={(e) => setPassword(e.target.value)} />
             {error && <Message negative>{error}</Message>}
-            <Button type='submit' size='big' style={{ backgroundColor: 'indigo', color: 'white' }}
+            <Button type='submit' size='big' style={{backgroundColor: 'indigo', color: 'white'}}
               onClick={Login}>Влизане
             </Button>
           </Segment>
-          <Message size='big' style={{ textAlign: 'center', marginTop: '30px' }}>
+          <Message size='big' style={{textAlign: 'center', marginTop: '30px'}}>
             Нямаш профил?{' '}
-            <Button onClick={() => navigate('/register')} color='teal' size='big' style={{ marginLeft: '10px' }}>
+            <Button onClick={() => navigate('/register')} color='teal' size='big' style={{marginLeft: '10px'}}>
               Регистрирай се <Icon name='arrow right' />
             </Button>
           </Message>
