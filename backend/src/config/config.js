@@ -1,8 +1,8 @@
 module.exports = {
   development: {
-    username: 'root',
-    password: 'R00tR00t',
-    database: 'all_for_chemistry',
+    username: '',
+    password: '',
+    database: '',
     host: 'localhost',
     dialect: 'mysql'
   }
