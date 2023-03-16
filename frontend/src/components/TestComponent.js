@@ -145,7 +145,7 @@ function TestComponent() {
               <Input icon="file" style={{marginRight: '1rem', width: '17rem'}} type="file" onChange={handleFileSelect} />
               <Button primary size="big" style={{marginRight: '1rem'}} onClick={addQuestion}>Добави въпрос</Button>
               {['А', 'Б', 'В', 'Г'].map((answer) => (
-                <Button key={answer} style={{marginLeft: '1rem', backgroundColor: correctAnswer === answer ? 'purple' : 'white'}}
+                <Button key={answer} style={{marginLeft: '1rem', backgroundColor: correctAnswer === answer ? 'indigo' : 'white'}}
                   onClick={() => setCorrectAnswer(answer)}>{answer}
                 </Button>
               ))}
